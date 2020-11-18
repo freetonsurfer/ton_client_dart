@@ -611,7 +611,7 @@ class DecodedOutput extends TonSdkStructure {
     if (map.containsKey('out_messages') && (map['out_messages'] != null)) {
       _out_messages = [];
       for (var el in map['out_messages']) {
-        _out_messages.add(null);
+        _out_messages.add(el);
       }
     } else {
       throw ('Wrong map data');

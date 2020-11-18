@@ -1,6 +1,6 @@
 name: ton_client_dart
-description: Provide binding to TON SDK Library. TON SDK (TONOS Client Library) is a library written in Rust that can be dynamically linked. It provides all heavy-computation components and functions, such as TON Virtual Machine, TON Transaction Executor, ABI-related functions, boc-related functions, crypto functions.
-version: 0.0.9+1
+description: Provide binding to TON SDK Library. TON SDK Library provides all heavy-computation components and functions, such as TON Virtual Machine, TON Transaction Executor, ABI-related functions, boc-related functions, crypto functions.
+version: 0.1.2
 homepage: https://github.com/freetonsurfer/ton_client_dart/
 
 environment:

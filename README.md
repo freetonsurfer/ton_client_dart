@@ -7,7 +7,7 @@ It is Dart packege that provide binding to TON SDK Client library. TON SDK (TONO
 Add this to your package's pubspec.yaml file:
 ```
 dependencies:
-  ton_client_dart: ^0.1.0
+  ton_client_dart: ^0.1.2
 ```
 
 ### 2. Install it
@@ -19,14 +19,14 @@ Alternatively, your editor might support pub get. Check the docs for your editor
 
 ### 3. Import it
 Now in your Dart code, you can use:
-```
+```dart
   import 'package:ton_client_dart/ton_client_dart.dart'
 ```
 
 ## How to use
 
 #### Configuring client
-```
+```dart
 import 'package:ton_client_dart/ton_client_dart.dart'
 //..
 var CLIENT_DEFAULT_SETUP = {
@@ -53,7 +53,7 @@ await client.disconnect();
 To initialize the client, you need to call the `TonClient.connect` function and pass the settings to it. After you have finished working with the client, you must close it with the `TonClient.disconnect` function. **Don't forget to call this functions.**
 
 #### Output TON SDK version
-```
+```dart
   await client.connect(CLIENT_DEFAULT_SETUP);
   //..
   var result = await client.version();
@@ -62,7 +62,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
   await client.disconnect();
 ```
 #### Query collection
-```
+```dart
 //..
   var query = await client.net.query_collection(ParamsOfQueryCollection(
       collection: 'accounts',
@@ -73,7 +73,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 //..
 ```
 ##### Query top 3 richest accounts
-```
+```dart
 //..
   var pq = ParamsOfQueryCollection(
       collection: 'accounts',
@@ -85,7 +85,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 ```
 
 #### Execute getmethod and returns data from TVM stack
-```
+```dart
 //..
    final code = await File('./test/files/run_get_code.txt').readAsString();
    final data = await File('./test/files/run_get_data.txt').readAsString();
