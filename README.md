@@ -103,7 +103,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
  Compiling for Windows or Mac shouldn't be difficult. You need to take the following steps:
 1. Get the [TON SDK](https://github.com/tonlabs/TON-SDK/) library for the required platform .
 2. Compile [wrapper.cpp](lib/src/tonsdklib) file into a dynamic link library for the given platform.
-3. Add load processing for the given platform to the connect function in [core.dart](lib/src/core.dart) file.
+3. Add load processing for the given platform to the `connect` function in [core.dart](lib/src/core.dart) file.
 4. Done!
 If you have any question, feel free to ask!
 
