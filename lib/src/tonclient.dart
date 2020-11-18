@@ -1,0 +1,124 @@
+//import 'package:cli/tonsdkmodule.dart';
+import 'tonsdkmodule.dart';
+import 'tonsdktypes.dart';
+import 'core.dart';
+import 'dart:convert';
+import "package:hex/hex.dart";
+import 'dart:io';
+import 'dart:isolate';
+
+import 'dart:async';
+
+export 'tonsdktypes.dart';
+
+class TonClient {
+  static final _tonCore = TonSdkCore();
+
+  UtilsModule _utils;
+  UtilsModule get utils => _utils;
+
+  AbiModule _abi;
+  AbiModule get abi => _abi;
+
+  BocModule _boc;
+  BocModule get boc => _boc;
+
+  CryptoModule _crypto;
+  CryptoModule get crypto => _crypto;
+
+  ProcessingModule _processing;
+  ProcessingModule get processing => _processing;
+
+  TvmModule _tvm;
+  TvmModule get tvm => _tvm;
+
+  NetModule _net;
+  NetModule get net => _net;
+
+  ClientModule _client;
+
+  ///Initialize TonClient with provided config
+  /// Should be always run before usage
+  void connect(Map<String, dynamic> config) async {
+    if (_utils != null) {
+      throw ('Client core already connected! Use TonClient.disconnect to close connection!');
+    }
+    var uriPath = await Isolate.resolvePackageUri(
+        Uri.parse('package:ton_client_dart/src/tonsdklib/tonsdkwrapper.so'));
+    _tonCore.connect(config, uriPath);
+    _utils = UtilsModule(_tonCore);
+    _abi = AbiModule(_tonCore);
+    _boc = BocModule(_tonCore);
+    _crypto = CryptoModule(_tonCore);
+    _processing = ProcessingModule(_tonCore);
+    _tvm = TvmModule(_tonCore);
+    _net = NetModule(_tonCore);
+    _client = ClientModule(_tonCore);
+  }
+
+  ///Free TonClient and resources
+  ///should be always run when you don't need client any more
+  void disconnect() {
+    if (_utils == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    _tonCore.disconnect();
+    _utils = null;
+    _abi = null;
+    _boc = null;
+    _crypto = null;
+    _processing = null;
+    _tvm = null;
+    _net = null;
+    _client = null;
+  }
+
+  /// Returns Core Library API reference
+  Future<ResultOfGetApiReference> get_api_reference() async {
+    if (_utils == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _client.get_api_reference();
+  }
+
+  /// Returns Core Library version
+  Future<ResultOfVersion> version() async {
+    if (_utils == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _client.version();
+  }
+
+  /// Returns detailed information about this build.
+  Future<ResultOfBuildInfo> build_info() async {
+    if (_utils == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _client.build_info();
+  }
+
+  /// encode String to Base64 string
+  static String str2base64(String str) {
+    var bytes = utf8.encode(str);
+    return base64.encode(bytes);
+  }
+
+  /// encode hex string to Base64 string
+  static String hex2base64(String hex_str) {
+    var bytes = HEX.decode(hex_str);
+    return base64.encode(bytes);
+  }
+
+  /// decode String to Base64 string
+  static String base642str(String base64_str) {
+    var bytes = base64.decode(base64_str);
+    return utf8.decode(bytes);
+  }
+
+  static Future<String> loadAbiFromFile(String path) async {
+    var abijson = await File('test/files/events.abi.json').readAsStringSync();
+    final safe = jsonDecode(abijson);
+    abijson = jsonEncode(safe);
+    return abijson.replaceAll('"', '\\"');
+  }
+}

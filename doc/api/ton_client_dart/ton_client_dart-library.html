@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="ton_client_dart library API docs, for the Dart programming language.">
+  <title>ton_client_dart library - Dart API</title>
+
+  
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="../static-assets/github.css">
+  <link rel="stylesheet" href="../static-assets/styles.css">
+  <link rel="icon" href="../static-assets/favicon.png">
+
+</head>
+
+<body data-base-href="../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../index.html">ton_client_dart</a></li>
+    <li class="self-crumb">ton_client_dart library</li>
+  </ol>
+  <div class="self-name">ton_client_dart</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div id="dartdoc-sidebar-left" class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+      <form class="search-sidebar" role="search">
+        <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+      </form>
+    </header>
+    
+    <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+      <li><a href="../index.html">ton_client_dart</a></li>
+      <li class="self-crumb">ton_client_dart library</li>
+    </ol>
+    
+    <h5><span class="package-name">ton_client_dart</span> <span class="package-kind">package</span></h5>
+    <ol>
+          <li class="section-title">Libraries</li>
+          <li><a href="../ton_client_dart/ton_client_dart-library.html">ton_client_dart</a></li>
+    </ol>
+  </div>
+
+  <div id="dartdoc-main-content" class="col-xs-12 col-sm-9 col-md-8 main-content">
+      <div><h1><span class="kind-library">ton_client_dart</span> library  </h1></div>
+
+    
+    <section class="summary offset-anchor" id="classes">
+      <h2>Classes</h2>
+
+      <dl>
+        <dt id="Abi">
+          <span class="name "><a href="../ton_client_dart/Abi-class.html">Abi</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Abi_Contract">
+          <span class="name "><a href="../ton_client_dart/Abi_Contract-class.html">Abi_Contract</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Abi_Handle">
+          <span class="name "><a href="../ton_client_dart/Abi_Handle-class.html">Abi_Handle</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Abi_Json">
+          <span class="name "><a href="../ton_client_dart/Abi_Json-class.html">Abi_Json</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Abi_Serialized">
+          <span class="name "><a href="../ton_client_dart/Abi_Serialized-class.html">Abi_Serialized</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiConfig">
+          <span class="name "><a href="../ton_client_dart/AbiConfig-class.html">AbiConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiContract">
+          <span class="name "><a href="../ton_client_dart/AbiContract-class.html">AbiContract</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiData">
+          <span class="name "><a href="../ton_client_dart/AbiData-class.html">AbiData</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiEvent">
+          <span class="name "><a href="../ton_client_dart/AbiEvent-class.html">AbiEvent</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiFunction">
+          <span class="name "><a href="../ton_client_dart/AbiFunction-class.html">AbiFunction</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AbiParam">
+          <span class="name "><a href="../ton_client_dart/AbiParam-class.html">AbiParam</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AccountForExecutor">
+          <span class="name "><a href="../ton_client_dart/AccountForExecutor-class.html">AccountForExecutor</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AccountForExecutor_Account">
+          <span class="name "><a href="../ton_client_dart/AccountForExecutor_Account-class.html">AccountForExecutor_Account</a></span>         
+        </dt>
+        <dd>
+          Account state to run message 
+        </dd>
+        <dt id="AccountForExecutor_None">
+          <span class="name "><a href="../ton_client_dart/AccountForExecutor_None-class.html">AccountForExecutor_None</a></span>         
+        </dt>
+        <dd>
+          Non-existing account to run a creation internal message.
+Should be used with <code>skip_transaction_check = true</code> if the message has no deploy data
+since transactions on the uninitialized account are always aborted 
+        </dd>
+        <dt id="AccountForExecutor_Uninit">
+          <span class="name "><a href="../ton_client_dart/AccountForExecutor_Uninit-class.html">AccountForExecutor_Uninit</a></span>         
+        </dt>
+        <dd>
+          Emulate uninitialized account to run deploy message 
+        </dd>
+        <dt id="AddressStringFormat">
+          <span class="name "><a href="../ton_client_dart/AddressStringFormat-class.html">AddressStringFormat</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AddressStringFormat_AccountId">
+          <span class="name "><a href="../ton_client_dart/AddressStringFormat_AccountId-class.html">AddressStringFormat_AccountId</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AddressStringFormat_Base64">
+          <span class="name "><a href="../ton_client_dart/AddressStringFormat_Base64-class.html">AddressStringFormat_Base64</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="AddressStringFormat_Hex">
+          <span class="name "><a href="../ton_client_dart/AddressStringFormat_Hex-class.html">AddressStringFormat_Hex</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="BuildInfoDependency">
+          <span class="name "><a href="../ton_client_dart/BuildInfoDependency-class.html">BuildInfoDependency</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="CallSet">
+          <span class="name "><a href="../ton_client_dart/CallSet-class.html">CallSet</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ClientConfig">
+          <span class="name "><a href="../ton_client_dart/ClientConfig-class.html">ClientConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ClientError">
+          <span class="name "><a href="../ton_client_dart/ClientError-class.html">ClientError</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="CryptoConfig">
+          <span class="name "><a href="../ton_client_dart/CryptoConfig-class.html">CryptoConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="DecodedMessageBody">
+          <span class="name "><a href="../ton_client_dart/DecodedMessageBody-class.html">DecodedMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="DecodedOutput">
+          <span class="name "><a href="../ton_client_dart/DecodedOutput-class.html">DecodedOutput</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="DeploySet">
+          <span class="name "><a href="../ton_client_dart/DeploySet-class.html">DeploySet</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ExecutionOptions">
+          <span class="name "><a href="../ton_client_dart/ExecutionOptions-class.html">ExecutionOptions</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="FunctionHeader">
+          <span class="name "><a href="../ton_client_dart/FunctionHeader-class.html">FunctionHeader</a></span>         
+        </dt>
+        <dd>
+          The ABI function header. <a href="../ton_client_dart/FunctionHeader-class.html">[...]</a>
+        </dd>
+        <dt id="KeyPair">
+          <span class="name "><a href="../ton_client_dart/KeyPair-class.html">KeyPair</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="MessageBodyType">
+          <span class="name "><a href="../ton_client_dart/MessageBodyType-class.html">MessageBodyType</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="MessageSource">
+          <span class="name "><a href="../ton_client_dart/MessageSource-class.html">MessageSource</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="MessageSource_Encoded">
+          <span class="name "><a href="../ton_client_dart/MessageSource_Encoded-class.html">MessageSource_Encoded</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="MessageSource_EncodingParams">
+          <span class="name "><a href="../ton_client_dart/MessageSource_EncodingParams-class.html">MessageSource_EncodingParams</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="NetworkConfig">
+          <span class="name "><a href="../ton_client_dart/NetworkConfig-class.html">NetworkConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="OrderBy">
+          <span class="name "><a href="../ton_client_dart/OrderBy-class.html">OrderBy</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfAttachSignature">
+          <span class="name "><a href="../ton_client_dart/ParamsOfAttachSignature-class.html">ParamsOfAttachSignature</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfAttachSignatureToMessageBody">
+          <span class="name "><a href="../ton_client_dart/ParamsOfAttachSignatureToMessageBody-class.html">ParamsOfAttachSignatureToMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfChaCha20">
+          <span class="name "><a href="../ton_client_dart/ParamsOfChaCha20-class.html">ParamsOfChaCha20</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfConvertAddress">
+          <span class="name "><a href="../ton_client_dart/ParamsOfConvertAddress-class.html">ParamsOfConvertAddress</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfConvertPublicKeyToTonSafeFormat">
+          <span class="name "><a href="../ton_client_dart/ParamsOfConvertPublicKeyToTonSafeFormat-class.html">ParamsOfConvertPublicKeyToTonSafeFormat</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfDecodeMessage">
+          <span class="name "><a href="../ton_client_dart/ParamsOfDecodeMessage-class.html">ParamsOfDecodeMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfDecodeMessageBody">
+          <span class="name "><a href="../ton_client_dart/ParamsOfDecodeMessageBody-class.html">ParamsOfDecodeMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfEncodeAccount">
+          <span class="name "><a href="../ton_client_dart/ParamsOfEncodeAccount-class.html">ParamsOfEncodeAccount</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfEncodeMessage">
+          <span class="name "><a href="../ton_client_dart/ParamsOfEncodeMessage-class.html">ParamsOfEncodeMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfEncodeMessageBody">
+          <span class="name "><a href="../ton_client_dart/ParamsOfEncodeMessageBody-class.html">ParamsOfEncodeMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfFactorize">
+          <span class="name "><a href="../ton_client_dart/ParamsOfFactorize-class.html">ParamsOfFactorize</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfGenerateRandomBytes">
+          <span class="name "><a href="../ton_client_dart/ParamsOfGenerateRandomBytes-class.html">ParamsOfGenerateRandomBytes</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfGetBlockchainConfig">
+          <span class="name "><a href="../ton_client_dart/ParamsOfGetBlockchainConfig-class.html">ParamsOfGetBlockchainConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfGetBocHash">
+          <span class="name "><a href="../ton_client_dart/ParamsOfGetBocHash-class.html">ParamsOfGetBocHash</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHash">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHash-class.html">ParamsOfHash</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHDKeyDeriveFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHDKeyDeriveFromXPrv-class.html">ParamsOfHDKeyDeriveFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHDKeyDeriveFromXPrvPath">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHDKeyDeriveFromXPrvPath-class.html">ParamsOfHDKeyDeriveFromXPrvPath</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHDKeyPublicFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHDKeyPublicFromXPrv-class.html">ParamsOfHDKeyPublicFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHDKeySecretFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHDKeySecretFromXPrv-class.html">ParamsOfHDKeySecretFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfHDKeyXPrvFromMnemonic">
+          <span class="name "><a href="../ton_client_dart/ParamsOfHDKeyXPrvFromMnemonic-class.html">ParamsOfHDKeyXPrvFromMnemonic</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfMnemonicDeriveSignKeys">
+          <span class="name "><a href="../ton_client_dart/ParamsOfMnemonicDeriveSignKeys-class.html">ParamsOfMnemonicDeriveSignKeys</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfMnemonicFromEntropy">
+          <span class="name "><a href="../ton_client_dart/ParamsOfMnemonicFromEntropy-class.html">ParamsOfMnemonicFromEntropy</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfMnemonicFromRandom">
+          <span class="name "><a href="../ton_client_dart/ParamsOfMnemonicFromRandom-class.html">ParamsOfMnemonicFromRandom</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfMnemonicVerify">
+          <span class="name "><a href="../ton_client_dart/ParamsOfMnemonicVerify-class.html">ParamsOfMnemonicVerify</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfMnemonicWords">
+          <span class="name "><a href="../ton_client_dart/ParamsOfMnemonicWords-class.html">ParamsOfMnemonicWords</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfModularPower">
+          <span class="name "><a href="../ton_client_dart/ParamsOfModularPower-class.html">ParamsOfModularPower</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclBox">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclBox-class.html">ParamsOfNaclBox</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclBoxKeyPairFromSecret">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclBoxKeyPairFromSecret-class.html">ParamsOfNaclBoxKeyPairFromSecret</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclBoxOpen">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclBoxOpen-class.html">ParamsOfNaclBoxOpen</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclSecretBox">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclSecretBox-class.html">ParamsOfNaclSecretBox</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclSecretBoxOpen">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclSecretBoxOpen-class.html">ParamsOfNaclSecretBoxOpen</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclSign">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclSign-class.html">ParamsOfNaclSign</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclSignKeyPairFromSecret">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclSignKeyPairFromSecret-class.html">ParamsOfNaclSignKeyPairFromSecret</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfNaclSignOpen">
+          <span class="name "><a href="../ton_client_dart/ParamsOfNaclSignOpen-class.html">ParamsOfNaclSignOpen</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfParse">
+          <span class="name "><a href="../ton_client_dart/ParamsOfParse-class.html">ParamsOfParse</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfParseShardstate">
+          <span class="name "><a href="../ton_client_dart/ParamsOfParseShardstate-class.html">ParamsOfParseShardstate</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfProcessMessage">
+          <span class="name "><a href="../ton_client_dart/ParamsOfProcessMessage-class.html">ParamsOfProcessMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfQueryCollection">
+          <span class="name "><a href="../ton_client_dart/ParamsOfQueryCollection-class.html">ParamsOfQueryCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfRunExecutor">
+          <span class="name "><a href="../ton_client_dart/ParamsOfRunExecutor-class.html">ParamsOfRunExecutor</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfRunGet">
+          <span class="name "><a href="../ton_client_dart/ParamsOfRunGet-class.html">ParamsOfRunGet</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfRunTvm">
+          <span class="name "><a href="../ton_client_dart/ParamsOfRunTvm-class.html">ParamsOfRunTvm</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfScrypt">
+          <span class="name "><a href="../ton_client_dart/ParamsOfScrypt-class.html">ParamsOfScrypt</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfSendMessage">
+          <span class="name "><a href="../ton_client_dart/ParamsOfSendMessage-class.html">ParamsOfSendMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfSign">
+          <span class="name "><a href="../ton_client_dart/ParamsOfSign-class.html">ParamsOfSign</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfSubscribeCollection">
+          <span class="name "><a href="../ton_client_dart/ParamsOfSubscribeCollection-class.html">ParamsOfSubscribeCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfTonCrc16">
+          <span class="name "><a href="../ton_client_dart/ParamsOfTonCrc16-class.html">ParamsOfTonCrc16</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfVerifySignature">
+          <span class="name "><a href="../ton_client_dart/ParamsOfVerifySignature-class.html">ParamsOfVerifySignature</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfWaitForCollection">
+          <span class="name "><a href="../ton_client_dart/ParamsOfWaitForCollection-class.html">ParamsOfWaitForCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ParamsOfWaitForTransaction">
+          <span class="name "><a href="../ton_client_dart/ParamsOfWaitForTransaction-class.html">ParamsOfWaitForTransaction</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ProcessingEvent">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent-class.html">ProcessingEvent</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ProcessingEvent_DidSend">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_DidSend-class.html">ProcessingEvent_DidSend</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the message was sent to the network. 
+        </dd>
+        <dt id="ProcessingEvent_FetchFirstBlockFailed">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_FetchFirstBlockFailed-class.html">ProcessingEvent_FetchFirstBlockFailed</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the client has failed to fetch current
+shard block. <a href="../ton_client_dart/ProcessingEvent_FetchFirstBlockFailed-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_FetchNextBlockFailed">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_FetchNextBlockFailed-class.html">ProcessingEvent_FetchNextBlockFailed</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the next block can't be fetched due to
+error. <a href="../ton_client_dart/ProcessingEvent_FetchNextBlockFailed-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_MessageExpired">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_MessageExpired-class.html">ProcessingEvent_MessageExpired</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the message was expired. <a href="../ton_client_dart/ProcessingEvent_MessageExpired-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_SendFailed">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_SendFailed-class.html">ProcessingEvent_SendFailed</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the sending operation was failed with
+network error. <a href="../ton_client_dart/ProcessingEvent_SendFailed-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_WillFetchFirstBlock">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_WillFetchFirstBlock-class.html">ProcessingEvent_WillFetchFirstBlock</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the current shard block will be fetched
+from the network. <a href="../ton_client_dart/ProcessingEvent_WillFetchFirstBlock-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_WillFetchNextBlock">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_WillFetchNextBlock-class.html">ProcessingEvent_WillFetchNextBlock</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the next shard block will be fetched
+from the network. <a href="../ton_client_dart/ProcessingEvent_WillFetchNextBlock-class.html">[...]</a>
+        </dd>
+        <dt id="ProcessingEvent_WillSend">
+          <span class="name "><a href="../ton_client_dart/ProcessingEvent_WillSend-class.html">ProcessingEvent_WillSend</a></span>         
+        </dt>
+        <dd>
+          Notifies the app that the message will be sent to the
+network. 
+        </dd>
+        <dt id="ResultOfAttachSignature">
+          <span class="name "><a href="../ton_client_dart/ResultOfAttachSignature-class.html">ResultOfAttachSignature</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfAttachSignatureToMessageBody">
+          <span class="name "><a href="../ton_client_dart/ResultOfAttachSignatureToMessageBody-class.html">ResultOfAttachSignatureToMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfBuildInfo">
+          <span class="name "><a href="../ton_client_dart/ResultOfBuildInfo-class.html">ResultOfBuildInfo</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfChaCha20">
+          <span class="name "><a href="../ton_client_dart/ResultOfChaCha20-class.html">ResultOfChaCha20</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfConvertAddress">
+          <span class="name "><a href="../ton_client_dart/ResultOfConvertAddress-class.html">ResultOfConvertAddress</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfConvertPublicKeyToTonSafeFormat">
+          <span class="name "><a href="../ton_client_dart/ResultOfConvertPublicKeyToTonSafeFormat-class.html">ResultOfConvertPublicKeyToTonSafeFormat</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfEncodeAccount">
+          <span class="name "><a href="../ton_client_dart/ResultOfEncodeAccount-class.html">ResultOfEncodeAccount</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfEncodeMessage">
+          <span class="name "><a href="../ton_client_dart/ResultOfEncodeMessage-class.html">ResultOfEncodeMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfEncodeMessageBody">
+          <span class="name "><a href="../ton_client_dart/ResultOfEncodeMessageBody-class.html">ResultOfEncodeMessageBody</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfFactorize">
+          <span class="name "><a href="../ton_client_dart/ResultOfFactorize-class.html">ResultOfFactorize</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfGenerateRandomBytes">
+          <span class="name "><a href="../ton_client_dart/ResultOfGenerateRandomBytes-class.html">ResultOfGenerateRandomBytes</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfGetApiReference">
+          <span class="name "><a href="../ton_client_dart/ResultOfGetApiReference-class.html">ResultOfGetApiReference</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfGetBlockchainConfig">
+          <span class="name "><a href="../ton_client_dart/ResultOfGetBlockchainConfig-class.html">ResultOfGetBlockchainConfig</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfGetBocHash">
+          <span class="name "><a href="../ton_client_dart/ResultOfGetBocHash-class.html">ResultOfGetBocHash</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHash">
+          <span class="name "><a href="../ton_client_dart/ResultOfHash-class.html">ResultOfHash</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHDKeyDeriveFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ResultOfHDKeyDeriveFromXPrv-class.html">ResultOfHDKeyDeriveFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHDKeyDeriveFromXPrvPath">
+          <span class="name "><a href="../ton_client_dart/ResultOfHDKeyDeriveFromXPrvPath-class.html">ResultOfHDKeyDeriveFromXPrvPath</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHDKeyPublicFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ResultOfHDKeyPublicFromXPrv-class.html">ResultOfHDKeyPublicFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHDKeySecretFromXPrv">
+          <span class="name "><a href="../ton_client_dart/ResultOfHDKeySecretFromXPrv-class.html">ResultOfHDKeySecretFromXPrv</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfHDKeyXPrvFromMnemonic">
+          <span class="name "><a href="../ton_client_dart/ResultOfHDKeyXPrvFromMnemonic-class.html">ResultOfHDKeyXPrvFromMnemonic</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfMnemonicFromEntropy">
+          <span class="name "><a href="../ton_client_dart/ResultOfMnemonicFromEntropy-class.html">ResultOfMnemonicFromEntropy</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfMnemonicFromRandom">
+          <span class="name "><a href="../ton_client_dart/ResultOfMnemonicFromRandom-class.html">ResultOfMnemonicFromRandom</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfMnemonicVerify">
+          <span class="name "><a href="../ton_client_dart/ResultOfMnemonicVerify-class.html">ResultOfMnemonicVerify</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfMnemonicWords">
+          <span class="name "><a href="../ton_client_dart/ResultOfMnemonicWords-class.html">ResultOfMnemonicWords</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfModularPower">
+          <span class="name "><a href="../ton_client_dart/ResultOfModularPower-class.html">ResultOfModularPower</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfNaclBox">
+          <span class="name "><a href="../ton_client_dart/ResultOfNaclBox-class.html">ResultOfNaclBox</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfNaclBoxOpen">
+          <span class="name "><a href="../ton_client_dart/ResultOfNaclBoxOpen-class.html">ResultOfNaclBoxOpen</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfNaclSign">
+          <span class="name "><a href="../ton_client_dart/ResultOfNaclSign-class.html">ResultOfNaclSign</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfNaclSignDetached">
+          <span class="name "><a href="../ton_client_dart/ResultOfNaclSignDetached-class.html">ResultOfNaclSignDetached</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfNaclSignOpen">
+          <span class="name "><a href="../ton_client_dart/ResultOfNaclSignOpen-class.html">ResultOfNaclSignOpen</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfParse">
+          <span class="name "><a href="../ton_client_dart/ResultOfParse-class.html">ResultOfParse</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfProcessMessage">
+          <span class="name "><a href="../ton_client_dart/ResultOfProcessMessage-class.html">ResultOfProcessMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfQueryCollection">
+          <span class="name "><a href="../ton_client_dart/ResultOfQueryCollection-class.html">ResultOfQueryCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfRunExecutor">
+          <span class="name "><a href="../ton_client_dart/ResultOfRunExecutor-class.html">ResultOfRunExecutor</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfRunGet">
+          <span class="name "><a href="../ton_client_dart/ResultOfRunGet-class.html">ResultOfRunGet</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfRunTvm">
+          <span class="name "><a href="../ton_client_dart/ResultOfRunTvm-class.html">ResultOfRunTvm</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfScrypt">
+          <span class="name "><a href="../ton_client_dart/ResultOfScrypt-class.html">ResultOfScrypt</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfSendMessage">
+          <span class="name "><a href="../ton_client_dart/ResultOfSendMessage-class.html">ResultOfSendMessage</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfSign">
+          <span class="name "><a href="../ton_client_dart/ResultOfSign-class.html">ResultOfSign</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfSubscribeCollection">
+          <span class="name "><a href="../ton_client_dart/ResultOfSubscribeCollection-class.html">ResultOfSubscribeCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfTonCrc16">
+          <span class="name "><a href="../ton_client_dart/ResultOfTonCrc16-class.html">ResultOfTonCrc16</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfVerifySignature">
+          <span class="name "><a href="../ton_client_dart/ResultOfVerifySignature-class.html">ResultOfVerifySignature</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfVersion">
+          <span class="name "><a href="../ton_client_dart/ResultOfVersion-class.html">ResultOfVersion</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="ResultOfWaitForCollection">
+          <span class="name "><a href="../ton_client_dart/ResultOfWaitForCollection-class.html">ResultOfWaitForCollection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Signer">
+          <span class="name "><a href="../ton_client_dart/Signer-class.html">Signer</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="Signer_External">
+          <span class="name "><a href="../ton_client_dart/Signer_External-class.html">Signer_External</a></span>         
+        </dt>
+        <dd>
+          Only public key is provided in unprefixed hex string format to generate unsigned message
+and <code>data_to_sign</code> which can be signed later. 
+        </dd>
+        <dt id="Signer_Keys">
+          <span class="name "><a href="../ton_client_dart/Signer_Keys-class.html">Signer_Keys</a></span>         
+        </dt>
+        <dd>
+          Key pair is provided for signing 
+        </dd>
+        <dt id="Signer_None">
+          <span class="name "><a href="../ton_client_dart/Signer_None-class.html">Signer_None</a></span>         
+        </dt>
+        <dd>
+          No keys are provided. Creates an unsigned message. 
+        </dd>
+        <dt id="Signer_SigningBox">
+          <span class="name "><a href="../ton_client_dart/Signer_SigningBox-class.html">Signer_SigningBox</a></span>         
+        </dt>
+        <dd>
+          Signing Box interface is provided for signing, allows Dapps to sign messages using external APIs,
+such as HSM, cold wallet, etc. 
+        </dd>
+        <dt id="SortDirection">
+          <span class="name "><a href="../ton_client_dart/SortDirection-class.html">SortDirection</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="StateInitParams">
+          <span class="name "><a href="../ton_client_dart/StateInitParams-class.html">StateInitParams</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="StateInitSource">
+          <span class="name "><a href="../ton_client_dart/StateInitSource-class.html">StateInitSource</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="StateInitSource_Message">
+          <span class="name "><a href="../ton_client_dart/StateInitSource_Message-class.html">StateInitSource_Message</a></span>         
+        </dt>
+        <dd>
+          Deploy message. 
+        </dd>
+        <dt id="StateInitSource_StateInit">
+          <span class="name "><a href="../ton_client_dart/StateInitSource_StateInit-class.html">StateInitSource_StateInit</a></span>         
+        </dt>
+        <dd>
+          State init data. 
+        </dd>
+        <dt id="StateInitSource_Tvc">
+          <span class="name "><a href="../ton_client_dart/StateInitSource_Tvc-class.html">StateInitSource_Tvc</a></span>         
+        </dt>
+        <dd>
+          Content of the TVC file. Encoded in <code>base64</code>. 
+        </dd>
+        <dt id="TonClient">
+          <span class="name "><a href="../ton_client_dart/TonClient-class.html">TonClient</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="TonSdkStructure">
+          <span class="name "><a href="../ton_client_dart/TonSdkStructure-class.html">TonSdkStructure</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+        <dt id="TransactionFees">
+          <span class="name "><a href="../ton_client_dart/TransactionFees-class.html">TransactionFees</a></span>         
+        </dt>
+        <dd>
+           
+        </dd>
+      </dl>
+    </section>
+
+
+
+
+
+
+
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-right" class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+    <h5>ton_client_dart library</h5>
+    <ol>
+      <li class="section-title"><a href="../ton_client_dart/ton_client_dart-library.html#classes">Classes</a></li>
+      <li><a href="../ton_client_dart/Abi-class.html">Abi</a></li>
+      <li><a href="../ton_client_dart/Abi_Contract-class.html">Abi_Contract</a></li>
+      <li><a href="../ton_client_dart/Abi_Handle-class.html">Abi_Handle</a></li>
+      <li><a href="../ton_client_dart/Abi_Json-class.html">Abi_Json</a></li>
+      <li><a href="../ton_client_dart/Abi_Serialized-class.html">Abi_Serialized</a></li>
+      <li><a href="../ton_client_dart/AbiConfig-class.html">AbiConfig</a></li>
+      <li><a href="../ton_client_dart/AbiContract-class.html">AbiContract</a></li>
+      <li><a href="../ton_client_dart/AbiData-class.html">AbiData</a></li>
+      <li><a href="../ton_client_dart/AbiEvent-class.html">AbiEvent</a></li>
+      <li><a href="../ton_client_dart/AbiFunction-class.html">AbiFunction</a></li>
+      <li><a href="../ton_client_dart/AbiParam-class.html">AbiParam</a></li>
+      <li><a href="../ton_client_dart/AccountForExecutor-class.html">AccountForExecutor</a></li>
+      <li><a href="../ton_client_dart/AccountForExecutor_Account-class.html">AccountForExecutor_Account</a></li>
+      <li><a href="../ton_client_dart/AccountForExecutor_None-class.html">AccountForExecutor_None</a></li>
+      <li><a href="../ton_client_dart/AccountForExecutor_Uninit-class.html">AccountForExecutor_Uninit</a></li>
+      <li><a href="../ton_client_dart/AddressStringFormat-class.html">AddressStringFormat</a></li>
+      <li><a href="../ton_client_dart/AddressStringFormat_AccountId-class.html">AddressStringFormat_AccountId</a></li>
+      <li><a href="../ton_client_dart/AddressStringFormat_Base64-class.html">AddressStringFormat_Base64</a></li>
+      <li><a href="../ton_client_dart/AddressStringFormat_Hex-class.html">AddressStringFormat_Hex</a></li>
+      <li><a href="../ton_client_dart/BuildInfoDependency-class.html">BuildInfoDependency</a></li>
+      <li><a href="../ton_client_dart/CallSet-class.html">CallSet</a></li>
+      <li><a href="../ton_client_dart/ClientConfig-class.html">ClientConfig</a></li>
+      <li><a href="../ton_client_dart/ClientError-class.html">ClientError</a></li>
+      <li><a href="../ton_client_dart/CryptoConfig-class.html">CryptoConfig</a></li>
+      <li><a href="../ton_client_dart/DecodedMessageBody-class.html">DecodedMessageBody</a></li>
+      <li><a href="../ton_client_dart/DecodedOutput-class.html">DecodedOutput</a></li>
+      <li><a href="../ton_client_dart/DeploySet-class.html">DeploySet</a></li>
+      <li><a href="../ton_client_dart/ExecutionOptions-class.html">ExecutionOptions</a></li>
+      <li><a href="../ton_client_dart/FunctionHeader-class.html">FunctionHeader</a></li>
+      <li><a href="../ton_client_dart/KeyPair-class.html">KeyPair</a></li>
+      <li><a href="../ton_client_dart/MessageBodyType-class.html">MessageBodyType</a></li>
+      <li><a href="../ton_client_dart/MessageSource-class.html">MessageSource</a></li>
+      <li><a href="../ton_client_dart/MessageSource_Encoded-class.html">MessageSource_Encoded</a></li>
+      <li><a href="../ton_client_dart/MessageSource_EncodingParams-class.html">MessageSource_EncodingParams</a></li>
+      <li><a href="../ton_client_dart/NetworkConfig-class.html">NetworkConfig</a></li>
+      <li><a href="../ton_client_dart/OrderBy-class.html">OrderBy</a></li>
+      <li><a href="../ton_client_dart/ParamsOfAttachSignature-class.html">ParamsOfAttachSignature</a></li>
+      <li><a href="../ton_client_dart/ParamsOfAttachSignatureToMessageBody-class.html">ParamsOfAttachSignatureToMessageBody</a></li>
+      <li><a href="../ton_client_dart/ParamsOfChaCha20-class.html">ParamsOfChaCha20</a></li>
+      <li><a href="../ton_client_dart/ParamsOfConvertAddress-class.html">ParamsOfConvertAddress</a></li>
+      <li><a href="../ton_client_dart/ParamsOfConvertPublicKeyToTonSafeFormat-class.html">ParamsOfConvertPublicKeyToTonSafeFormat</a></li>
+      <li><a href="../ton_client_dart/ParamsOfDecodeMessage-class.html">ParamsOfDecodeMessage</a></li>
+      <li><a href="../ton_client_dart/ParamsOfDecodeMessageBody-class.html">ParamsOfDecodeMessageBody</a></li>
+      <li><a href="../ton_client_dart/ParamsOfEncodeAccount-class.html">ParamsOfEncodeAccount</a></li>
+      <li><a href="../ton_client_dart/ParamsOfEncodeMessage-class.html">ParamsOfEncodeMessage</a></li>
+      <li><a href="../ton_client_dart/ParamsOfEncodeMessageBody-class.html">ParamsOfEncodeMessageBody</a></li>
+      <li><a href="../ton_client_dart/ParamsOfFactorize-class.html">ParamsOfFactorize</a></li>
+      <li><a href="../ton_client_dart/ParamsOfGenerateRandomBytes-class.html">ParamsOfGenerateRandomBytes</a></li>
+      <li><a href="../ton_client_dart/ParamsOfGetBlockchainConfig-class.html">ParamsOfGetBlockchainConfig</a></li>
+      <li><a href="../ton_client_dart/ParamsOfGetBocHash-class.html">ParamsOfGetBocHash</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHash-class.html">ParamsOfHash</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHDKeyDeriveFromXPrv-class.html">ParamsOfHDKeyDeriveFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHDKeyDeriveFromXPrvPath-class.html">ParamsOfHDKeyDeriveFromXPrvPath</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHDKeyPublicFromXPrv-class.html">ParamsOfHDKeyPublicFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHDKeySecretFromXPrv-class.html">ParamsOfHDKeySecretFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ParamsOfHDKeyXPrvFromMnemonic-class.html">ParamsOfHDKeyXPrvFromMnemonic</a></li>
+      <li><a href="../ton_client_dart/ParamsOfMnemonicDeriveSignKeys-class.html">ParamsOfMnemonicDeriveSignKeys</a></li>
+      <li><a href="../ton_client_dart/ParamsOfMnemonicFromEntropy-class.html">ParamsOfMnemonicFromEntropy</a></li>
+      <li><a href="../ton_client_dart/ParamsOfMnemonicFromRandom-class.html">ParamsOfMnemonicFromRandom</a></li>
+      <li><a href="../ton_client_dart/ParamsOfMnemonicVerify-class.html">ParamsOfMnemonicVerify</a></li>
+      <li><a href="../ton_client_dart/ParamsOfMnemonicWords-class.html">ParamsOfMnemonicWords</a></li>
+      <li><a href="../ton_client_dart/ParamsOfModularPower-class.html">ParamsOfModularPower</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclBox-class.html">ParamsOfNaclBox</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclBoxKeyPairFromSecret-class.html">ParamsOfNaclBoxKeyPairFromSecret</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclBoxOpen-class.html">ParamsOfNaclBoxOpen</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclSecretBox-class.html">ParamsOfNaclSecretBox</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclSecretBoxOpen-class.html">ParamsOfNaclSecretBoxOpen</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclSign-class.html">ParamsOfNaclSign</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclSignKeyPairFromSecret-class.html">ParamsOfNaclSignKeyPairFromSecret</a></li>
+      <li><a href="../ton_client_dart/ParamsOfNaclSignOpen-class.html">ParamsOfNaclSignOpen</a></li>
+      <li><a href="../ton_client_dart/ParamsOfParse-class.html">ParamsOfParse</a></li>
+      <li><a href="../ton_client_dart/ParamsOfParseShardstate-class.html">ParamsOfParseShardstate</a></li>
+      <li><a href="../ton_client_dart/ParamsOfProcessMessage-class.html">ParamsOfProcessMessage</a></li>
+      <li><a href="../ton_client_dart/ParamsOfQueryCollection-class.html">ParamsOfQueryCollection</a></li>
+      <li><a href="../ton_client_dart/ParamsOfRunExecutor-class.html">ParamsOfRunExecutor</a></li>
+      <li><a href="../ton_client_dart/ParamsOfRunGet-class.html">ParamsOfRunGet</a></li>
+      <li><a href="../ton_client_dart/ParamsOfRunTvm-class.html">ParamsOfRunTvm</a></li>
+      <li><a href="../ton_client_dart/ParamsOfScrypt-class.html">ParamsOfScrypt</a></li>
+      <li><a href="../ton_client_dart/ParamsOfSendMessage-class.html">ParamsOfSendMessage</a></li>
+      <li><a href="../ton_client_dart/ParamsOfSign-class.html">ParamsOfSign</a></li>
+      <li><a href="../ton_client_dart/ParamsOfSubscribeCollection-class.html">ParamsOfSubscribeCollection</a></li>
+      <li><a href="../ton_client_dart/ParamsOfTonCrc16-class.html">ParamsOfTonCrc16</a></li>
+      <li><a href="../ton_client_dart/ParamsOfVerifySignature-class.html">ParamsOfVerifySignature</a></li>
+      <li><a href="../ton_client_dart/ParamsOfWaitForCollection-class.html">ParamsOfWaitForCollection</a></li>
+      <li><a href="../ton_client_dart/ParamsOfWaitForTransaction-class.html">ParamsOfWaitForTransaction</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent-class.html">ProcessingEvent</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_DidSend-class.html">ProcessingEvent_DidSend</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_FetchFirstBlockFailed-class.html">ProcessingEvent_FetchFirstBlockFailed</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_FetchNextBlockFailed-class.html">ProcessingEvent_FetchNextBlockFailed</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_MessageExpired-class.html">ProcessingEvent_MessageExpired</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_SendFailed-class.html">ProcessingEvent_SendFailed</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_WillFetchFirstBlock-class.html">ProcessingEvent_WillFetchFirstBlock</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_WillFetchNextBlock-class.html">ProcessingEvent_WillFetchNextBlock</a></li>
+      <li><a href="../ton_client_dart/ProcessingEvent_WillSend-class.html">ProcessingEvent_WillSend</a></li>
+      <li><a href="../ton_client_dart/ResultOfAttachSignature-class.html">ResultOfAttachSignature</a></li>
+      <li><a href="../ton_client_dart/ResultOfAttachSignatureToMessageBody-class.html">ResultOfAttachSignatureToMessageBody</a></li>
+      <li><a href="../ton_client_dart/ResultOfBuildInfo-class.html">ResultOfBuildInfo</a></li>
+      <li><a href="../ton_client_dart/ResultOfChaCha20-class.html">ResultOfChaCha20</a></li>
+      <li><a href="../ton_client_dart/ResultOfConvertAddress-class.html">ResultOfConvertAddress</a></li>
+      <li><a href="../ton_client_dart/ResultOfConvertPublicKeyToTonSafeFormat-class.html">ResultOfConvertPublicKeyToTonSafeFormat</a></li>
+      <li><a href="../ton_client_dart/ResultOfEncodeAccount-class.html">ResultOfEncodeAccount</a></li>
+      <li><a href="../ton_client_dart/ResultOfEncodeMessage-class.html">ResultOfEncodeMessage</a></li>
+      <li><a href="../ton_client_dart/ResultOfEncodeMessageBody-class.html">ResultOfEncodeMessageBody</a></li>
+      <li><a href="../ton_client_dart/ResultOfFactorize-class.html">ResultOfFactorize</a></li>
+      <li><a href="../ton_client_dart/ResultOfGenerateRandomBytes-class.html">ResultOfGenerateRandomBytes</a></li>
+      <li><a href="../ton_client_dart/ResultOfGetApiReference-class.html">ResultOfGetApiReference</a></li>
+      <li><a href="../ton_client_dart/ResultOfGetBlockchainConfig-class.html">ResultOfGetBlockchainConfig</a></li>
+      <li><a href="../ton_client_dart/ResultOfGetBocHash-class.html">ResultOfGetBocHash</a></li>
+      <li><a href="../ton_client_dart/ResultOfHash-class.html">ResultOfHash</a></li>
+      <li><a href="../ton_client_dart/ResultOfHDKeyDeriveFromXPrv-class.html">ResultOfHDKeyDeriveFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ResultOfHDKeyDeriveFromXPrvPath-class.html">ResultOfHDKeyDeriveFromXPrvPath</a></li>
+      <li><a href="../ton_client_dart/ResultOfHDKeyPublicFromXPrv-class.html">ResultOfHDKeyPublicFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ResultOfHDKeySecretFromXPrv-class.html">ResultOfHDKeySecretFromXPrv</a></li>
+      <li><a href="../ton_client_dart/ResultOfHDKeyXPrvFromMnemonic-class.html">ResultOfHDKeyXPrvFromMnemonic</a></li>
+      <li><a href="../ton_client_dart/ResultOfMnemonicFromEntropy-class.html">ResultOfMnemonicFromEntropy</a></li>
+      <li><a href="../ton_client_dart/ResultOfMnemonicFromRandom-class.html">ResultOfMnemonicFromRandom</a></li>
+      <li><a href="../ton_client_dart/ResultOfMnemonicVerify-class.html">ResultOfMnemonicVerify</a></li>
+      <li><a href="../ton_client_dart/ResultOfMnemonicWords-class.html">ResultOfMnemonicWords</a></li>
+      <li><a href="../ton_client_dart/ResultOfModularPower-class.html">ResultOfModularPower</a></li>
+      <li><a href="../ton_client_dart/ResultOfNaclBox-class.html">ResultOfNaclBox</a></li>
+      <li><a href="../ton_client_dart/ResultOfNaclBoxOpen-class.html">ResultOfNaclBoxOpen</a></li>
+      <li><a href="../ton_client_dart/ResultOfNaclSign-class.html">ResultOfNaclSign</a></li>
+      <li><a href="../ton_client_dart/ResultOfNaclSignDetached-class.html">ResultOfNaclSignDetached</a></li>
+      <li><a href="../ton_client_dart/ResultOfNaclSignOpen-class.html">ResultOfNaclSignOpen</a></li>
+      <li><a href="../ton_client_dart/ResultOfParse-class.html">ResultOfParse</a></li>
+      <li><a href="../ton_client_dart/ResultOfProcessMessage-class.html">ResultOfProcessMessage</a></li>
+      <li><a href="../ton_client_dart/ResultOfQueryCollection-class.html">ResultOfQueryCollection</a></li>
+      <li><a href="../ton_client_dart/ResultOfRunExecutor-class.html">ResultOfRunExecutor</a></li>
+      <li><a href="../ton_client_dart/ResultOfRunGet-class.html">ResultOfRunGet</a></li>
+      <li><a href="../ton_client_dart/ResultOfRunTvm-class.html">ResultOfRunTvm</a></li>
+      <li><a href="../ton_client_dart/ResultOfScrypt-class.html">ResultOfScrypt</a></li>
+      <li><a href="../ton_client_dart/ResultOfSendMessage-class.html">ResultOfSendMessage</a></li>
+      <li><a href="../ton_client_dart/ResultOfSign-class.html">ResultOfSign</a></li>
+      <li><a href="../ton_client_dart/ResultOfSubscribeCollection-class.html">ResultOfSubscribeCollection</a></li>
+      <li><a href="../ton_client_dart/ResultOfTonCrc16-class.html">ResultOfTonCrc16</a></li>
+      <li><a href="../ton_client_dart/ResultOfVerifySignature-class.html">ResultOfVerifySignature</a></li>
+      <li><a href="../ton_client_dart/ResultOfVersion-class.html">ResultOfVersion</a></li>
+      <li><a href="../ton_client_dart/ResultOfWaitForCollection-class.html">ResultOfWaitForCollection</a></li>
+      <li><a href="../ton_client_dart/Signer-class.html">Signer</a></li>
+      <li><a href="../ton_client_dart/Signer_External-class.html">Signer_External</a></li>
+      <li><a href="../ton_client_dart/Signer_Keys-class.html">Signer_Keys</a></li>
+      <li><a href="../ton_client_dart/Signer_None-class.html">Signer_None</a></li>
+      <li><a href="../ton_client_dart/Signer_SigningBox-class.html">Signer_SigningBox</a></li>
+      <li><a href="../ton_client_dart/SortDirection-class.html">SortDirection</a></li>
+      <li><a href="../ton_client_dart/StateInitParams-class.html">StateInitParams</a></li>
+      <li><a href="../ton_client_dart/StateInitSource-class.html">StateInitSource</a></li>
+      <li><a href="../ton_client_dart/StateInitSource_Message-class.html">StateInitSource_Message</a></li>
+      <li><a href="../ton_client_dart/StateInitSource_StateInit-class.html">StateInitSource_StateInit</a></li>
+      <li><a href="../ton_client_dart/StateInitSource_Tvc-class.html">StateInitSource_Tvc</a></li>
+      <li><a href="../ton_client_dart/TonClient-class.html">TonClient</a></li>
+      <li><a href="../ton_client_dart/TonSdkStructure-class.html">TonSdkStructure</a></li>
+      <li><a href="../ton_client_dart/TransactionFees-class.html">TransactionFees</a></li>
+    
+    
+    
+    
+    
+    
+    
+    
+    </ol>
+  </div><!--/sidebar-offcanvas-right-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    ton_client_dart
+      0.0.9+1
+  </span>
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../static-assets/typeahead.bundle.min.js"></script>
+<script src="../static-assets/highlight.pack.js"></script>
+<script src="../static-assets/URI.js"></script>
+<script src="../static-assets/script.js"></script>
+
+
+</body>
+
+</html>

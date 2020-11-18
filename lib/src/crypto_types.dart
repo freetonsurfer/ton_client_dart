@@ -1,0 +1,1935 @@
+part of 'tonsdktypes.dart';
+
+//typedef SigningBoxHandle int;
+class ParamsOfFactorize extends TonSdkStructure {
+  /// Hexadecimal representation of u64 composite number.
+  String _composite;
+  String get composite => _composite;
+  ParamsOfFactorize({
+    @required String composite,
+  }) {
+    _composite =
+        ArgumentError.checkNotNull(composite, 'ParamsOfFactorize composite');
+  }
+  ParamsOfFactorize.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('composite') && (map['composite'] != null)) {
+      _composite = map['composite'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_composite != null) {
+      map['composite'] = _composite;
+    }
+    return map;
+  }
+}
+
+class ResultOfFactorize extends TonSdkStructure {
+  /// Two factors of composite or empty if composite can't be factorized.
+  List<String> _factors;
+  List<String> get factors => _factors;
+  ResultOfFactorize({
+    @required List<String> factors,
+  }) {
+    _factors = ArgumentError.checkNotNull(factors, 'ResultOfFactorize factors');
+  }
+  ResultOfFactorize.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('factors') && (map['factors'] != null)) {
+      _factors = [];
+      for (var el in map['factors']) {
+        _factors.add(el);
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_factors != null) {
+      map['factors'] = _factors;
+    }
+    return map;
+  }
+}
+
+class ParamsOfModularPower extends TonSdkStructure {
+  /// `base` argument of calculation.
+  String _base;
+  String get base => _base;
+
+  /// `exponent` argument of calculation.
+  String _exponent;
+  String get exponent => _exponent;
+
+  /// `modulus` argument of calculation.
+  String _modulus;
+  String get modulus => _modulus;
+  ParamsOfModularPower({
+    @required String base,
+    @required String exponent,
+    @required String modulus,
+  }) {
+    _base = ArgumentError.checkNotNull(base, 'ParamsOfModularPower base');
+    _exponent =
+        ArgumentError.checkNotNull(exponent, 'ParamsOfModularPower exponent');
+    _modulus =
+        ArgumentError.checkNotNull(modulus, 'ParamsOfModularPower modulus');
+  }
+  ParamsOfModularPower.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('base') && (map['base'] != null)) {
+      _base = map['base'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('exponent') && (map['exponent'] != null)) {
+      _exponent = map['exponent'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('modulus') && (map['modulus'] != null)) {
+      _modulus = map['modulus'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_base != null) {
+      map['base'] = _base;
+    }
+    if (_exponent != null) {
+      map['exponent'] = _exponent;
+    }
+    if (_modulus != null) {
+      map['modulus'] = _modulus;
+    }
+    return map;
+  }
+}
+
+class ResultOfModularPower extends TonSdkStructure {
+  /// Result of modular exponentiation
+  String _modular_power;
+  String get modular_power => _modular_power;
+  ResultOfModularPower({
+    @required String modular_power,
+  }) {
+    _modular_power = ArgumentError.checkNotNull(
+        modular_power, 'ResultOfModularPower modular_power');
+  }
+  ResultOfModularPower.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('modular_power') && (map['modular_power'] != null)) {
+      _modular_power = map['modular_power'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_modular_power != null) {
+      map['modular_power'] = _modular_power;
+    }
+    return map;
+  }
+}
+
+class ParamsOfTonCrc16 extends TonSdkStructure {
+  /// Input data for CRC calculation. Encoded with `base64`.
+  String _data;
+  String get data => _data;
+  ParamsOfTonCrc16({
+    @required String data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfTonCrc16 data');
+  }
+  ParamsOfTonCrc16.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfTonCrc16 extends TonSdkStructure {
+  /// Calculated CRC for input data.
+  int _crc;
+  int get crc => _crc;
+  ResultOfTonCrc16({
+    @required int crc,
+  }) {
+    _crc = ArgumentError.checkNotNull(crc, 'ResultOfTonCrc16 crc');
+  }
+  ResultOfTonCrc16.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('crc') && (map['crc'] != null)) {
+      _crc = map['crc'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_crc != null) {
+      map['crc'] = _crc;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGenerateRandomBytes extends TonSdkStructure {
+  /// Size of random byte array.
+  int _length;
+  int get length => _length;
+  ParamsOfGenerateRandomBytes({
+    @required int length,
+  }) {
+    _length = ArgumentError.checkNotNull(
+        length, 'ParamsOfGenerateRandomBytes length');
+  }
+  ParamsOfGenerateRandomBytes.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('length') && (map['length'] != null)) {
+      _length = map['length'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_length != null) {
+      map['length'] = _length;
+    }
+    return map;
+  }
+}
+
+class ResultOfGenerateRandomBytes extends TonSdkStructure {
+  /// Generated bytes encoded in `base64`.
+  String _bytes;
+  String get bytes => _bytes;
+  ResultOfGenerateRandomBytes({
+    @required String bytes,
+  }) {
+    _bytes =
+        ArgumentError.checkNotNull(bytes, 'ResultOfGenerateRandomBytes bytes');
+  }
+  ResultOfGenerateRandomBytes.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('bytes') && (map['bytes'] != null)) {
+      _bytes = map['bytes'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_bytes != null) {
+      map['bytes'] = _bytes;
+    }
+    return map;
+  }
+}
+
+class ParamsOfConvertPublicKeyToTonSafeFormat extends TonSdkStructure {
+  /// Public key - 64 symbols hex string
+  String _public_key;
+  String get public_key => _public_key;
+  ParamsOfConvertPublicKeyToTonSafeFormat({
+    @required String public_key,
+  }) {
+    _public_key = ArgumentError.checkNotNull(
+        public_key, 'ParamsOfConvertPublicKeyToTonSafeFormat public_key');
+  }
+  ParamsOfConvertPublicKeyToTonSafeFormat.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('public_key') && (map['public_key'] != null)) {
+      _public_key = map['public_key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_public_key != null) {
+      map['public_key'] = _public_key;
+    }
+    return map;
+  }
+}
+
+class ResultOfConvertPublicKeyToTonSafeFormat extends TonSdkStructure {
+  /// Public key represented in TON safe format.
+  String _ton_public_key;
+  String get ton_public_key => _ton_public_key;
+  ResultOfConvertPublicKeyToTonSafeFormat({
+    @required String ton_public_key,
+  }) {
+    _ton_public_key = ArgumentError.checkNotNull(ton_public_key,
+        'ResultOfConvertPublicKeyToTonSafeFormat ton_public_key');
+  }
+  ResultOfConvertPublicKeyToTonSafeFormat.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('ton_public_key') && (map['ton_public_key'] != null)) {
+      _ton_public_key = map['ton_public_key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_ton_public_key != null) {
+      map['ton_public_key'] = _ton_public_key;
+    }
+    return map;
+  }
+}
+
+class KeyPair extends TonSdkStructure {
+  /// Public key - 64 symbols hex string
+  String _public;
+  String get public => _public;
+
+  /// Private key - u64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  KeyPair({
+    @required String public,
+    @required String secret,
+  }) {
+    _public = ArgumentError.checkNotNull(public, 'KeyPair public');
+    _secret = ArgumentError.checkNotNull(secret, 'KeyPair secret');
+  }
+  KeyPair.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ParamsOfSign extends TonSdkStructure {
+  /// Data that must be signed encoded in `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+
+  /// Sign keys.
+  KeyPair _keys;
+  KeyPair get keys => _keys;
+  ParamsOfSign({
+    @required String unsigned,
+    @required KeyPair keys,
+  }) {
+    _unsigned = ArgumentError.checkNotNull(unsigned, 'ParamsOfSign unsigned');
+    _keys = ArgumentError.checkNotNull(keys, 'ParamsOfSign keys');
+  }
+  ParamsOfSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('keys') && (map['keys'] != null)) {
+      _keys = KeyPair.fromMap(map['keys']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    if (_keys != null) {
+      map['keys'] = _keys;
+    }
+    return map;
+  }
+}
+
+class ResultOfSign extends TonSdkStructure {
+  /// Signed data combined with signature encoded in `base64`.
+  String _signed;
+  String get signed => _signed;
+
+  /// Signature encoded in `hex`.
+  String _signature;
+  String get signature => _signature;
+  ResultOfSign({
+    @required String signed,
+    @required String signature,
+  }) {
+    _signed = ArgumentError.checkNotNull(signed, 'ResultOfSign signed');
+    _signature =
+        ArgumentError.checkNotNull(signature, 'ResultOfSign signature');
+  }
+  ResultOfSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signed') && (map['signed'] != null)) {
+      _signed = map['signed'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('signature') && (map['signature'] != null)) {
+      _signature = map['signature'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signed != null) {
+      map['signed'] = _signed;
+    }
+    if (_signature != null) {
+      map['signature'] = _signature;
+    }
+    return map;
+  }
+}
+
+class ParamsOfVerifySignature extends TonSdkStructure {
+  /// Signed data that must be verified encoded in `base64`.
+  String _signed;
+  String get signed => _signed;
+
+  /// Signer's public key - 64 symbols hex string
+  String _public;
+  String get public => _public;
+  ParamsOfVerifySignature({
+    @required String signed,
+    @required String public,
+  }) {
+    _signed =
+        ArgumentError.checkNotNull(signed, 'ParamsOfVerifySignature signed');
+    _public =
+        ArgumentError.checkNotNull(public, 'ParamsOfVerifySignature public');
+  }
+  ParamsOfVerifySignature.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signed') && (map['signed'] != null)) {
+      _signed = map['signed'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signed != null) {
+      map['signed'] = _signed;
+    }
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    return map;
+  }
+}
+
+class ResultOfVerifySignature extends TonSdkStructure {
+  /// Unsigned data encoded in `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+  ResultOfVerifySignature({
+    @required String unsigned,
+  }) {
+    _unsigned = ArgumentError.checkNotNull(
+        unsigned, 'ResultOfVerifySignature unsigned');
+  }
+  ResultOfVerifySignature.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHash extends TonSdkStructure {
+  /// Input data for hash calculation. Encoded with `base64`.
+  String _data;
+  String get data => _data;
+  ParamsOfHash({
+    @required String data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfHash data');
+  }
+  ParamsOfHash.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfHash extends TonSdkStructure {
+  /// Hash of input `data`. Encoded with 'hex'.
+  String _hash;
+  String get hash => _hash;
+  ResultOfHash({
+    @required String hash,
+  }) {
+    _hash = ArgumentError.checkNotNull(hash, 'ResultOfHash hash');
+  }
+  ResultOfHash.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('hash') && (map['hash'] != null)) {
+      _hash = map['hash'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_hash != null) {
+      map['hash'] = _hash;
+    }
+    return map;
+  }
+}
+
+class ParamsOfScrypt extends TonSdkStructure {
+  /// The password bytes to be hashed.
+  /// Must be encoded with `base64`.
+  String _password;
+  String get password => _password;
+
+  /// Salt bytes that modify the hash to protect against Rainbow table attacks.
+  /// Must be encoded with `base64`.
+  String _salt;
+  String get salt => _salt;
+
+  /// CPU/memory cost parameter
+  int _log_n;
+  int get log_n => _log_n;
+
+  /// The block size parameter, which fine-tunes sequential memory read size and performance.
+  int _r;
+  int get r => _r;
+
+  /// Parallelization parameter.
+  int _p;
+  int get p => _p;
+
+  /// Intended output length in octets of the derived key.
+  int _dk_len;
+  int get dk_len => _dk_len;
+  ParamsOfScrypt({
+    @required String password,
+    @required String salt,
+    @required int log_n,
+    @required int r,
+    @required int p,
+    @required int dk_len,
+  }) {
+    _password = ArgumentError.checkNotNull(password, 'ParamsOfScrypt password');
+    _salt = ArgumentError.checkNotNull(salt, 'ParamsOfScrypt salt');
+    _log_n = ArgumentError.checkNotNull(log_n, 'ParamsOfScrypt log_n');
+    _r = ArgumentError.checkNotNull(r, 'ParamsOfScrypt r');
+    _p = ArgumentError.checkNotNull(p, 'ParamsOfScrypt p');
+    _dk_len = ArgumentError.checkNotNull(dk_len, 'ParamsOfScrypt dk_len');
+  }
+  ParamsOfScrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('password') && (map['password'] != null)) {
+      _password = map['password'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('salt') && (map['salt'] != null)) {
+      _salt = map['salt'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('log_n') && (map['log_n'] != null)) {
+      _log_n = map['log_n'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('r') && (map['r'] != null)) {
+      _r = map['r'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('p') && (map['p'] != null)) {
+      _p = map['p'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dk_len') && (map['dk_len'] != null)) {
+      _dk_len = map['dk_len'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_password != null) {
+      map['password'] = _password;
+    }
+    if (_salt != null) {
+      map['salt'] = _salt;
+    }
+    if (_log_n != null) {
+      map['log_n'] = _log_n;
+    }
+    if (_r != null) {
+      map['r'] = _r;
+    }
+    if (_p != null) {
+      map['p'] = _p;
+    }
+    if (_dk_len != null) {
+      map['dk_len'] = _dk_len;
+    }
+    return map;
+  }
+}
+
+class ResultOfScrypt extends TonSdkStructure {
+  /// Derived key. Encoded with `hex`.
+  String _key;
+  String get key => _key;
+  ResultOfScrypt({
+    @required String key,
+  }) {
+    _key = ArgumentError.checkNotNull(key, 'ResultOfScrypt key');
+  }
+  ResultOfScrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSignKeyPairFromSecret extends TonSdkStructure {
+  /// Secret key - unprefixed 0-padded to 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ParamsOfNaclSignKeyPairFromSecret({
+    @required String secret,
+  }) {
+    _secret = ArgumentError.checkNotNull(
+        secret, 'ParamsOfNaclSignKeyPairFromSecret secret');
+  }
+  ParamsOfNaclSignKeyPairFromSecret.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSign extends TonSdkStructure {
+  /// Data that must be signed encoded in `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+
+  /// Signer's secret key - unprefixed 0-padded to 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ParamsOfNaclSign({
+    @required String unsigned,
+    @required String secret,
+  }) {
+    _unsigned =
+        ArgumentError.checkNotNull(unsigned, 'ParamsOfNaclSign unsigned');
+    _secret = ArgumentError.checkNotNull(secret, 'ParamsOfNaclSign secret');
+  }
+  ParamsOfNaclSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclSign extends TonSdkStructure {
+  /// Signed data, encoded in `base64`.
+  String _signed;
+  String get signed => _signed;
+  ResultOfNaclSign({
+    @required String signed,
+  }) {
+    _signed = ArgumentError.checkNotNull(signed, 'ResultOfNaclSign signed');
+  }
+  ResultOfNaclSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signed') && (map['signed'] != null)) {
+      _signed = map['signed'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signed != null) {
+      map['signed'] = _signed;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSignOpen extends TonSdkStructure {
+  /// Signed data that must be unsigned. Encoded with `base64`.
+  String _signed;
+  String get signed => _signed;
+
+  /// Signer's public key - unprefixed 0-padded to 64 symbols hex string
+  String _public;
+  String get public => _public;
+  ParamsOfNaclSignOpen({
+    @required String signed,
+    @required String public,
+  }) {
+    _signed = ArgumentError.checkNotNull(signed, 'ParamsOfNaclSignOpen signed');
+    _public = ArgumentError.checkNotNull(public, 'ParamsOfNaclSignOpen public');
+  }
+  ParamsOfNaclSignOpen.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signed') && (map['signed'] != null)) {
+      _signed = map['signed'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signed != null) {
+      map['signed'] = _signed;
+    }
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclSignOpen extends TonSdkStructure {
+  /// Unsigned data, encoded in `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+  ResultOfNaclSignOpen({
+    @required String unsigned,
+  }) {
+    _unsigned =
+        ArgumentError.checkNotNull(unsigned, 'ResultOfNaclSignOpen unsigned');
+  }
+  ResultOfNaclSignOpen.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclSignDetached extends TonSdkStructure {
+  /// Signature encoded in `hex`.
+  String _signature;
+  String get signature => _signature;
+  ResultOfNaclSignDetached({
+    @required String signature,
+  }) {
+    _signature = ArgumentError.checkNotNull(
+        signature, 'ResultOfNaclSignDetached signature');
+  }
+  ResultOfNaclSignDetached.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signature') && (map['signature'] != null)) {
+      _signature = map['signature'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signature != null) {
+      map['signature'] = _signature;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclBoxKeyPairFromSecret extends TonSdkStructure {
+  /// Secret key - unprefixed 0-padded to 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ParamsOfNaclBoxKeyPairFromSecret({
+    @required String secret,
+  }) {
+    _secret = ArgumentError.checkNotNull(
+        secret, 'ParamsOfNaclBoxKeyPairFromSecret secret');
+  }
+  ParamsOfNaclBoxKeyPairFromSecret.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclBox extends TonSdkStructure {
+  /// Data that must be encrypted encoded in `base64`.
+  String _decrypted;
+  String get decrypted => _decrypted;
+
+  /// Nonce, encoded in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+
+  /// Receiver's public key - unprefixed 0-padded to 64 symbols hex string
+  String _their_public;
+  String get their_public => _their_public;
+
+  /// Sender's private key - unprefixed 0-padded to 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ParamsOfNaclBox({
+    @required String decrypted,
+    @required String nonce,
+    @required String their_public,
+    @required String secret,
+  }) {
+    _decrypted =
+        ArgumentError.checkNotNull(decrypted, 'ParamsOfNaclBox decrypted');
+    _nonce = ArgumentError.checkNotNull(nonce, 'ParamsOfNaclBox nonce');
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'ParamsOfNaclBox their_public');
+    _secret = ArgumentError.checkNotNull(secret, 'ParamsOfNaclBox secret');
+  }
+  ParamsOfNaclBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('decrypted') && (map['decrypted'] != null)) {
+      _decrypted = map['decrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_decrypted != null) {
+      map['decrypted'] = _decrypted;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclBox extends TonSdkStructure {
+  /// Encrypted data encoded in `base64`.
+  String _encrypted;
+  String get encrypted => _encrypted;
+  ResultOfNaclBox({
+    @required String encrypted,
+  }) {
+    _encrypted =
+        ArgumentError.checkNotNull(encrypted, 'ResultOfNaclBox encrypted');
+  }
+  ResultOfNaclBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encrypted') && (map['encrypted'] != null)) {
+      _encrypted = map['encrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted != null) {
+      map['encrypted'] = _encrypted;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclBoxOpen extends TonSdkStructure {
+  /// Data that must be decrypted. Encoded with `base64`.
+  String _encrypted;
+  String get encrypted => _encrypted;
+  String _nonce;
+  String get nonce => _nonce;
+
+  /// Sender's public key - unprefixed 0-padded to 64 symbols hex string
+  String _their_public;
+  String get their_public => _their_public;
+
+  /// Receiver's private key - unprefixed 0-padded to 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ParamsOfNaclBoxOpen({
+    @required String encrypted,
+    @required String nonce,
+    @required String their_public,
+    @required String secret,
+  }) {
+    _encrypted =
+        ArgumentError.checkNotNull(encrypted, 'ParamsOfNaclBoxOpen encrypted');
+    _nonce = ArgumentError.checkNotNull(nonce, 'ParamsOfNaclBoxOpen nonce');
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'ParamsOfNaclBoxOpen their_public');
+    _secret = ArgumentError.checkNotNull(secret, 'ParamsOfNaclBoxOpen secret');
+  }
+  ParamsOfNaclBoxOpen.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encrypted') && (map['encrypted'] != null)) {
+      _encrypted = map['encrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted != null) {
+      map['encrypted'] = _encrypted;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclBoxOpen extends TonSdkStructure {
+  /// Decrypted data encoded in `base64`.
+  String _decrypted;
+  String get decrypted => _decrypted;
+  ResultOfNaclBoxOpen({
+    @required String decrypted,
+  }) {
+    _decrypted =
+        ArgumentError.checkNotNull(decrypted, 'ResultOfNaclBoxOpen decrypted');
+  }
+  ResultOfNaclBoxOpen.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('decrypted') && (map['decrypted'] != null)) {
+      _decrypted = map['decrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_decrypted != null) {
+      map['decrypted'] = _decrypted;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSecretBox extends TonSdkStructure {
+  /// Data that must be encrypted. Encoded with `base64`.
+  String _decrypted;
+  String get decrypted => _decrypted;
+
+  /// Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+
+  /// Secret key - unprefixed 0-padded to 64 symbols hex string
+  String _key;
+  String get key => _key;
+  ParamsOfNaclSecretBox({
+    @required String decrypted,
+    @required String nonce,
+    @required String key,
+  }) {
+    _decrypted = ArgumentError.checkNotNull(
+        decrypted, 'ParamsOfNaclSecretBox decrypted');
+    _nonce = ArgumentError.checkNotNull(nonce, 'ParamsOfNaclSecretBox nonce');
+    _key = ArgumentError.checkNotNull(key, 'ParamsOfNaclSecretBox key');
+  }
+  ParamsOfNaclSecretBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('decrypted') && (map['decrypted'] != null)) {
+      _decrypted = map['decrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_decrypted != null) {
+      map['decrypted'] = _decrypted;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSecretBoxOpen extends TonSdkStructure {
+  /// Data that must be decrypted. Encoded with `base64`.
+  String _encrypted;
+  String get encrypted => _encrypted;
+
+  /// Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+
+  /// Public key - unprefixed 0-padded to 64 symbols hex string
+  String _key;
+  String get key => _key;
+  ParamsOfNaclSecretBoxOpen({
+    @required String encrypted,
+    @required String nonce,
+    @required String key,
+  }) {
+    _encrypted = ArgumentError.checkNotNull(
+        encrypted, 'ParamsOfNaclSecretBoxOpen encrypted');
+    _nonce =
+        ArgumentError.checkNotNull(nonce, 'ParamsOfNaclSecretBoxOpen nonce');
+    _key = ArgumentError.checkNotNull(key, 'ParamsOfNaclSecretBoxOpen key');
+  }
+  ParamsOfNaclSecretBoxOpen.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encrypted') && (map['encrypted'] != null)) {
+      _encrypted = map['encrypted'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted != null) {
+      map['encrypted'] = _encrypted;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    return map;
+  }
+}
+
+class ParamsOfMnemonicWords extends TonSdkStructure {
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+  ParamsOfMnemonicWords({
+    int dictionary,
+  }) {
+    _dictionary = dictionary;
+  }
+  ParamsOfMnemonicWords.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    return map;
+  }
+}
+
+class ResultOfMnemonicWords extends TonSdkStructure {
+  /// The list of mnemonic words
+  String _words;
+  String get words => _words;
+  ResultOfMnemonicWords({
+    @required String words,
+  }) {
+    _words = ArgumentError.checkNotNull(words, 'ResultOfMnemonicWords words');
+  }
+  ResultOfMnemonicWords.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('words') && (map['words'] != null)) {
+      _words = map['words'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_words != null) {
+      map['words'] = _words;
+    }
+    return map;
+  }
+}
+
+class ParamsOfMnemonicFromRandom extends TonSdkStructure {
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+
+  /// Mnemonic word count
+  int _word_count;
+  int get word_count => _word_count;
+  ParamsOfMnemonicFromRandom({
+    int dictionary,
+    int word_count,
+  }) {
+    _dictionary = dictionary;
+    _word_count = word_count;
+  }
+  ParamsOfMnemonicFromRandom.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+    if (map.containsKey('word_count')) {
+      _word_count = map['word_count'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_word_count != null) {
+      map['word_count'] = _word_count;
+    }
+    return map;
+  }
+}
+
+class ResultOfMnemonicFromRandom extends TonSdkStructure {
+  /// String of mnemonic words
+  String _phrase;
+  String get phrase => _phrase;
+  ResultOfMnemonicFromRandom({
+    @required String phrase,
+  }) {
+    _phrase =
+        ArgumentError.checkNotNull(phrase, 'ResultOfMnemonicFromRandom phrase');
+  }
+  ResultOfMnemonicFromRandom.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    return map;
+  }
+}
+
+class ParamsOfMnemonicFromEntropy extends TonSdkStructure {
+  /// Entropy bytes. Hex encoded.
+  String _entropy;
+  String get entropy => _entropy;
+
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+
+  /// Mnemonic word count
+  int _word_count;
+  int get word_count => _word_count;
+  ParamsOfMnemonicFromEntropy({
+    @required String entropy,
+    int dictionary,
+    int word_count,
+  }) {
+    _entropy = ArgumentError.checkNotNull(
+        entropy, 'ParamsOfMnemonicFromEntropy entropy');
+    _dictionary = dictionary;
+    _word_count = word_count;
+  }
+  ParamsOfMnemonicFromEntropy.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('entropy') && (map['entropy'] != null)) {
+      _entropy = map['entropy'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+    if (map.containsKey('word_count')) {
+      _word_count = map['word_count'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_entropy != null) {
+      map['entropy'] = _entropy;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_word_count != null) {
+      map['word_count'] = _word_count;
+    }
+    return map;
+  }
+}
+
+class ResultOfMnemonicFromEntropy extends TonSdkStructure {
+  /// Phrase
+  String _phrase;
+  String get phrase => _phrase;
+  ResultOfMnemonicFromEntropy({
+    @required String phrase,
+  }) {
+    _phrase = ArgumentError.checkNotNull(
+        phrase, 'ResultOfMnemonicFromEntropy phrase');
+  }
+  ResultOfMnemonicFromEntropy.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    return map;
+  }
+}
+
+class ParamsOfMnemonicVerify extends TonSdkStructure {
+  /// Phrase
+  String _phrase;
+  String get phrase => _phrase;
+
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+
+  /// Word count
+  int _word_count;
+  int get word_count => _word_count;
+  ParamsOfMnemonicVerify({
+    @required String phrase,
+    int dictionary,
+    int word_count,
+  }) {
+    _phrase =
+        ArgumentError.checkNotNull(phrase, 'ParamsOfMnemonicVerify phrase');
+    _dictionary = dictionary;
+    _word_count = word_count;
+  }
+  ParamsOfMnemonicVerify.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+    if (map.containsKey('word_count')) {
+      _word_count = map['word_count'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_word_count != null) {
+      map['word_count'] = _word_count;
+    }
+    return map;
+  }
+}
+
+class ResultOfMnemonicVerify extends TonSdkStructure {
+  /// Flag indicating if the mnemonic is valid or not
+  bool _valid;
+  bool get valid => _valid;
+  ResultOfMnemonicVerify({
+    @required bool valid,
+  }) {
+    _valid = ArgumentError.checkNotNull(valid, 'ResultOfMnemonicVerify valid');
+  }
+  ResultOfMnemonicVerify.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('valid') && (map['valid'] != null)) {
+      _valid = map['valid'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_valid != null) {
+      map['valid'] = _valid;
+    }
+    return map;
+  }
+}
+
+class ParamsOfMnemonicDeriveSignKeys extends TonSdkStructure {
+  /// Phrase
+  String _phrase;
+  String get phrase => _phrase;
+
+  /// Derivation path, for instance "m/44'/396'/0'/0/0"
+  String _path;
+  String get path => _path;
+
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+
+  /// Word count
+  int _word_count;
+  int get word_count => _word_count;
+  ParamsOfMnemonicDeriveSignKeys({
+    @required String phrase,
+    String path,
+    int dictionary,
+    int word_count,
+  }) {
+    _phrase = ArgumentError.checkNotNull(
+        phrase, 'ParamsOfMnemonicDeriveSignKeys phrase');
+    _path = path;
+    _dictionary = dictionary;
+    _word_count = word_count;
+  }
+  ParamsOfMnemonicDeriveSignKeys.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('path')) {
+      _path = map['path'];
+    }
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+    if (map.containsKey('word_count')) {
+      _word_count = map['word_count'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    if (_path != null) {
+      map['path'] = _path;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_word_count != null) {
+      map['word_count'] = _word_count;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHDKeyXPrvFromMnemonic extends TonSdkStructure {
+  /// String with seed phrase
+  String _phrase;
+  String get phrase => _phrase;
+
+  /// Dictionary identifier
+  int _dictionary;
+  int get dictionary => _dictionary;
+
+  /// Mnemonic word count
+  int _word_count;
+  int get word_count => _word_count;
+  ParamsOfHDKeyXPrvFromMnemonic({
+    @required String phrase,
+    int dictionary,
+    int word_count,
+  }) {
+    _phrase = ArgumentError.checkNotNull(
+        phrase, 'ParamsOfHDKeyXPrvFromMnemonic phrase');
+    _dictionary = dictionary;
+    _word_count = word_count;
+  }
+  ParamsOfHDKeyXPrvFromMnemonic.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dictionary')) {
+      _dictionary = map['dictionary'];
+    }
+    if (map.containsKey('word_count')) {
+      _word_count = map['word_count'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_word_count != null) {
+      map['word_count'] = _word_count;
+    }
+    return map;
+  }
+}
+
+class ResultOfHDKeyXPrvFromMnemonic extends TonSdkStructure {
+  /// Serialized extended master private key
+  String _xprv;
+  String get xprv => _xprv;
+  ResultOfHDKeyXPrvFromMnemonic({
+    @required String xprv,
+  }) {
+    _xprv =
+        ArgumentError.checkNotNull(xprv, 'ResultOfHDKeyXPrvFromMnemonic xprv');
+  }
+  ResultOfHDKeyXPrvFromMnemonic.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHDKeyDeriveFromXPrv extends TonSdkStructure {
+  /// Serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+
+  /// Child index (see BIP-0032)
+  int _child_index;
+  int get child_index => _child_index;
+
+  /// Indicates the derivation of hardened/not-hardened key (see BIP-0032)
+  bool _hardened;
+  bool get hardened => _hardened;
+  ParamsOfHDKeyDeriveFromXPrv({
+    @required String xprv,
+    @required int child_index,
+    @required bool hardened,
+  }) {
+    _xprv =
+        ArgumentError.checkNotNull(xprv, 'ParamsOfHDKeyDeriveFromXPrv xprv');
+    _child_index = ArgumentError.checkNotNull(
+        child_index, 'ParamsOfHDKeyDeriveFromXPrv child_index');
+    _hardened = ArgumentError.checkNotNull(
+        hardened, 'ParamsOfHDKeyDeriveFromXPrv hardened');
+  }
+  ParamsOfHDKeyDeriveFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('child_index') && (map['child_index'] != null)) {
+      _child_index = map['child_index'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('hardened') && (map['hardened'] != null)) {
+      _hardened = map['hardened'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    if (_child_index != null) {
+      map['child_index'] = _child_index;
+    }
+    if (_hardened != null) {
+      map['hardened'] = _hardened;
+    }
+    return map;
+  }
+}
+
+class ResultOfHDKeyDeriveFromXPrv extends TonSdkStructure {
+  /// Serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+  ResultOfHDKeyDeriveFromXPrv({
+    @required String xprv,
+  }) {
+    _xprv =
+        ArgumentError.checkNotNull(xprv, 'ResultOfHDKeyDeriveFromXPrv xprv');
+  }
+  ResultOfHDKeyDeriveFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHDKeyDeriveFromXPrvPath extends TonSdkStructure {
+  /// Serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+
+  /// Derivation path, for instance "m/44'/396'/0'/0/0"
+  String _path;
+  String get path => _path;
+  ParamsOfHDKeyDeriveFromXPrvPath({
+    @required String xprv,
+    @required String path,
+  }) {
+    _xprv = ArgumentError.checkNotNull(
+        xprv, 'ParamsOfHDKeyDeriveFromXPrvPath xprv');
+    _path = ArgumentError.checkNotNull(
+        path, 'ParamsOfHDKeyDeriveFromXPrvPath path');
+  }
+  ParamsOfHDKeyDeriveFromXPrvPath.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('path') && (map['path'] != null)) {
+      _path = map['path'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    if (_path != null) {
+      map['path'] = _path;
+    }
+    return map;
+  }
+}
+
+class ResultOfHDKeyDeriveFromXPrvPath extends TonSdkStructure {
+  /// Derived serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+  ResultOfHDKeyDeriveFromXPrvPath({
+    @required String xprv,
+  }) {
+    _xprv = ArgumentError.checkNotNull(
+        xprv, 'ResultOfHDKeyDeriveFromXPrvPath xprv');
+  }
+  ResultOfHDKeyDeriveFromXPrvPath.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHDKeySecretFromXPrv extends TonSdkStructure {
+  /// Serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+  ParamsOfHDKeySecretFromXPrv({
+    @required String xprv,
+  }) {
+    _xprv =
+        ArgumentError.checkNotNull(xprv, 'ParamsOfHDKeySecretFromXPrv xprv');
+  }
+  ParamsOfHDKeySecretFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    return map;
+  }
+}
+
+class ResultOfHDKeySecretFromXPrv extends TonSdkStructure {
+  /// Private key - 64 symbols hex string
+  String _secret;
+  String get secret => _secret;
+  ResultOfHDKeySecretFromXPrv({
+    @required String secret,
+  }) {
+    _secret = ArgumentError.checkNotNull(
+        secret, 'ResultOfHDKeySecretFromXPrv secret');
+  }
+  ResultOfHDKeySecretFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class ParamsOfHDKeyPublicFromXPrv extends TonSdkStructure {
+  /// Serialized extended private key
+  String _xprv;
+  String get xprv => _xprv;
+  ParamsOfHDKeyPublicFromXPrv({
+    @required String xprv,
+  }) {
+    _xprv =
+        ArgumentError.checkNotNull(xprv, 'ParamsOfHDKeyPublicFromXPrv xprv');
+  }
+  ParamsOfHDKeyPublicFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('xprv') && (map['xprv'] != null)) {
+      _xprv = map['xprv'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_xprv != null) {
+      map['xprv'] = _xprv;
+    }
+    return map;
+  }
+}
+
+class ResultOfHDKeyPublicFromXPrv extends TonSdkStructure {
+  /// Public key - 64 symbols hex string
+  String _public;
+  String get public => _public;
+  ResultOfHDKeyPublicFromXPrv({
+    @required String public,
+  }) {
+    _public = ArgumentError.checkNotNull(
+        public, 'ResultOfHDKeyPublicFromXPrv public');
+  }
+  ResultOfHDKeyPublicFromXPrv.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    return map;
+  }
+}
+
+class ParamsOfChaCha20 extends TonSdkStructure {
+  /// Source data to be encrypted or decrypted. Must be encoded with `base64`.
+  String _data;
+  String get data => _data;
+
+  /// 256-bit key. Must be encoded with `hex`.
+  String _key;
+  String get key => _key;
+
+  /// 96-bit nonce. Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  ParamsOfChaCha20({
+    @required String data,
+    @required String key,
+    @required String nonce,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfChaCha20 data');
+    _key = ArgumentError.checkNotNull(key, 'ParamsOfChaCha20 key');
+    _nonce = ArgumentError.checkNotNull(nonce, 'ParamsOfChaCha20 nonce');
+  }
+  ParamsOfChaCha20.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+class ResultOfChaCha20 extends TonSdkStructure {
+  /// Encrypted/decrypted data. Encoded with `base64`.
+  String _data;
+  String get data => _data;
+  ResultOfChaCha20({
+    @required String data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ResultOfChaCha20 data');
+  }
+  ResultOfChaCha20.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
