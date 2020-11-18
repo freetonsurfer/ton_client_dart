@@ -108,14 +108,16 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 If you have any question, feel free to ask!
 
 ## TODO
+- Build single file sdk library
 - Windows support
 - iMac support
 - Refactor code generator and release it opensource
 - improve tests
 - change request id generation
 - improve help documents and comments
-- check memmory leaks
+- check memory leaks
 - Flutter support
+- improve error msgs
 - think about
   - helper function usage
   - query module
