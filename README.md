@@ -95,7 +95,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 #
 ## Supported Platforms
 
- Now it support only on Linux x64.
+ Now it is supported only on Linux x64.
 - Windows x64 will be available soon.
 - macOS throught some period of time.
 
