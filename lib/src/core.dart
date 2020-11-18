@@ -53,7 +53,7 @@ class TonSdkCore {
           _pathtosdklib.substring(0, _pathtosdklib.lastIndexOf('/') + 1) +
               'tonclient_1_linux.so';
     } else {
-      Exception("Platform not implemented yet!");
+      throw("Platform not implemented yet!");
     }
 
     final wrapperOpen = _sdkLib.lookupFunction<
