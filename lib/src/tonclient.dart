@@ -15,25 +15,60 @@ class TonClient {
   static final _tonCore = TonSdkCore();
 
   UtilsModule _utils;
-  UtilsModule get utils => _utils;
+  UtilsModule get utils {
+    if (_utils == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _utils;
+  }
 
   AbiModule _abi;
-  AbiModule get abi => _abi;
+  AbiModule get abi {
+    if (_abi == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _abi;
+  }
 
   BocModule _boc;
-  BocModule get boc => _boc;
+  BocModule get boc {
+    if (_boc == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _boc;
+  }
 
   CryptoModule _crypto;
-  CryptoModule get crypto => _crypto;
+  CryptoModule get crypto {
+    if (_crypto == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _crypto;
+  }
 
   ProcessingModule _processing;
-  ProcessingModule get processing => _processing;
+  ProcessingModule get processing {
+    if (_processing == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _processing;
+  }
 
   TvmModule _tvm;
-  TvmModule get tvm => _tvm;
+  TvmModule get tvm {
+    if (_tvm == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _tvm;
+  }
 
   NetModule _net;
-  NetModule get net => _net;
+  NetModule get net {
+    if (_net == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _net;
+  }
 
   ClientModule _client;
 

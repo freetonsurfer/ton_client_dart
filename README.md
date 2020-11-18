@@ -72,6 +72,18 @@ To initialize the client, you need to call the `TonClient.connect` function and 
   }));
 //..
 ```
+##### Query top 3 richest accounts
+```
+//..
+  var pq = ParamsOfQueryCollection(
+      collection: 'accounts',
+      result: 'id balance',
+      limit: 3,
+      order: [OrderBy(path: 'balance', direction: SortDirection.DESC())]
+  );
+//..
+```
+
 #### Execute getmethod and returns data from TVM stack
 ```
 //..
@@ -91,8 +103,8 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 ```
 ##### Note: see [tests](test/) for more examples.
 ##### Note: you can see the contract deployment procces [here](test/src/processing_net_test.dart).
-#
-#
+
+
 ## Supported Platforms
 
  Now it is supported only on Linux x64.
@@ -124,3 +136,5 @@ If you have any question, feel free to ask!
   - contract auto deploy and runing module
   - connect functoin with object from map param
   - version as TON SDK lib
+  
+  
