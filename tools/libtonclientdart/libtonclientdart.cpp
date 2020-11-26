@@ -20,7 +20,7 @@ extern "C" void tonsdk_dart_set_nativeport(int64_t iPort) {
 
 extern "C" char* tonsdk_dart_tc_create_context(char* config, int len)
 {
-    if (m_iNativePort!=-1) return "error: It seems that context allready opened";
+    if (m_iNativePort!=-1) return NULL;
     tc_string_data_t sdata;
     sdata.len = len;
     sdata.content = (char *)malloc(len * sizeof(char));
