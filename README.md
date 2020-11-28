@@ -106,10 +106,12 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 
 
 ## Supported Platforms
-
- Now it is supported only on Linux x64.
-- Windows x64 will be available soon.
-- macOS throught some period of time.
+- Linux - supported
+- Android - now we are working on Android support at it will be available as soon as possible.
+- Windows support will be implemented in Jan 2021 or on user demand.
+- macOS support will be implemented in Q1 2021 or on user demand.
+- iOS support will be implemented in Q2 2021 or on user demand.
+- Web support will be implemented in Q4 2021 or on user demand.
 
 ### Compile for unavailable platform
  Compiling for Windows or Mac shouldn't be difficult. You need to take the following steps:
