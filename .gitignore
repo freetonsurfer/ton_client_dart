@@ -5,4 +5,5 @@ test/files/test_process_message.txt
 test/files/test_send_message.txt
 test/files/test_subscription.txt
 test/files/test_wait_for_transaction.txt
-
+/tools/code_generator/output/*
+/tools/code_generator/api.json
