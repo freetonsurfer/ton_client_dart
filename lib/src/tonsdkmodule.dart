@@ -9,6 +9,7 @@ part 'utils_module.dart';
 part 'processing_module.dart';
 part 'tvm_module.dart';
 part 'net_module.dart';
+part 'debot_module.dart';
 
 class _TonSdkModule {
   var _tonCore;
