@@ -182,6 +182,11 @@ String jsonFieldTypeToDartType(Map<String, dynamic> typeinfo) {
     return jsonFieldTypeToDartType(typeinfo['optional_inner']);
   }
 
+  print('${typeinfo}');
+  if (typeinfo['type'] == 'Generic') {
+    return 'Function';
+  }
+
   throw ('jsonFieldTypeToDartType> Unknown type ${typeinfo['type']}');
 }
 
@@ -199,7 +204,7 @@ void createClass(File file, Map<String, dynamic> type, [String parentClass]) {
     appendFile(file, 'String _type;\n');
     appendFile(file, 'String get type => _type;\n');
   }
-  if (!type.containsKey('struct_fields')) print(type);
+  //if (!type.containsKey('struct_fields')) print(type);
   for (final field in type['struct_fields']) {
     final stype = jsonFieldTypeToDartType(field);
     createComment(field, file);

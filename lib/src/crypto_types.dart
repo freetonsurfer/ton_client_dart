@@ -362,7 +362,9 @@ class ParamsOfSign extends TonSdkStructure {
       throw ('Wrong map data');
     }
     if (map.containsKey('keys') && (map['keys'] != null)) {
-      _keys = KeyPair.fromMap(map['keys']);
+      if (map['keys'] != null) {
+        _keys = KeyPair.fromMap(map['keys']);
+      }
     } else {
       throw ('Wrong map data');
     }
@@ -1929,6 +1931,294 @@ class ResultOfChaCha20 extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_data != null) {
       map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class RegisteredSigningBox extends TonSdkStructure {
+  /// Handle of the signing box.
+  int _handle;
+  int get handle => _handle;
+  RegisteredSigningBox({
+    @required int handle,
+  }) {
+    _handle = ArgumentError.checkNotNull(handle, 'RegisteredSigningBox handle');
+  }
+  RegisteredSigningBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      if (map['handle'] != null) {
+        _handle = map['handle'];
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    return map;
+  }
+}
+
+/// Signing box callbacks.
+abstract class ParamsOfAppSigningBox extends TonSdkStructure {
+  static ParamsOfAppSigningBox fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetPublicKey') {
+      return ParamsOfAppSigningBox_GetPublicKey.fromMap(map);
+    }
+    if (map['type'] == 'Sign') {
+      return ParamsOfAppSigningBox_Sign.fromMap(map);
+    }
+    throw ('ParamsOfAppSigningBox unknown from map type');
+  }
+}
+
+/// Get signing box public key
+class ParamsOfAppSigningBox_GetPublicKey extends ParamsOfAppSigningBox {
+  String _type;
+  String get type => _type;
+  ParamsOfAppSigningBox_GetPublicKey() {
+    _type = 'GetPublicKey';
+  }
+  ParamsOfAppSigningBox_GetPublicKey.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetPublicKey') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetPublicKey';
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    map['type'] = _type;
+    return map;
+  }
+}
+
+/// Sign data
+class ParamsOfAppSigningBox_Sign extends ParamsOfAppSigningBox {
+  String _type;
+  String get type => _type;
+
+  /// Data to sign encoded as base64
+  String _unsigned;
+  String get unsigned => _unsigned;
+  ParamsOfAppSigningBox_Sign({
+    @required String unsigned,
+  }) {
+    _type = 'Sign';
+    _unsigned = ArgumentError.checkNotNull(
+        unsigned, 'ParamsOfAppSigningBox_Sign unsigned');
+  }
+  ParamsOfAppSigningBox_Sign.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Sign') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Sign';
+    }
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+/// Returning values from signing box callbacks.
+abstract class ResultOfAppSigningBox extends TonSdkStructure {
+  static ResultOfAppSigningBox fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetPublicKey') {
+      return ResultOfAppSigningBox_GetPublicKey.fromMap(map);
+    }
+    if (map['type'] == 'Sign') {
+      return ResultOfAppSigningBox_Sign.fromMap(map);
+    }
+    throw ('ResultOfAppSigningBox unknown from map type');
+  }
+}
+
+/// Result of getting public key
+class ResultOfAppSigningBox_GetPublicKey extends ResultOfAppSigningBox {
+  String _type;
+  String get type => _type;
+
+  /// Signing box public key
+  String _public_key;
+  String get public_key => _public_key;
+  ResultOfAppSigningBox_GetPublicKey({
+    @required String public_key,
+  }) {
+    _type = 'GetPublicKey';
+    _public_key = ArgumentError.checkNotNull(
+        public_key, 'ResultOfAppSigningBox_GetPublicKey public_key');
+  }
+  ResultOfAppSigningBox_GetPublicKey.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetPublicKey') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetPublicKey';
+    }
+    if (map.containsKey('public_key') && (map['public_key'] != null)) {
+      _public_key = map['public_key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_public_key != null) {
+      map['public_key'] = _public_key;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+/// Result of signing data
+class ResultOfAppSigningBox_Sign extends ResultOfAppSigningBox {
+  String _type;
+  String get type => _type;
+
+  /// Data signature encoded as hex
+  String _signature;
+  String get signature => _signature;
+  ResultOfAppSigningBox_Sign({
+    @required String signature,
+  }) {
+    _type = 'Sign';
+    _signature = ArgumentError.checkNotNull(
+        signature, 'ResultOfAppSigningBox_Sign signature');
+  }
+  ResultOfAppSigningBox_Sign.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Sign') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Sign';
+    }
+    if (map.containsKey('signature') && (map['signature'] != null)) {
+      _signature = map['signature'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signature != null) {
+      map['signature'] = _signature;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class ResultOfSigningBoxGetPublicKey extends TonSdkStructure {
+  /// Public key of signing box. Encoded with hex
+  String _pubkey;
+  String get pubkey => _pubkey;
+  ResultOfSigningBoxGetPublicKey({
+    @required String pubkey,
+  }) {
+    _pubkey = ArgumentError.checkNotNull(
+        pubkey, 'ResultOfSigningBoxGetPublicKey pubkey');
+  }
+  ResultOfSigningBoxGetPublicKey.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('pubkey') && (map['pubkey'] != null)) {
+      _pubkey = map['pubkey'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_pubkey != null) {
+      map['pubkey'] = _pubkey;
+    }
+    return map;
+  }
+}
+
+class ParamsOfSigningBoxSign extends TonSdkStructure {
+  /// Signing Box handle.
+  int _signing_box;
+  int get signing_box => _signing_box;
+
+  /// Unsigned user data. Must be encoded with `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+  ParamsOfSigningBoxSign({
+    @required int signing_box,
+    @required String unsigned,
+  }) {
+    _signing_box = ArgumentError.checkNotNull(
+        signing_box, 'ParamsOfSigningBoxSign signing_box');
+    _unsigned =
+        ArgumentError.checkNotNull(unsigned, 'ParamsOfSigningBoxSign unsigned');
+  }
+  ParamsOfSigningBoxSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signing_box') && (map['signing_box'] != null)) {
+      if (map['signing_box'] != null) {
+        _signing_box = map['signing_box'];
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signing_box != null) {
+      map['signing_box'] = _signing_box;
+    }
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    return map;
+  }
+}
+
+class ResultOfSigningBoxSign extends TonSdkStructure {
+  /// Data signature. Encoded with `base64`.
+  String _signature;
+  String get signature => _signature;
+  ResultOfSigningBoxSign({
+    @required String signature,
+  }) {
+    _signature = ArgumentError.checkNotNull(
+        signature, 'ResultOfSigningBoxSign signature');
+  }
+  ResultOfSigningBoxSign.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('signature') && (map['signature'] != null)) {
+      _signature = map['signature'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_signature != null) {
+      map['signature'] = _signature;
     }
     return map;
   }

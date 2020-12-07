@@ -20,4 +20,10 @@ class ClientModule extends _TonSdkModule {
     final res = await _tonCore.request('client.build_info');
     return ResultOfBuildInfo.fromMap(res);
   }
+
+  /// Resolves application request processing result
+  Future<void> resolve_app_request(ParamsOfResolveAppRequest params) async {
+    await _tonCore.request('client.resolve_app_request', params.toString());
+    return;
+  }
 }

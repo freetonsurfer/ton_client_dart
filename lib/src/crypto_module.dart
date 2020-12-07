@@ -227,7 +227,7 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfHDKeyDeriveFromXPrv.fromMap(res);
   }
 
-  /// Derives the exented private key from the specified key and path
+  /// Derives the extended private key from the specified key and path
   Future<ResultOfHDKeyDeriveFromXPrvPath> hdkey_derive_from_xprv_path(
       ParamsOfHDKeyDeriveFromXPrvPath params) async {
     final res = await _tonCore.request(
@@ -255,5 +255,42 @@ class CryptoModule extends _TonSdkModule {
   Future<ResultOfChaCha20> chacha20(ParamsOfChaCha20 params) async {
     final res = await _tonCore.request('crypto.chacha20', params.toString());
     return ResultOfChaCha20.fromMap(res);
+  }
+
+  /// Register an application implemented signing box.
+  Future<RegisteredSigningBox> register_signing_box(
+      Function appSigningBox) async {
+    final res = await _tonCore.request(
+        'crypto.register_signing_box', '{}', appSigningBox);
+    return RegisteredSigningBox.fromMap(res);
+  }
+
+  /// Creates a default signing box implementation.
+  Future<RegisteredSigningBox> get_signing_box(KeyPair params) async {
+    final res =
+        await _tonCore.request('crypto.get_signing_box', params.toString());
+    return RegisteredSigningBox.fromMap(res);
+  }
+
+  /// Returns public key of signing key pair.
+  Future<ResultOfSigningBoxGetPublicKey> signing_box_get_public_key(
+      RegisteredSigningBox params) async {
+    final res = await _tonCore.request(
+        'crypto.signing_box_get_public_key', params.toString());
+    return ResultOfSigningBoxGetPublicKey.fromMap(res);
+  }
+
+  /// Returns signed user data.
+  Future<ResultOfSigningBoxSign> signing_box_sign(
+      ParamsOfSigningBoxSign params) async {
+    final res =
+        await _tonCore.request('crypto.signing_box_sign', params.toString());
+    return ResultOfSigningBoxSign.fromMap(res);
+  }
+
+  /// Removes signing box from SDK.
+  Future<void> remove_signing_box(RegisteredSigningBox params) async {
+    await _tonCore.request('crypto.remove_signing_box', params.toString());
+    return;
   }
 }
