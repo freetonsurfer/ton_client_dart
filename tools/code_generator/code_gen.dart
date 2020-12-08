@@ -134,13 +134,15 @@ String fromMap_jsonFieldToDart(Map<String, dynamic> varinfo, [String varName]) {
   if (varinfo['type'] == 'Array') {
     var res = '_${varName} = [];\n';
     res += "for (var el in map['${varName}']) {\n";
+    res += 'if (el != null) {';
     res +=
         "_${varName}.add(${fromMap_jsonFieldToList(varinfo['array_item'])});}";
+    res += 'else {_${varName}.add(null);}}';
     return res;
   }
   if (varinfo['type'] == 'Ref') {
     return varinfo['ref_name'].indexOf('.') != -1
-        ? "if (map['${varName}']!=null){_${varName} = ${varinfo['ref_name'].split('.').last}.fromMap(map['${varName}']);}"
+        ? "_${varName} = ${varinfo['ref_name'].split('.').last}.fromMap(map['${varName}']);"
         : "_${varName} = map['${varName}'];";
   }
   if (varinfo['type'] == 'Optional') {
@@ -247,7 +249,7 @@ void createClass(File file, Map<String, dynamic> type, [String parentClass]) {
   for (final field in type['struct_fields']) {
     if (field['type'] == 'Optional') {
       appendFile(file,
-          "if (map.containsKey('${field['name']}')) {${fromMap_jsonFieldToDart(field)}}\n");
+          "if (map.containsKey('${field['name']}')&&(map['${field['name']}']!=null)) {${fromMap_jsonFieldToDart(field)}}\n");
     } else {
       appendFile(file,
           "if (map.containsKey('${field['name']}')&&(map['${field['name']}']!=null)) {${fromMap_jsonFieldToDart(field)}}else{throw('Wrong map data');}\n");

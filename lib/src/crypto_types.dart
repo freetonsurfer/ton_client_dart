@@ -41,7 +41,11 @@ class ResultOfFactorize extends TonSdkStructure {
     if (map.containsKey('factors') && (map['factors'] != null)) {
       _factors = [];
       for (var el in map['factors']) {
-        _factors.add(el);
+        if (el != null) {
+          _factors.add(el);
+        } else {
+          _factors.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
@@ -362,9 +366,7 @@ class ParamsOfSign extends TonSdkStructure {
       throw ('Wrong map data');
     }
     if (map.containsKey('keys') && (map['keys'] != null)) {
-      if (map['keys'] != null) {
-        _keys = KeyPair.fromMap(map['keys']);
-      }
+      _keys = KeyPair.fromMap(map['keys']);
     } else {
       throw ('Wrong map data');
     }
@@ -1196,7 +1198,7 @@ class ParamsOfMnemonicWords extends TonSdkStructure {
     _dictionary = dictionary;
   }
   ParamsOfMnemonicWords.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
   }
@@ -1252,10 +1254,10 @@ class ParamsOfMnemonicFromRandom extends TonSdkStructure {
     _word_count = word_count;
   }
   ParamsOfMnemonicFromRandom.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
-    if (map.containsKey('word_count')) {
+    if (map.containsKey('word_count') && (map['word_count'] != null)) {
       _word_count = map['word_count'];
     }
   }
@@ -1327,10 +1329,10 @@ class ParamsOfMnemonicFromEntropy extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
-    if (map.containsKey('word_count')) {
+    if (map.containsKey('word_count') && (map['word_count'] != null)) {
       _word_count = map['word_count'];
     }
   }
@@ -1405,10 +1407,10 @@ class ParamsOfMnemonicVerify extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
-    if (map.containsKey('word_count')) {
+    if (map.containsKey('word_count') && (map['word_count'] != null)) {
       _word_count = map['word_count'];
     }
   }
@@ -1488,13 +1490,13 @@ class ParamsOfMnemonicDeriveSignKeys extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('path')) {
+    if (map.containsKey('path') && (map['path'] != null)) {
       _path = map['path'];
     }
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
-    if (map.containsKey('word_count')) {
+    if (map.containsKey('word_count') && (map['word_count'] != null)) {
       _word_count = map['word_count'];
     }
   }
@@ -1545,10 +1547,10 @@ class ParamsOfHDKeyXPrvFromMnemonic extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('dictionary')) {
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
       _dictionary = map['dictionary'];
     }
-    if (map.containsKey('word_count')) {
+    if (map.containsKey('word_count') && (map['word_count'] != null)) {
       _word_count = map['word_count'];
     }
   }
@@ -1947,9 +1949,7 @@ class RegisteredSigningBox extends TonSdkStructure {
   }
   RegisteredSigningBox.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('handle') && (map['handle'] != null)) {
-      if (map['handle'] != null) {
-        _handle = map['handle'];
-      }
+      _handle = map['handle'];
     } else {
       throw ('Wrong map data');
     }
@@ -2172,9 +2172,7 @@ class ParamsOfSigningBoxSign extends TonSdkStructure {
   }
   ParamsOfSigningBoxSign.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('signing_box') && (map['signing_box'] != null)) {
-      if (map['signing_box'] != null) {
-        _signing_box = map['signing_box'];
-      }
+      _signing_box = map['signing_box'];
     } else {
       throw ('Wrong map data');
     }

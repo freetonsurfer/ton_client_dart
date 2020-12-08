@@ -258,10 +258,9 @@ class CryptoModule extends _TonSdkModule {
   }
 
   /// Register an application implemented signing box.
-  Future<RegisteredSigningBox> register_signing_box(
-      Function appSigningBox) async {
+  Future<RegisteredSigningBox> register_signing_box(Function params) async {
     final res = await _tonCore.request(
-        'crypto.register_signing_box', '{}', appSigningBox);
+        'crypto.register_signing_box', params.toString());
     return RegisteredSigningBox.fromMap(res);
   }
 

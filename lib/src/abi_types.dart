@@ -36,9 +36,7 @@ class Abi_Contract extends Abi {
       _type = 'Contract';
     }
     if (map.containsKey('value') && (map['value'] != null)) {
-      if (map['value'] != null) {
-        _value = AbiContract.fromMap(map['value']);
-      }
+      _value = AbiContract.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -106,9 +104,7 @@ class Abi_Handle extends Abi {
       _type = 'Handle';
     }
     if (map.containsKey('value') && (map['value'] != null)) {
-      if (map['value'] != null) {
-        _value = map['value'];
-      }
+      _value = map['value'];
     } else {
       throw ('Wrong map data');
     }
@@ -142,9 +138,7 @@ class Abi_Serialized extends Abi {
       _type = 'Serialized';
     }
     if (map.containsKey('value') && (map['value'] != null)) {
-      if (map['value'] != null) {
-        _value = AbiContract.fromMap(map['value']);
-      }
+      _value = AbiContract.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -194,13 +188,13 @@ class FunctionHeader extends TonSdkStructure {
     _pubkey = pubkey;
   }
   FunctionHeader.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('expire')) {
+    if (map.containsKey('expire') && (map['expire'] != null)) {
       _expire = map['expire'];
     }
-    if (map.containsKey('time')) {
+    if (map.containsKey('time') && (map['time'] != null)) {
       _time = BigInt.from(map['time']);
     }
-    if (map.containsKey('pubkey')) {
+    if (map.containsKey('pubkey') && (map['pubkey'] != null)) {
       _pubkey = map['pubkey'];
     }
   }
@@ -252,12 +246,10 @@ class CallSet extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('header')) {
-      if (map['header'] != null) {
-        _header = FunctionHeader.fromMap(map['header']);
-      }
+    if (map.containsKey('header') && (map['header'] != null)) {
+      _header = FunctionHeader.fromMap(map['header']);
     }
-    if (map.containsKey('input')) {
+    if (map.containsKey('input') && (map['input'] != null)) {
       _input = map['input'];
     }
   }
@@ -304,10 +296,10 @@ class DeploySet extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('workchain_id')) {
+    if (map.containsKey('workchain_id') && (map['workchain_id'] != null)) {
       _workchain_id = map['workchain_id'];
     }
-    if (map.containsKey('initial_data')) {
+    if (map.containsKey('initial_data') && (map['initial_data'] != null)) {
       _initial_data = map['initial_data'];
     }
   }
@@ -423,9 +415,7 @@ class Signer_Keys extends Signer {
       _type = 'Keys';
     }
     if (map.containsKey('keys') && (map['keys'] != null)) {
-      if (map['keys'] != null) {
-        _keys = KeyPair.fromMap(map['keys']);
-      }
+      _keys = KeyPair.fromMap(map['keys']);
     } else {
       throw ('Wrong map data');
     }
@@ -461,9 +451,7 @@ class Signer_SigningBox extends Signer {
       _type = 'SigningBox';
     }
     if (map.containsKey('handle') && (map['handle'] != null)) {
-      if (map['handle'] != null) {
-        _handle = map['handle'];
-      }
+      _handle = map['handle'];
     } else {
       throw ('Wrong map data');
     }
@@ -550,9 +538,7 @@ class StateInitSource_Message extends StateInitSource {
       _type = 'Message';
     }
     if (map.containsKey('source') && (map['source'] != null)) {
-      if (map['source'] != null) {
-        _source = MessageSource.fromMap(map['source']);
-      }
+      _source = MessageSource.fromMap(map['source']);
     } else {
       throw ('Wrong map data');
     }
@@ -610,7 +596,7 @@ class StateInitSource_StateInit extends StateInitSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('library')) {
+    if (map.containsKey('library') && (map['library'] != null)) {
       _library = map['library'];
     }
   }
@@ -662,13 +648,11 @@ class StateInitSource_Tvc extends StateInitSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('public_key')) {
+    if (map.containsKey('public_key') && (map['public_key'] != null)) {
       _public_key = map['public_key'];
     }
-    if (map.containsKey('init_params')) {
-      if (map['init_params'] != null) {
-        _init_params = StateInitParams.fromMap(map['init_params']);
-      }
+    if (map.containsKey('init_params') && (map['init_params'] != null)) {
+      _init_params = StateInitParams.fromMap(map['init_params']);
     }
   }
 
@@ -702,9 +686,7 @@ class StateInitParams extends TonSdkStructure {
   }
   StateInitParams.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -766,10 +748,8 @@ class MessageSource_Encoded extends MessageSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
   }
 
@@ -830,32 +810,28 @@ class MessageSource_EncodingParams extends MessageSource {
     int processing_try_index,
   }) {
     _type = 'EncodingParams';
-    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfEncodeMessageBody abi');
+    _abi = ArgumentError.checkNotNull(abi, 'MessageSource_EncodingParams abi');
     _call_set = ArgumentError.checkNotNull(
-        call_set, 'ParamsOfEncodeMessageBody call_set');
+        call_set, 'MessageSource_EncodingParams call_set');
     _is_internal = ArgumentError.checkNotNull(
-        is_internal, 'ParamsOfEncodeMessageBody is_internal');
-    _signer =
-        ArgumentError.checkNotNull(signer, 'ParamsOfEncodeMessageBody signer');
+        is_internal, 'MessageSource_EncodingParams is_internal');
+    _signer = ArgumentError.checkNotNull(
+        signer, 'MessageSource_EncodingParams signer');
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('type') && (map['type'] != 'EncodingParams')) {
+      _type = 'EncodingParams';
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('type') && (map['type'] != null)) {
-      _type = map['type'];
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
     if (map.containsKey('call_set') && (map['call_set'] != null)) {
-      if (map['call_set'] != null) {
-        _call_set = CallSet.fromMap(map['call_set']);
-      }
+      _call_set = CallSet.fromMap(map['call_set']);
     } else {
       throw ('Wrong map data');
     }
@@ -865,21 +841,19 @@ class MessageSource_EncodingParams extends MessageSource {
       throw ('Wrong map data');
     }
     if (map.containsKey('signer') && (map['signer'] != null)) {
-      if (map['signer'] != null) {
-        _signer = Signer.fromMap(map['signer']);
-      }
+      _signer = Signer.fromMap(map['signer']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
-      'type': 'EncodingParams',
-    };
+    Map<String, dynamic> map = {};
+    map['type'] = _type;
     if (_abi != null) {
       map['abi'] = _abi;
     }
@@ -926,10 +900,14 @@ class AbiParam extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('components')) {
+    if (map.containsKey('components') && (map['components'] != null)) {
       _components = [];
       for (var el in map['components']) {
-        _components.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _components.add(AbiParam.fromMap(el));
+        } else {
+          _components.add(null);
+        }
       }
     }
   }
@@ -974,12 +952,16 @@ class AbiEvent extends TonSdkStructure {
     if (map.containsKey('inputs') && (map['inputs'] != null)) {
       _inputs = [];
       for (var el in map['inputs']) {
-        _inputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _inputs.add(AbiParam.fromMap(el));
+        } else {
+          _inputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('id')) {
+    if (map.containsKey('id') && (map['id'] != null)) {
       _id = map['id'];
     }
   }
@@ -1035,10 +1017,14 @@ class AbiData extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('components')) {
+    if (map.containsKey('components') && (map['components'] != null)) {
       _components = [];
       for (var el in map['components']) {
-        _components.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _components.add(AbiParam.fromMap(el));
+        } else {
+          _components.add(null);
+        }
       }
     }
   }
@@ -1090,7 +1076,11 @@ class AbiFunction extends TonSdkStructure {
     if (map.containsKey('inputs') && (map['inputs'] != null)) {
       _inputs = [];
       for (var el in map['inputs']) {
-        _inputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _inputs.add(AbiParam.fromMap(el));
+        } else {
+          _inputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
@@ -1098,12 +1088,16 @@ class AbiFunction extends TonSdkStructure {
     if (map.containsKey('outputs') && (map['outputs'] != null)) {
       _outputs = [];
       for (var el in map['outputs']) {
-        _outputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _outputs.add(AbiParam.fromMap(el));
+        } else {
+          _outputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('id')) {
+    if (map.containsKey('id') && (map['id'] != null)) {
       _id = map['id'];
     }
   }
@@ -1155,34 +1149,50 @@ class AbiContract extends TonSdkStructure {
     _data = data;
   }
   AbiContract.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('ABI version')) {
+    if (map.containsKey('ABI version') && (map['ABI version'] != null)) {
       _abi_version_spaced = map['ABI version'];
     }
-    if (map.containsKey('abi_version')) {
+    if (map.containsKey('abi_version') && (map['abi_version'] != null)) {
       _abi_version = map['abi_version'];
     }
-    if (map.containsKey('header')) {
+    if (map.containsKey('header') && (map['header'] != null)) {
       _header = [];
       for (var el in map['header']) {
-        _header.add(el);
+        if (el != null) {
+          _header.add(el);
+        } else {
+          _header.add(null);
+        }
       }
     }
-    if (map.containsKey('functions')) {
+    if (map.containsKey('functions') && (map['functions'] != null)) {
       _functions = [];
       for (var el in map['functions']) {
-        _functions.add(AbiFunction.fromMap(el));
+        if (el != null) {
+          _functions.add(AbiFunction.fromMap(el));
+        } else {
+          _functions.add(null);
+        }
       }
     }
-    if (map.containsKey('events')) {
+    if (map.containsKey('events') && (map['events'] != null)) {
       _events = [];
       for (var el in map['events']) {
-        _events.add(AbiEvent.fromMap(el));
+        if (el != null) {
+          _events.add(AbiEvent.fromMap(el));
+        } else {
+          _events.add(null);
+        }
       }
     }
-    if (map.containsKey('data')) {
+    if (map.containsKey('data') && (map['data'] != null)) {
       _data = [];
       for (var el in map['data']) {
-        _data.add(AbiData.fromMap(el));
+        if (el != null) {
+          _data.add(AbiData.fromMap(el));
+        } else {
+          _data.add(null);
+        }
       }
     }
   }
@@ -1262,16 +1272,12 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
   }
   ParamsOfEncodeMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
     if (map.containsKey('call_set') && (map['call_set'] != null)) {
-      if (map['call_set'] != null) {
-        _call_set = CallSet.fromMap(map['call_set']);
-      }
+      _call_set = CallSet.fromMap(map['call_set']);
     } else {
       throw ('Wrong map data');
     }
@@ -1281,13 +1287,12 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
       throw ('Wrong map data');
     }
     if (map.containsKey('signer') && (map['signer'] != null)) {
-      if (map['signer'] != null) {
-        _signer = Signer.fromMap(map['signer']);
-      }
+      _signer = Signer.fromMap(map['signer']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
@@ -1338,7 +1343,7 @@ class ResultOfEncodeMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('data_to_sign')) {
+    if (map.containsKey('data_to_sign') && (map['data_to_sign'] != null)) {
       _data_to_sign = map['data_to_sign'];
     }
   }
@@ -1388,9 +1393,7 @@ class ParamsOfAttachSignatureToMessageBody extends TonSdkStructure {
   }
   ParamsOfAttachSignatureToMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -1518,33 +1521,26 @@ class ParamsOfEncodeMessage extends TonSdkStructure {
   }
   ParamsOfEncodeMessage.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('address')) {
+    if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
     }
-    if (map.containsKey('deploy_set')) {
-      if (map['deploy_set'] != null) {
-        _deploy_set = DeploySet.fromMap(map['deploy_set']);
-      }
+    if (map.containsKey('deploy_set') && (map['deploy_set'] != null)) {
+      _deploy_set = DeploySet.fromMap(map['deploy_set']);
     }
-    if (map.containsKey('call_set')) {
-      if (map['call_set'] != null) {
-        _call_set = CallSet.fromMap(map['call_set']);
-      }
+    if (map.containsKey('call_set') && (map['call_set'] != null)) {
+      _call_set = CallSet.fromMap(map['call_set']);
     }
     if (map.containsKey('signer') && (map['signer'] != null)) {
-      if (map['signer'] != null) {
-        _signer = Signer.fromMap(map['signer']);
-      }
+      _signer = Signer.fromMap(map['signer']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
@@ -1613,7 +1609,7 @@ class ResultOfEncodeMessage extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('data_to_sign')) {
+    if (map.containsKey('data_to_sign') && (map['data_to_sign'] != null)) {
       _data_to_sign = map['data_to_sign'];
     }
     if (map.containsKey('address') && (map['address'] != null)) {
@@ -1678,9 +1674,7 @@ class ParamsOfAttachSignature extends TonSdkStructure {
   }
   ParamsOfAttachSignature.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -1779,9 +1773,7 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
   }
   ParamsOfDecodeMessage.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -1834,9 +1826,7 @@ class DecodedMessageBody extends TonSdkStructure {
   }
   DecodedMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('body_type') && (map['body_type'] != null)) {
-      if (map['body_type'] != null) {
-        _body_type = MessageBodyType.fromMap(map['body_type']);
-      }
+      _body_type = MessageBodyType.fromMap(map['body_type']);
     } else {
       throw ('Wrong map data');
     }
@@ -1845,13 +1835,11 @@ class DecodedMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('value')) {
+    if (map.containsKey('value') && (map['value'] != null)) {
       _value = map['value'];
     }
-    if (map.containsKey('header')) {
-      if (map['header'] != null) {
-        _header = FunctionHeader.fromMap(map['header']);
-      }
+    if (map.containsKey('header') && (map['header'] != null)) {
+      _header = FunctionHeader.fromMap(map['header']);
     }
   }
 
@@ -1897,9 +1885,7 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
   }
   ParamsOfDecodeMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -1960,19 +1946,17 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
   }
   ParamsOfEncodeAccount.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('state_init') && (map['state_init'] != null)) {
-      if (map['state_init'] != null) {
-        _state_init = StateInitSource.fromMap(map['state_init']);
-      }
+      _state_init = StateInitSource.fromMap(map['state_init']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('balance')) {
+    if (map.containsKey('balance') && (map['balance'] != null)) {
       _balance = BigInt.from(map['balance']);
     }
-    if (map.containsKey('last_trans_lt')) {
+    if (map.containsKey('last_trans_lt') && (map['last_trans_lt'] != null)) {
       _last_trans_lt = BigInt.from(map['last_trans_lt']);
     }
-    if (map.containsKey('last_paid')) {
+    if (map.containsKey('last_paid') && (map['last_paid'] != null)) {
       _last_paid = map['last_paid'];
     }
   }

@@ -91,7 +91,7 @@ _address = ArgumentError.checkNotNull(address, 'ParamsOfConvertAddress address')
 _output_format = ArgumentError.checkNotNull(output_format, 'ParamsOfConvertAddress output_format');
 }
 ParamsOfConvertAddress.fromMap(Map<String,dynamic> map){if (map.containsKey('address')&&(map['address']!=null)) {_address = map['address'];}else{throw('Wrong map data');}
-if (map.containsKey('output_format')&&(map['output_format']!=null)) {if (map['output_format']!=null){_output_format = AddressStringFormat.fromMap(map['output_format']);}}else{throw('Wrong map data');}
+if (map.containsKey('output_format')&&(map['output_format']!=null)) {_output_format = AddressStringFormat.fromMap(map['output_format']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){

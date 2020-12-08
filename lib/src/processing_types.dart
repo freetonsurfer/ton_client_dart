@@ -65,7 +65,7 @@ _type = 'FetchFirstBlockFailed';
 _error = ArgumentError.checkNotNull(error, 'ProcessingEvent_FetchFirstBlockFailed error');
 }
 ProcessingEvent_FetchFirstBlockFailed.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'FetchFirstBlockFailed'){throw('Wrong map data');}else{_type = 'FetchFirstBlockFailed';}
-if (map.containsKey('error')&&(map['error']!=null)) {if (map['error']!=null){_error = ClientError.fromMap(map['error']);}}else{throw('Wrong map data');}
+if (map.containsKey('error')&&(map['error']!=null)) {_error = ClientError.fromMap(map['error']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -169,7 +169,7 @@ ProcessingEvent_SendFailed.fromMap(Map<String,dynamic> map){if (!map.containsKey
 if (map.containsKey('shard_block_id')&&(map['shard_block_id']!=null)) {_shard_block_id = map['shard_block_id'];}else{throw('Wrong map data');}
 if (map.containsKey('message_id')&&(map['message_id']!=null)) {_message_id = map['message_id'];}else{throw('Wrong map data');}
 if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
-if (map.containsKey('error')&&(map['error']!=null)) {if (map['error']!=null){_error = ClientError.fromMap(map['error']);}}else{throw('Wrong map data');}
+if (map.containsKey('error')&&(map['error']!=null)) {_error = ClientError.fromMap(map['error']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -245,7 +245,7 @@ ProcessingEvent_FetchNextBlockFailed.fromMap(Map<String,dynamic> map){if (!map.c
 if (map.containsKey('shard_block_id')&&(map['shard_block_id']!=null)) {_shard_block_id = map['shard_block_id'];}else{throw('Wrong map data');}
 if (map.containsKey('message_id')&&(map['message_id']!=null)) {_message_id = map['message_id'];}else{throw('Wrong map data');}
 if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
-if (map.containsKey('error')&&(map['error']!=null)) {if (map['error']!=null){_error = ClientError.fromMap(map['error']);}}else{throw('Wrong map data');}
+if (map.containsKey('error')&&(map['error']!=null)) {_error = ClientError.fromMap(map['error']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -283,7 +283,7 @@ _error = ArgumentError.checkNotNull(error, 'ProcessingEvent_MessageExpired error
 ProcessingEvent_MessageExpired.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'MessageExpired'){throw('Wrong map data');}else{_type = 'MessageExpired';}
 if (map.containsKey('message_id')&&(map['message_id']!=null)) {_message_id = map['message_id'];}else{throw('Wrong map data');}
 if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
-if (map.containsKey('error')&&(map['error']!=null)) {if (map['error']!=null){_error = ClientError.fromMap(map['error']);}}else{throw('Wrong map data');}
+if (map.containsKey('error')&&(map['error']!=null)) {_error = ClientError.fromMap(map['error']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -323,9 +323,9 @@ _fees = ArgumentError.checkNotNull(fees, 'ResultOfProcessMessage fees');
 ResultOfProcessMessage.fromMap(Map<String,dynamic> map){if (map.containsKey('transaction')&&(map['transaction']!=null)) {_transaction = map['transaction'];}else{throw('Wrong map data');}
 if (map.containsKey('out_messages')&&(map['out_messages']!=null)) {_out_messages = [];
 for (var el in map['out_messages']) {
-_out_messages.add(el);}}else{throw('Wrong map data');}
-if (map.containsKey('decoded')) {if (map['decoded']!=null){_decoded = DecodedOutput.fromMap(map['decoded']);}}
-if (map.containsKey('fees')&&(map['fees']!=null)) {if (map['fees']!=null){_fees = TransactionFees.fromMap(map['fees']);}}else{throw('Wrong map data');}
+if (el != null) {_out_messages.add(el);}else {_out_messages.add(null);}}}else{throw('Wrong map data');}
+if (map.containsKey('decoded')&&(map['decoded']!=null)) {_decoded = DecodedOutput.fromMap(map['decoded']);}
+if (map.containsKey('fees')&&(map['fees']!=null)) {_fees = TransactionFees.fromMap(map['fees']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -355,8 +355,8 @@ _output = output;
 }
 DecodedOutput.fromMap(Map<String,dynamic> map){if (map.containsKey('out_messages')&&(map['out_messages']!=null)) {_out_messages = [];
 for (var el in map['out_messages']) {
-_out_messages.add(DecodedMessageBody.fromMap(el));}}else{throw('Wrong map data');}
-if (map.containsKey('output')) {_output = map['output'];}
+if (el != null) {_out_messages.add(DecodedMessageBody.fromMap(el));}else {_out_messages.add(null);}}}else{throw('Wrong map data');}
+if (map.containsKey('output')&&(map['output']!=null)) {_output = map['output'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -395,7 +395,7 @@ _abi = abi;
 _send_events = ArgumentError.checkNotNull(send_events, 'ParamsOfSendMessage send_events');
 }
 ParamsOfSendMessage.fromMap(Map<String,dynamic> map){if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
-if (map.containsKey('abi')) {if (map['abi']!=null){_abi = Abi.fromMap(map['abi']);}}
+if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
 if (map.containsKey('send_events')&&(map['send_events']!=null)) {_send_events = map['send_events'];}else{throw('Wrong map data');}
 }
 
@@ -457,7 +457,7 @@ _message = ArgumentError.checkNotNull(message, 'ParamsOfWaitForTransaction messa
 _shard_block_id = ArgumentError.checkNotNull(shard_block_id, 'ParamsOfWaitForTransaction shard_block_id');
 _send_events = ArgumentError.checkNotNull(send_events, 'ParamsOfWaitForTransaction send_events');
 }
-ParamsOfWaitForTransaction.fromMap(Map<String,dynamic> map){if (map.containsKey('abi')) {if (map['abi']!=null){_abi = Abi.fromMap(map['abi']);}}
+ParamsOfWaitForTransaction.fromMap(Map<String,dynamic> map){if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
 if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
 if (map.containsKey('shard_block_id')&&(map['shard_block_id']!=null)) {_shard_block_id = map['shard_block_id'];}else{throw('Wrong map data');}
 if (map.containsKey('send_events')&&(map['send_events']!=null)) {_send_events = map['send_events'];}else{throw('Wrong map data');}
@@ -485,7 +485,7 @@ ParamsOfProcessMessage({@required ParamsOfEncodeMessage message_encode_params,@r
 _message_encode_params = ArgumentError.checkNotNull(message_encode_params, 'ParamsOfProcessMessage message_encode_params');
 _send_events = ArgumentError.checkNotNull(send_events, 'ParamsOfProcessMessage send_events');
 }
-ParamsOfProcessMessage.fromMap(Map<String,dynamic> map){if (map.containsKey('message_encode_params')&&(map['message_encode_params']!=null)) {if (map['message_encode_params']!=null){_message_encode_params = ParamsOfEncodeMessage.fromMap(map['message_encode_params']);}}else{throw('Wrong map data');}
+ParamsOfProcessMessage.fromMap(Map<String,dynamic> map){if (map.containsKey('message_encode_params')&&(map['message_encode_params']!=null)) {_message_encode_params = ParamsOfEncodeMessage.fromMap(map['message_encode_params']);}else{throw('Wrong map data');}
 if (map.containsKey('send_events')&&(map['send_events']!=null)) {_send_events = map['send_events'];}else{throw('Wrong map data');}
 }
 

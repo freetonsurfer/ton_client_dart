@@ -20,10 +20,10 @@ _block_time = block_time;
 _block_lt = block_lt;
 _transaction_lt = transaction_lt;
 }
-ExecutionOptions.fromMap(Map<String,dynamic> map){if (map.containsKey('blockchain_config')) {_blockchain_config = map['blockchain_config'];}
-if (map.containsKey('block_time')) {_block_time = map['block_time'];}
-if (map.containsKey('block_lt')) {_block_lt = BigInt.from(map['block_lt']);}
-if (map.containsKey('transaction_lt')) {_transaction_lt = BigInt.from(map['transaction_lt']);}
+ExecutionOptions.fromMap(Map<String,dynamic> map){if (map.containsKey('blockchain_config')&&(map['blockchain_config']!=null)) {_blockchain_config = map['blockchain_config'];}
+if (map.containsKey('block_time')&&(map['block_time']!=null)) {_block_time = map['block_time'];}
+if (map.containsKey('block_lt')&&(map['block_lt']!=null)) {_block_lt = BigInt.from(map['block_lt']);}
+if (map.containsKey('transaction_lt')&&(map['transaction_lt']!=null)) {_transaction_lt = BigInt.from(map['transaction_lt']);}
 }
 
 Map<String,dynamic> toMap(){
@@ -106,7 +106,7 @@ _unlimited_balance = unlimited_balance;
 }
 AccountForExecutor_Account.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'Account'){throw('Wrong map data');}else{_type = 'Account';}
 if (map.containsKey('boc')&&(map['boc']!=null)) {_boc = map['boc'];}else{throw('Wrong map data');}
-if (map.containsKey('unlimited_balance')) {_unlimited_balance = map['unlimited_balance'];}
+if (map.containsKey('unlimited_balance')&&(map['unlimited_balance']!=null)) {_unlimited_balance = map['unlimited_balance'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -184,10 +184,10 @@ _abi = abi;
 _skip_transaction_check = skip_transaction_check;
 }
 ParamsOfRunExecutor.fromMap(Map<String,dynamic> map){if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
-if (map.containsKey('account')&&(map['account']!=null)) {if (map['account']!=null){_account = AccountForExecutor.fromMap(map['account']);}}else{throw('Wrong map data');}
-if (map.containsKey('execution_options')) {if (map['execution_options']!=null){_execution_options = ExecutionOptions.fromMap(map['execution_options']);}}
-if (map.containsKey('abi')) {if (map['abi']!=null){_abi = Abi.fromMap(map['abi']);}}
-if (map.containsKey('skip_transaction_check')) {_skip_transaction_check = map['skip_transaction_check'];}
+if (map.containsKey('account')&&(map['account']!=null)) {_account = AccountForExecutor.fromMap(map['account']);}else{throw('Wrong map data');}
+if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
+if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
+if (map.containsKey('skip_transaction_check')&&(map['skip_transaction_check']!=null)) {_skip_transaction_check = map['skip_transaction_check'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -233,10 +233,10 @@ _fees = ArgumentError.checkNotNull(fees, 'ResultOfRunExecutor fees');
 ResultOfRunExecutor.fromMap(Map<String,dynamic> map){if (map.containsKey('transaction')&&(map['transaction']!=null)) {_transaction = map['transaction'];}else{throw('Wrong map data');}
 if (map.containsKey('out_messages')&&(map['out_messages']!=null)) {_out_messages = [];
 for (var el in map['out_messages']) {
-_out_messages.add(el);}}else{throw('Wrong map data');}
-if (map.containsKey('decoded')) {if (map['decoded']!=null){_decoded = DecodedOutput.fromMap(map['decoded']);}}
+if (el != null) {_out_messages.add(el);}else {_out_messages.add(null);}}}else{throw('Wrong map data');}
+if (map.containsKey('decoded')&&(map['decoded']!=null)) {_decoded = DecodedOutput.fromMap(map['decoded']);}
 if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
-if (map.containsKey('fees')&&(map['fees']!=null)) {if (map['fees']!=null){_fees = TransactionFees.fromMap(map['fees']);}}else{throw('Wrong map data');}
+if (map.containsKey('fees')&&(map['fees']!=null)) {_fees = TransactionFees.fromMap(map['fees']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -272,8 +272,8 @@ _abi = abi;
 }
 ParamsOfRunTvm.fromMap(Map<String,dynamic> map){if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
 if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
-if (map.containsKey('execution_options')) {if (map['execution_options']!=null){_execution_options = ExecutionOptions.fromMap(map['execution_options']);}}
-if (map.containsKey('abi')) {if (map['abi']!=null){_abi = Abi.fromMap(map['abi']);}}
+if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
+if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
 }
 
 Map<String,dynamic> toMap(){
@@ -306,8 +306,8 @@ _account = ArgumentError.checkNotNull(account, 'ResultOfRunTvm account');
 }
 ResultOfRunTvm.fromMap(Map<String,dynamic> map){if (map.containsKey('out_messages')&&(map['out_messages']!=null)) {_out_messages = [];
 for (var el in map['out_messages']) {
-_out_messages.add(el);}}else{throw('Wrong map data');}
-if (map.containsKey('decoded')) {if (map['decoded']!=null){_decoded = DecodedOutput.fromMap(map['decoded']);}}
+if (el != null) {_out_messages.add(el);}else {_out_messages.add(null);}}}else{throw('Wrong map data');}
+if (map.containsKey('decoded')&&(map['decoded']!=null)) {_decoded = DecodedOutput.fromMap(map['decoded']);}
 if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
 }
 
@@ -341,8 +341,8 @@ _execution_options = execution_options;
 }
 ParamsOfRunGet.fromMap(Map<String,dynamic> map){if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
 if (map.containsKey('function_name')&&(map['function_name']!=null)) {_function_name = map['function_name'];}else{throw('Wrong map data');}
-if (map.containsKey('input')) {_input = map['input'];}
-if (map.containsKey('execution_options')) {if (map['execution_options']!=null){_execution_options = ExecutionOptions.fromMap(map['execution_options']);}}
+if (map.containsKey('input')&&(map['input']!=null)) {_input = map['input'];}
+if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
 }
 
 Map<String,dynamic> toMap(){

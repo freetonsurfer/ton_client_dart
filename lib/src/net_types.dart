@@ -11,7 +11,7 @@ _path = ArgumentError.checkNotNull(path, 'OrderBy path');
 _direction = ArgumentError.checkNotNull(direction, 'OrderBy direction');
 }
 OrderBy.fromMap(Map<String,dynamic> map){if (map.containsKey('path')&&(map['path']!=null)) {_path = map['path'];}else{throw('Wrong map data');}
-if (map.containsKey('direction')&&(map['direction']!=null)) {if (map['direction']!=null){_direction = SortDirection.fromMap(map['direction']);}}else{throw('Wrong map data');}
+if (map.containsKey('direction')&&(map['direction']!=null)) {_direction = SortDirection.fromMap(map['direction']);}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -57,12 +57,12 @@ _order = order;
 _limit = limit;
 }
 ParamsOfQueryCollection.fromMap(Map<String,dynamic> map){if (map.containsKey('collection')&&(map['collection']!=null)) {_collection = map['collection'];}else{throw('Wrong map data');}
-if (map.containsKey('filter')) {_filter = map['filter'];}
+if (map.containsKey('filter')&&(map['filter']!=null)) {_filter = map['filter'];}
 if (map.containsKey('result')&&(map['result']!=null)) {_result = map['result'];}else{throw('Wrong map data');}
-if (map.containsKey('order')) {_order = [];
+if (map.containsKey('order')&&(map['order']!=null)) {_order = [];
 for (var el in map['order']) {
-_order.add(OrderBy.fromMap(el));}}
-if (map.containsKey('limit')) {_limit = map['limit'];}
+if (el != null) {_order.add(OrderBy.fromMap(el));}else {_order.add(null);}}}
+if (map.containsKey('limit')&&(map['limit']!=null)) {_limit = map['limit'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -86,7 +86,7 @@ _result = ArgumentError.checkNotNull(result, 'ResultOfQueryCollection result');
 }
 ResultOfQueryCollection.fromMap(Map<String,dynamic> map){if (map.containsKey('result')&&(map['result']!=null)) {_result = [];
 for (var el in map['result']) {
-_result.add(el);}}else{throw('Wrong map data');}
+if (el != null) {_result.add(el);}else {_result.add(null);}}}else{throw('Wrong map data');}
 }
 
 Map<String,dynamic> toMap(){
@@ -117,9 +117,9 @@ _result = ArgumentError.checkNotNull(result, 'ParamsOfWaitForCollection result')
 _timeout = timeout;
 }
 ParamsOfWaitForCollection.fromMap(Map<String,dynamic> map){if (map.containsKey('collection')&&(map['collection']!=null)) {_collection = map['collection'];}else{throw('Wrong map data');}
-if (map.containsKey('filter')) {_filter = map['filter'];}
+if (map.containsKey('filter')&&(map['filter']!=null)) {_filter = map['filter'];}
 if (map.containsKey('result')&&(map['result']!=null)) {_result = map['result'];}else{throw('Wrong map data');}
-if (map.containsKey('timeout')) {_timeout = map['timeout'];}
+if (map.containsKey('timeout')&&(map['timeout']!=null)) {_timeout = map['timeout'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -185,7 +185,7 @@ _filter = filter;
 _result = ArgumentError.checkNotNull(result, 'ParamsOfSubscribeCollection result');
 }
 ParamsOfSubscribeCollection.fromMap(Map<String,dynamic> map){if (map.containsKey('collection')&&(map['collection']!=null)) {_collection = map['collection'];}else{throw('Wrong map data');}
-if (map.containsKey('filter')) {_filter = map['filter'];}
+if (map.containsKey('filter')&&(map['filter']!=null)) {_filter = map['filter'];}
 if (map.containsKey('result')&&(map['result']!=null)) {_result = map['result'];}else{throw('Wrong map data');}
 }
 

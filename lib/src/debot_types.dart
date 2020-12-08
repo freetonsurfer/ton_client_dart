@@ -145,9 +145,7 @@ class RegisteredDebot extends TonSdkStructure {
   }
   RegisteredDebot.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
-      if (map['debot_handle'] != null) {
-        _debot_handle = map['debot_handle'];
-      }
+      _debot_handle = map['debot_handle'];
     } else {
       throw ('Wrong map data');
     }
@@ -288,9 +286,7 @@ class ParamsOfAppDebotBrowser_ShowAction extends ParamsOfAppDebotBrowser {
       _type = 'ShowAction';
     }
     if (map.containsKey('action') && (map['action'] != null)) {
-      if (map['action'] != null) {
-        _action = DebotAction.fromMap(map['action']);
-      }
+      _action = DebotAction.fromMap(map['action']);
     } else {
       throw ('Wrong map data');
     }
@@ -400,9 +396,7 @@ class ParamsOfAppDebotBrowser_InvokeDebot extends ParamsOfAppDebotBrowser {
       throw ('Wrong map data');
     }
     if (map.containsKey('action') && (map['action'] != null)) {
-      if (map['action'] != null) {
-        _action = DebotAction.fromMap(map['action']);
-      }
+      _action = DebotAction.fromMap(map['action']);
     } else {
       throw ('Wrong map data');
     }
@@ -497,9 +491,7 @@ class ResultOfAppDebotBrowser_GetSigningBox extends ResultOfAppDebotBrowser {
       _type = 'GetSigningBox';
     }
     if (map.containsKey('signing_box') && (map['signing_box'] != null)) {
-      if (map['signing_box'] != null) {
-        _signing_box = map['signing_box'];
-      }
+      _signing_box = map['signing_box'];
     } else {
       throw ('Wrong map data');
     }
@@ -583,16 +575,12 @@ class ParamsOfExecute extends TonSdkStructure {
   }
   ParamsOfExecute.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
-      if (map['debot_handle'] != null) {
-        _debot_handle = map['debot_handle'];
-      }
+      _debot_handle = map['debot_handle'];
     } else {
       throw ('Wrong map data');
     }
     if (map.containsKey('action') && (map['action'] != null)) {
-      if (map['action'] != null) {
-        _action = DebotAction.fromMap(map['action']);
-      }
+      _action = DebotAction.fromMap(map['action']);
     } else {
       throw ('Wrong map data');
     }
