@@ -279,11 +279,11 @@ class AbiConfig extends TonSdkStructure {
 }
 
 class BuildInfoDependency extends TonSdkStructure {
-  /// Dependency name. Usually it is a crate name.
+  ///Usually it is a crate name.
   String _name;
   String get name => _name;
 
-  /// Git commit hash of the related repository.
+  ///Git commit hash of the related repository.
   String _git_commit;
   String get git_commit => _git_commit;
   BuildInfoDependency({
@@ -320,11 +320,11 @@ class BuildInfoDependency extends TonSdkStructure {
 }
 
 class ParamsOfAppRequest extends TonSdkStructure {
-  /// Request ID. Should be used in `resolve_app_request` call
+  ///Should be used in `resolve_app_request` call
   int _app_request_id;
   int get app_request_id => _app_request_id;
 
-  /// Request describing data
+  ///Request describing data
   dynamic _request_data;
   dynamic get request_data => _request_data;
   ParamsOfAppRequest({
@@ -373,12 +373,12 @@ abstract class AppRequestResult extends TonSdkStructure {
   }
 }
 
-/// Error occured during request processing
+///Error occured during request processing
 class AppRequestResult_Error extends AppRequestResult {
   String _type;
   String get type => _type;
 
-  /// Error description
+  ///Error description
   String _text;
   String get text => _text;
   AppRequestResult_Error({
@@ -410,12 +410,12 @@ class AppRequestResult_Error extends AppRequestResult {
   }
 }
 
-/// Request processed successfully
+///Request processed successfully
 class AppRequestResult_Ok extends AppRequestResult {
   String _type;
   String get type => _type;
 
-  /// Request processing result
+  ///Request processing result
   dynamic _result;
   dynamic get result => _result;
   AppRequestResult_Ok({
@@ -473,7 +473,7 @@ class ResultOfGetApiReference extends TonSdkStructure {
 }
 
 class ResultOfVersion extends TonSdkStructure {
-  /// Core Library version
+  ///Core Library version
   String _version;
   String get version => _version;
   ResultOfVersion({
@@ -499,11 +499,11 @@ class ResultOfVersion extends TonSdkStructure {
 }
 
 class ResultOfBuildInfo extends TonSdkStructure {
-  /// Build number assigned to this build by the CI.
+  ///Build number assigned to this build by the CI.
   int _build_number;
   int get build_number => _build_number;
 
-  /// Fingerprint of the most important dependencies.
+  ///Fingerprint of the most important dependencies.
   List<BuildInfoDependency> _dependencies;
   List<BuildInfoDependency> get dependencies => _dependencies;
   ResultOfBuildInfo({
@@ -548,11 +548,11 @@ class ResultOfBuildInfo extends TonSdkStructure {
 }
 
 class ParamsOfResolveAppRequest extends TonSdkStructure {
-  /// Request ID received from SDK
+  ///Request ID received from SDK
   int _app_request_id;
   int get app_request_id => _app_request_id;
 
-  /// Result of request processing
+  ///Result of request processing
   AppRequestResult _result;
   AppRequestResult get result => _result;
   ParamsOfResolveAppRequest({

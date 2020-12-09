@@ -1,33 +1,30 @@
 part of 'tonsdktypes.dart';
 
-/// [UNSTABLE](UNSTABLE.md) Handle of registered in SDK debot
+///[UNSTABLE](UNSTABLE.md) Handle of registered in SDK debot
 //typedef DebotHandle int;
-/// [UNSTABLE](UNSTABLE.md) Describes a debot action in a Debot Context.
+///[UNSTABLE](UNSTABLE.md) Describes a debot action in a Debot Context.
 class DebotAction extends TonSdkStructure {
-  /// A short action description. Should be used by Debot Browser as name of
-  /// menu item.
+  ///Should be used by Debot Browser as name ofmenu item.
   String _description;
   String get description => _description;
 
-  /// Depends on action type. Can be a debot function name or a print string
-  /// (for Print Action).
+  ///Can be a debot function name or a print string(for Print Action).
   String _name;
   String get name => _name;
 
-  /// Action type.
+  ///Action type.
   int _action_type;
   int get action_type => _action_type;
 
-  /// ID of debot context to switch after action execution.
+  ///ID of debot context to switch after action execution.
   int _to;
   int get to => _to;
 
-  /// Action attributes. In the form of "param=value,flag".
-  /// attribute example: instant, args, fargs, sign.
+  ///In the form of "param=value,flag".attribute example: instant, args, fargs, sign.
   String _attributes;
   String get attributes => _attributes;
 
-  /// Some internal action data. Used by debot only.
+  ///Used by debot only.
   String _misc;
   String get misc => _misc;
   DebotAction({
@@ -105,9 +102,9 @@ class DebotAction extends TonSdkStructure {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Parameters to start debot.
+///[UNSTABLE](UNSTABLE.md) Parameters to start debot.
 class ParamsOfStart extends TonSdkStructure {
-  /// Debot smart contract address
+  ///Debot smart contract address
   String _address;
   String get address => _address;
   ParamsOfStart({
@@ -132,9 +129,9 @@ class ParamsOfStart extends TonSdkStructure {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Structure for storing debot handle returned from `start` and `fetch` functions.
+///[UNSTABLE](UNSTABLE.md) Structure for storing debot handle returned from `start` and `fetch` functions.
 class RegisteredDebot extends TonSdkStructure {
-  /// Debot handle which references an instance of debot engine.
+  ///Debot handle which references an instance of debot engine.
   int _debot_handle;
   int get debot_handle => _debot_handle;
   RegisteredDebot({
@@ -160,9 +157,7 @@ class RegisteredDebot extends TonSdkStructure {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Debot Browser callbacks
-///
-/// Called by debot engine to communicate with debot browser.
+///Called by debot engine to communicate with debot browser.
 abstract class ParamsOfAppDebotBrowser extends TonSdkStructure {
   static ParamsOfAppDebotBrowser fromMap(Map<String, dynamic> map) {
     if (map['type'] == 'Log') {
@@ -187,12 +182,12 @@ abstract class ParamsOfAppDebotBrowser extends TonSdkStructure {
   }
 }
 
-/// Print message to user.
+///Print message to user.
 class ParamsOfAppDebotBrowser_Log extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// A string that must be printed to user.
+  ///A string that must be printed to user.
   String _msg;
   String get msg => _msg;
   ParamsOfAppDebotBrowser_Log({
@@ -224,12 +219,12 @@ class ParamsOfAppDebotBrowser_Log extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// Switch debot to another context (menu).
+///Switch debot to another context (menu).
 class ParamsOfAppDebotBrowser_Switch extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// Debot context ID to which debot is switched.
+  ///Debot context ID to which debot is switched.
   int _context_id;
   int get context_id => _context_id;
   ParamsOfAppDebotBrowser_Switch({
@@ -262,14 +257,12 @@ class ParamsOfAppDebotBrowser_Switch extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// Show action to the user.
-/// Called after `switch` for each action in context.
+///Show action to the user. Called after `switch` for each action in context.
 class ParamsOfAppDebotBrowser_ShowAction extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// Debot action that must be shown to user as menu item.
-  /// At least `description` property must be shown from [DebotAction] structure.
+  ///Debot action that must be shown to user as menu item. At least `description` property must be shown from [DebotAction] structure.
   DebotAction _action;
   DebotAction get action => _action;
   ParamsOfAppDebotBrowser_ShowAction({
@@ -302,12 +295,12 @@ class ParamsOfAppDebotBrowser_ShowAction extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// Request user input.
+///Request user input.
 class ParamsOfAppDebotBrowser_Input extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// A prompt string that must be printed to user before input request.
+  ///A prompt string that must be printed to user before input request.
   String _prompt;
   String get prompt => _prompt;
   ParamsOfAppDebotBrowser_Input({
@@ -340,7 +333,7 @@ class ParamsOfAppDebotBrowser_Input extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// Get signing box to sign data. Signing box returned is owned and disposed by debot engine
+///Signing box returned is owned and disposed by debot engine
 class ParamsOfAppDebotBrowser_GetSigningBox extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
@@ -362,16 +355,16 @@ class ParamsOfAppDebotBrowser_GetSigningBox extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// Execute action of another debot.
+///Execute action of another debot.
 class ParamsOfAppDebotBrowser_InvokeDebot extends ParamsOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// Address of debot in blockchain.
+  ///Address of debot in blockchain.
   String _debot_addr;
   String get debot_addr => _debot_addr;
 
-  /// Debot action to execute.
+  ///Debot action to execute.
   DebotAction _action;
   DebotAction get action => _action;
   ParamsOfAppDebotBrowser_InvokeDebot({
@@ -415,7 +408,7 @@ class ParamsOfAppDebotBrowser_InvokeDebot extends ParamsOfAppDebotBrowser {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Returning values from Debot Browser callbacks.
+///[UNSTABLE](UNSTABLE.md) Returning values from Debot Browser callbacks.
 abstract class ResultOfAppDebotBrowser extends TonSdkStructure {
   static ResultOfAppDebotBrowser fromMap(Map<String, dynamic> map) {
     if (map['type'] == 'Input') {
@@ -431,12 +424,12 @@ abstract class ResultOfAppDebotBrowser extends TonSdkStructure {
   }
 }
 
-/// Result of user input.
+///Result of user input.
 class ResultOfAppDebotBrowser_Input extends ResultOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// String entered by user.
+  ///String entered by user.
   String _value;
   String get value => _value;
   ResultOfAppDebotBrowser_Input({
@@ -469,12 +462,12 @@ class ResultOfAppDebotBrowser_Input extends ResultOfAppDebotBrowser {
   }
 }
 
-/// Result of getting signing box.
+///Result of getting signing box.
 class ResultOfAppDebotBrowser_GetSigningBox extends ResultOfAppDebotBrowser {
   String _type;
   String get type => _type;
 
-  /// Signing box for signing data requested by debot engine. Signing box is owned and disposed by debot engine
+  ///Signing box is owned and disposed by debot engine
   int _signing_box;
   int get signing_box => _signing_box;
   ResultOfAppDebotBrowser_GetSigningBox({
@@ -507,7 +500,7 @@ class ResultOfAppDebotBrowser_GetSigningBox extends ResultOfAppDebotBrowser {
   }
 }
 
-/// Result of debot invoking.
+///Result of debot invoking.
 class ResultOfAppDebotBrowser_InvokeDebot extends ResultOfAppDebotBrowser {
   String _type;
   String get type => _type;
@@ -529,9 +522,9 @@ class ResultOfAppDebotBrowser_InvokeDebot extends ResultOfAppDebotBrowser {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Parameters to fetch debot.
+///[UNSTABLE](UNSTABLE.md) Parameters to fetch debot.
 class ParamsOfFetch extends TonSdkStructure {
-  /// Debot smart contract address
+  ///Debot smart contract address
   String _address;
   String get address => _address;
   ParamsOfFetch({
@@ -556,13 +549,13 @@ class ParamsOfFetch extends TonSdkStructure {
   }
 }
 
-/// [UNSTABLE](UNSTABLE.md) Parameters for executing debot action.
+///[UNSTABLE](UNSTABLE.md) Parameters for executing debot action.
 class ParamsOfExecute extends TonSdkStructure {
-  /// Debot handle which references an instance of debot engine.
+  ///Debot handle which references an instance of debot engine.
   int _debot_handle;
   int get debot_handle => _debot_handle;
 
-  /// Debot Action that must be executed.
+  ///Debot Action that must be executed.
   DebotAction _action;
   DebotAction get action => _action;
   ParamsOfExecute({

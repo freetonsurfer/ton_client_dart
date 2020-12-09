@@ -13,7 +13,7 @@ class TvmModule extends _TonSdkModule {
     return ResultOfRunTvm.fromMap(res);
   }
 
-  /// Executes getmethod and returns data from TVM stack
+  ///Executes getmethod and returns data from TVM stack
   Future<ResultOfRunGet> run_get(ParamsOfRunGet params) async {
     final res = await _tonCore.request('tvm.run_get', params.toString());
     return ResultOfRunGet.fromMap(res);
