@@ -1,19 +1,19 @@
 part of 'tonsdktypes.dart';
 
 class ExecutionOptions extends TonSdkStructure {
-  /// boc with config
+  ///boc with config
   String _blockchain_config;
   String get blockchain_config => _blockchain_config;
 
-  /// time that is used as transaction time
+  ///time that is used as transaction time
   int _block_time;
   int get block_time => _block_time;
 
-  /// block logical time
+  ///block logical time
   BigInt _block_lt;
   BigInt get block_lt => _block_lt;
 
-  /// transaction logical time
+  ///transaction logical time
   BigInt _transaction_lt;
   BigInt get transaction_lt => _transaction_lt;
   ExecutionOptions({
@@ -28,16 +28,17 @@ class ExecutionOptions extends TonSdkStructure {
     _transaction_lt = transaction_lt;
   }
   ExecutionOptions.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('blockchain_config')) {
+    if (map.containsKey('blockchain_config') &&
+        (map['blockchain_config'] != null)) {
       _blockchain_config = map['blockchain_config'];
     }
-    if (map.containsKey('block_time')) {
+    if (map.containsKey('block_time') && (map['block_time'] != null)) {
       _block_time = map['block_time'];
     }
-    if (map.containsKey('block_lt')) {
+    if (map.containsKey('block_lt') && (map['block_lt'] != null)) {
       _block_lt = BigInt.from(map['block_lt']);
     }
-    if (map.containsKey('transaction_lt')) {
+    if (map.containsKey('transaction_lt') && (map['transaction_lt'] != null)) {
       _transaction_lt = BigInt.from(map['transaction_lt']);
     }
   }
@@ -75,9 +76,7 @@ abstract class AccountForExecutor extends TonSdkStructure {
   }
 }
 
-/// Non-existing account to run a creation internal message.
-/// Should be used with `skip_transaction_check = true` if the message has no deploy data
-/// since transactions on the uninitialized account are always aborted
+///Non-existing account to run a creation internal message. Should be used with `skip_transaction_check = true` if the message has no deploy data since transactions on the uninitialized account are always aborted
 class AccountForExecutor_None extends AccountForExecutor {
   String _type;
   String get type => _type;
@@ -99,7 +98,7 @@ class AccountForExecutor_None extends AccountForExecutor {
   }
 }
 
-/// Emulate uninitialized account to run deploy message
+///Emulate uninitialized account to run deploy message
 class AccountForExecutor_Uninit extends AccountForExecutor {
   String _type;
   String get type => _type;
@@ -121,17 +120,16 @@ class AccountForExecutor_Uninit extends AccountForExecutor {
   }
 }
 
-/// Account state to run message
+///Account state to run message
 class AccountForExecutor_Account extends AccountForExecutor {
   String _type;
   String get type => _type;
 
-  /// Account BOC. Encoded as base64.
+  ///Encoded as base64.
   String _boc;
   String get boc => _boc;
 
-  /// Flag for running account with the unlimited balance. Can be used to calculate
-  /// transaction fees without balance check
+  ///Can be used to calculatetransaction fees without balance check
   bool _unlimited_balance;
   bool get unlimited_balance => _unlimited_balance;
   AccountForExecutor_Account({
@@ -153,7 +151,8 @@ class AccountForExecutor_Account extends AccountForExecutor {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('unlimited_balance')) {
+    if (map.containsKey('unlimited_balance') &&
+        (map['unlimited_balance'] != null)) {
       _unlimited_balance = map['unlimited_balance'];
     }
   }
@@ -264,23 +263,23 @@ class TransactionFees extends TonSdkStructure {
 }
 
 class ParamsOfRunExecutor extends TonSdkStructure {
-  /// Input message BOC. Must be encoded as base64.
+  ///Must be encoded as base64.
   String _message;
   String get message => _message;
 
-  /// Account to run on executor
+  ///Account to run on executor
   AccountForExecutor _account;
   AccountForExecutor get account => _account;
 
-  /// Execution options.
+  ///Execution options.
   ExecutionOptions _execution_options;
   ExecutionOptions get execution_options => _execution_options;
 
-  /// Contract ABI for decoding output messages
+  ///Contract ABI for decoding output messages
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Skip transaction check flag
+  ///Skip transaction check flag
   bool _skip_transaction_check;
   bool get skip_transaction_check => _skip_transaction_check;
   ParamsOfRunExecutor({
@@ -309,17 +308,15 @@ class ParamsOfRunExecutor extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('execution_options')) {
-      if (map['execution_options'] != null) {
-        _execution_options = ExecutionOptions.fromMap(map['execution_options']);
-      }
+    if (map.containsKey('execution_options') &&
+        (map['execution_options'] != null)) {
+      _execution_options = ExecutionOptions.fromMap(map['execution_options']);
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
-    if (map.containsKey('skip_transaction_check')) {
+    if (map.containsKey('skip_transaction_check') &&
+        (map['skip_transaction_check'] != null)) {
       _skip_transaction_check = map['skip_transaction_check'];
     }
   }
@@ -346,28 +343,25 @@ class ParamsOfRunExecutor extends TonSdkStructure {
 }
 
 class ResultOfRunExecutor extends TonSdkStructure {
-  /// Parsed transaction.
-  ///
-  /// In addition to the regular transaction fields there is a
-  /// `boc` field encoded with `base64` which contains source
-  /// transaction BOC.
+  ///In addition to the regular transaction fields there is a
+  ///`boc` field encoded with `base64` which contains source
+  ///transaction BOC.
   dynamic _transaction;
   dynamic get transaction => _transaction;
 
-  /// List of output messages' BOCs. Encoded as `base64`
+  ///Encoded as `base64`
   List<String> _out_messages;
   List<String> get out_messages => _out_messages;
 
-  /// Optional decoded message bodies according to the optional
-  /// `abi` parameter.
+  ///Optional decoded message bodies according to the optional `abi` parameter.
   DecodedOutput _decoded;
   DecodedOutput get decoded => _decoded;
 
-  /// Updated account state BOC. Encoded as `base64`
+  ///Encoded as `base64`
   String _account;
   String get account => _account;
 
-  /// Transaction fees
+  ///Transaction fees
   TransactionFees _fees;
   TransactionFees get fees => _fees;
   ResultOfRunExecutor({
@@ -395,15 +389,17 @@ class ResultOfRunExecutor extends TonSdkStructure {
     if (map.containsKey('out_messages') && (map['out_messages'] != null)) {
       _out_messages = [];
       for (var el in map['out_messages']) {
-        _out_messages.add(el);
+        if (el != null) {
+          _out_messages.add(el);
+        } else {
+          _out_messages.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('decoded')) {
-      if (map['decoded'] != null) {
-        _decoded = DecodedOutput.fromMap(map['decoded']);
-      }
+    if (map.containsKey('decoded') && (map['decoded'] != null)) {
+      _decoded = DecodedOutput.fromMap(map['decoded']);
     }
     if (map.containsKey('account') && (map['account'] != null)) {
       _account = map['account'];
@@ -439,19 +435,19 @@ class ResultOfRunExecutor extends TonSdkStructure {
 }
 
 class ParamsOfRunTvm extends TonSdkStructure {
-  /// Input message BOC. Must be encoded as base64.
+  ///Must be encoded as base64.
   String _message;
   String get message => _message;
 
-  /// Account BOC. Must be encoded as base64.
+  ///Must be encoded as base64.
   String _account;
   String get account => _account;
 
-  /// Execution options.
+  ///Execution options.
   ExecutionOptions _execution_options;
   ExecutionOptions get execution_options => _execution_options;
 
-  /// Contract ABI for dedcoding output messages
+  ///Contract ABI for dedcoding output messages
   Abi _abi;
   Abi get abi => _abi;
   ParamsOfRunTvm({
@@ -476,15 +472,12 @@ class ParamsOfRunTvm extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('execution_options')) {
-      if (map['execution_options'] != null) {
-        _execution_options = ExecutionOptions.fromMap(map['execution_options']);
-      }
+    if (map.containsKey('execution_options') &&
+        (map['execution_options'] != null)) {
+      _execution_options = ExecutionOptions.fromMap(map['execution_options']);
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
   }
 
@@ -507,17 +500,15 @@ class ParamsOfRunTvm extends TonSdkStructure {
 }
 
 class ResultOfRunTvm extends TonSdkStructure {
-  /// List of output messages' BOCs. Encoded as `base64`
+  ///Encoded as `base64`
   List<String> _out_messages;
   List<String> get out_messages => _out_messages;
 
-  /// Optional decoded message bodies according to the optional
-  /// `abi` parameter.
+  ///Optional decoded message bodies according to the optional `abi` parameter.
   DecodedOutput _decoded;
   DecodedOutput get decoded => _decoded;
 
-  /// Updated account state BOC. Encoded as `base64`.
-  /// Attention! Only data in account state is updated.
+  ///Encoded as `base64`.Attention! Only data in account state is updated.
   String _account;
   String get account => _account;
   ResultOfRunTvm({
@@ -534,15 +525,17 @@ class ResultOfRunTvm extends TonSdkStructure {
     if (map.containsKey('out_messages') && (map['out_messages'] != null)) {
       _out_messages = [];
       for (var el in map['out_messages']) {
-        _out_messages.add(el);
+        if (el != null) {
+          _out_messages.add(el);
+        } else {
+          _out_messages.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('decoded')) {
-      if (map['decoded'] != null) {
-        _decoded = DecodedOutput.fromMap(map['decoded']);
-      }
+    if (map.containsKey('decoded') && (map['decoded'] != null)) {
+      _decoded = DecodedOutput.fromMap(map['decoded']);
     }
     if (map.containsKey('account') && (map['account'] != null)) {
       _account = map['account'];
@@ -567,15 +560,15 @@ class ResultOfRunTvm extends TonSdkStructure {
 }
 
 class ParamsOfRunGet extends TonSdkStructure {
-  /// Account BOC in `base64`
+  ///Account BOC in `base64`
   String _account;
   String get account => _account;
 
-  /// Function name
+  ///Function name
   String _function_name;
   String get function_name => _function_name;
 
-  /// Input parameters
+  ///Input parameters
   dynamic _input;
   dynamic get input => _input;
   ExecutionOptions _execution_options;
@@ -603,13 +596,12 @@ class ParamsOfRunGet extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('input')) {
+    if (map.containsKey('input') && (map['input'] != null)) {
       _input = map['input'];
     }
-    if (map.containsKey('execution_options')) {
-      if (map['execution_options'] != null) {
-        _execution_options = ExecutionOptions.fromMap(map['execution_options']);
-      }
+    if (map.containsKey('execution_options') &&
+        (map['execution_options'] != null)) {
+      _execution_options = ExecutionOptions.fromMap(map['execution_options']);
     }
   }
 
@@ -632,7 +624,7 @@ class ParamsOfRunGet extends TonSdkStructure {
 }
 
 class ResultOfRunGet extends TonSdkStructure {
-  /// Values returned by getmethod on stack
+  ///Values returned by getmethod on stack
   dynamic _output;
   dynamic get output => _output;
   ResultOfRunGet({

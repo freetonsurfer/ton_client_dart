@@ -9,6 +9,7 @@ part 'utils_types.dart';
 part 'processing_types.dart';
 part 'tvm_types.dart';
 part 'net_types.dart';
+part 'debot_types.dart';
 
 abstract class TonSdkStructure {
   Map<String, dynamic> toMap();

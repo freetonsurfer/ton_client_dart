@@ -113,19 +113,10 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 - iOS support will be implemented in Q2 2021 or on user demand.
 - Web support will be implemented in Q4 2021 or on user demand.
 
-### Compile for unavailable platform
- Compiling for Windows or Mac shouldn't be difficult. You need to take the following steps:
-1. Get the [TON SDK](https://github.com/tonlabs/TON-SDK/) library for the required platform .
-2. Compile [wrapper.cpp](lib/src/tonsdklib) file into a dynamic link library for the given platform.
-3. Add load processing for the given platform to the `connect` function in [core.dart](lib/src/core.dart) file.
-4. Done!
-If you have any question, feel free to ask!
-
 ## TODO
-- Build single file sdk library
+- Move to SDK 1.2.0
 - Windows support
 - iMac support
-- Refactor code generator and release it opensource
 - improve tests
 - change request id generation
 - improve help documents and comments
@@ -137,6 +128,4 @@ If you have any question, feel free to ask!
   - query module
   - contract auto deploy and runing module
   - connect functoin with object from map param
-  - version as TON SDK lib
-  
   

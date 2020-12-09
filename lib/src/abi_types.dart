@@ -155,27 +155,21 @@ class Abi_Serialized extends Abi {
 }
 
 //typedef AbiHandle int;
-/// The ABI function header.
+///Includes several hidden function parameters that contract
+///uses for security, message delivery monitoring and replay protection reasons.
 ///
-/// Includes several hidden function parameters that contract
-/// uses for security, message delivery monitoring and replay protection reasons.
-///
-/// The actual set of header fields depends on the contract's ABI.
-/// If a contract's ABI does not include some headers, then they are not filled.
+///The actual set of header fields depends on the contract's ABI.
+///If a contract's ABI does not include some headers, then they are not filled.
 class FunctionHeader extends TonSdkStructure {
-  /// Message expiration time in seconds.
-  /// If not specified - calculated automatically from message_expiration_timeout(),
-  /// try_index and message_expiration_timeout_grow_factor() (if ABI includes `expire` header).
+  ///Message expiration time in seconds. If not specified - calculated automatically from message_expiration_timeout(), try_index and message_expiration_timeout_grow_factor() (if ABI includes `expire` header).
   int _expire;
   int get expire => _expire;
 
-  /// Message creation time in milliseconds. If not specified, `now` is used
-  /// (if ABI includes `time` header).
+  ///If not specified, `now` is used(if ABI includes `time` header).
   BigInt _time;
   BigInt get time => _time;
 
-  /// Public key is used by the contract to check the signature. Encoded in `hex`.
-  /// If not specified, method fails with exception (if ABI includes `pubkey` header)..
+  ///Encoded in `hex`.If not specified, method fails with exception (if ABI includes `pubkey` header)..
   String _pubkey;
   String get pubkey => _pubkey;
   FunctionHeader({
@@ -188,13 +182,13 @@ class FunctionHeader extends TonSdkStructure {
     _pubkey = pubkey;
   }
   FunctionHeader.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('expire')) {
+    if (map.containsKey('expire') && (map['expire'] != null)) {
       _expire = map['expire'];
     }
-    if (map.containsKey('time')) {
+    if (map.containsKey('time') && (map['time'] != null)) {
       _time = BigInt.from(map['time']);
     }
-    if (map.containsKey('pubkey')) {
+    if (map.containsKey('pubkey') && (map['pubkey'] != null)) {
       _pubkey = map['pubkey'];
     }
   }
@@ -215,19 +209,17 @@ class FunctionHeader extends TonSdkStructure {
 }
 
 class CallSet extends TonSdkStructure {
-  /// Function name that is being called.
+  ///Function name that is being called.
   String _function_name;
   String get function_name => _function_name;
 
-  /// Function header.
-  ///
-  /// If an application omits some header parameters required by the
-  /// contract's ABI, the library will set the default values for
-  /// them.
+  ///If an application omits some header parameters required by the
+  ///contract's ABI, the library will set the default values for
+  ///them.
   FunctionHeader _header;
   FunctionHeader get header => _header;
 
-  /// Function input parameters according to ABI.
+  ///Function input parameters according to ABI.
   dynamic _input;
   dynamic get input => _input;
   CallSet({
@@ -246,12 +238,10 @@ class CallSet extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('header')) {
-      if (map['header'] != null) {
-        _header = FunctionHeader.fromMap(map['header']);
-      }
+    if (map.containsKey('header') && (map['header'] != null)) {
+      _header = FunctionHeader.fromMap(map['header']);
     }
-    if (map.containsKey('input')) {
+    if (map.containsKey('input') && (map['input'] != null)) {
       _input = map['input'];
     }
   }
@@ -272,15 +262,15 @@ class CallSet extends TonSdkStructure {
 }
 
 class DeploySet extends TonSdkStructure {
-  /// Content of TVC file encoded in `base64`.
+  ///Content of TVC file encoded in `base64`.
   String _tvc;
   String get tvc => _tvc;
 
-  /// Target workchain for destination address. Default is `0`.
+  ///Default is `0`.
   int _workchain_id;
   int get workchain_id => _workchain_id;
 
-  /// List of initial values for contract's public variables.
+  ///List of initial values for contract's public variables.
   dynamic _initial_data;
   dynamic get initial_data => _initial_data;
   DeploySet({
@@ -298,10 +288,10 @@ class DeploySet extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('workchain_id')) {
+    if (map.containsKey('workchain_id') && (map['workchain_id'] != null)) {
       _workchain_id = map['workchain_id'];
     }
-    if (map.containsKey('initial_data')) {
+    if (map.containsKey('initial_data') && (map['initial_data'] != null)) {
       _initial_data = map['initial_data'];
     }
   }
@@ -339,7 +329,7 @@ abstract class Signer extends TonSdkStructure {
   }
 }
 
-/// No keys are provided. Creates an unsigned message.
+///Creates an unsigned message.
 class Signer_None extends Signer {
   String _type;
   String get type => _type;
@@ -361,8 +351,7 @@ class Signer_None extends Signer {
   }
 }
 
-/// Only public key is provided in unprefixed hex string format to generate unsigned message
-/// and `data_to_sign` which can be signed later.
+///Only public key is provided in unprefixed hex string format to generate unsigned message and `data_to_sign` which can be signed later.
 class Signer_External extends Signer {
   String _type;
   String get type => _type;
@@ -398,7 +387,7 @@ class Signer_External extends Signer {
   }
 }
 
-/// Key pair is provided for signing
+///Key pair is provided for signing
 class Signer_Keys extends Signer {
   String _type;
   String get type => _type;
@@ -433,8 +422,7 @@ class Signer_Keys extends Signer {
   }
 }
 
-/// Signing Box interface is provided for signing, allows Dapps to sign messages using external APIs,
-/// such as HSM, cold wallet, etc.
+///Signing Box interface is provided for signing, allows Dapps to sign messages using external APIs, such as HSM, cold wallet, etc.
 class Signer_SigningBox extends Signer {
   String _type;
   String get type => _type;
@@ -473,25 +461,23 @@ class MessageBodyType {
   String _value;
   String get value => _value;
 
-  /// Message contains the input of the ABI function.
+  ///Message contains the input of the ABI function.
   MessageBodyType.Input() {
     _value = 'Input';
   }
 
-  /// Message contains the output of the ABI function.
+  ///Message contains the output of the ABI function.
   MessageBodyType.Output() {
     _value = 'Output';
   }
 
-  /// Message contains the input of the imported ABI function.
-  ///
-  /// Occurs when contract sends an internal message to other
-  /// contract.
+  ///Occurs when contract sends an internal message to other
+  ///contract.
   MessageBodyType.InternalOutput() {
     _value = 'InternalOutput';
   }
 
-  /// Message contains the input of the ABI event.
+  ///Message contains the input of the ABI event.
   MessageBodyType.Event() {
     _value = 'Event';
   }
@@ -520,7 +506,7 @@ abstract class StateInitSource extends TonSdkStructure {
   }
 }
 
-/// Deploy message.
+///Deploy message.
 class StateInitSource_Message extends StateInitSource {
   String _type;
   String get type => _type;
@@ -556,20 +542,20 @@ class StateInitSource_Message extends StateInitSource {
   }
 }
 
-/// State init data.
+///State init data.
 class StateInitSource_StateInit extends StateInitSource {
   String _type;
   String get type => _type;
 
-  /// Code BOC. Encoded in `base64`.
+  ///Encoded in `base64`.
   String _code;
   String get code => _code;
 
-  /// Data BOC. Encoded in `base64`.
+  ///Encoded in `base64`.
   String _data;
   String get data => _data;
 
-  /// Library BOC. Encoded in `base64`.
+  ///Encoded in `base64`.
   String _library;
   String get library => _library;
   StateInitSource_StateInit({
@@ -598,7 +584,7 @@ class StateInitSource_StateInit extends StateInitSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('library')) {
+    if (map.containsKey('library') && (map['library'] != null)) {
       _library = map['library'];
     }
   }
@@ -619,7 +605,7 @@ class StateInitSource_StateInit extends StateInitSource {
   }
 }
 
-/// Content of the TVC file. Encoded in `base64`.
+///Encoded in `base64`.
 class StateInitSource_Tvc extends StateInitSource {
   String _type;
   String get type => _type;
@@ -650,13 +636,11 @@ class StateInitSource_Tvc extends StateInitSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('public_key')) {
+    if (map.containsKey('public_key') && (map['public_key'] != null)) {
       _public_key = map['public_key'];
     }
-    if (map.containsKey('init_params')) {
-      if (map['init_params'] != null) {
-        _init_params = StateInitParams.fromMap(map['init_params']);
-      }
+    if (map.containsKey('init_params') && (map['init_params'] != null)) {
+      _init_params = StateInitParams.fromMap(map['init_params']);
     }
   }
 
@@ -752,10 +736,8 @@ class MessageSource_Encoded extends MessageSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
   }
 
@@ -773,39 +755,35 @@ class MessageSource_Encoded extends MessageSource {
 }
 
 class MessageSource_EncodingParams extends MessageSource {
-  String _type;
+  String _type = 'EncodingParams';
   String get type => _type;
 
-  /// Contract ABI.
+  ///Contract ABI.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Function call parameters.
+  ///Must be specified in non deploy message.
   ///
-  /// Must be specified in non deploy message.
-  ///
-  /// In case of deploy message contains parameters of constructor.
+  ///In case of deploy message contains parameters of constructor.
   CallSet _call_set;
   CallSet get call_set => _call_set;
 
-  /// True if internal message body must be encoded.
+  ///True if internal message body must be encoded.
   bool _is_internal;
   bool get is_internal => _is_internal;
 
-  /// Signing parameters.
+  ///Signing parameters.
   Signer _signer;
   Signer get signer => _signer;
 
-  /// Processing try index.
+  ///Used in message processing with retries.
   ///
-  /// Used in message processing with retries.
+  ///Encoder uses the provided try index to calculate message
+  ///expiration time.
   ///
-  /// Encoder uses the provided try index to calculate message
-  /// expiration time.
+  ///Expiration timeouts will grow with every retry.
   ///
-  /// Expiration timeouts will grow with every retry.
-  ///
-  /// Default value is 0.
+  ///Default value is 0.
   int _processing_try_index;
   int get processing_try_index => _processing_try_index;
   MessageSource_EncodingParams({
@@ -816,23 +794,24 @@ class MessageSource_EncodingParams extends MessageSource {
     int processing_try_index,
   }) {
     _type = 'EncodingParams';
-    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfEncodeMessageBody abi');
+    _abi = ArgumentError.checkNotNull(abi, 'MessageSource_EncodingParams abi');
     _call_set = ArgumentError.checkNotNull(
-        call_set, 'ParamsOfEncodeMessageBody call_set');
+        call_set, 'MessageSource_EncodingParams call_set');
     _is_internal = ArgumentError.checkNotNull(
-        is_internal, 'ParamsOfEncodeMessageBody is_internal');
-    _signer =
-        ArgumentError.checkNotNull(signer, 'ParamsOfEncodeMessageBody signer');
+        is_internal, 'MessageSource_EncodingParams is_internal');
+    _signer = ArgumentError.checkNotNull(
+        signer, 'MessageSource_EncodingParams signer');
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('abi') && (map['abi'] != null)) {
-      _abi = Abi.fromMap(map['abi']);
+    if (map.containsKey('type') && (map['type'] == 'EncodingParams')) {
+      _type = 'EncodingParams';
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('type') && (map['type'] == 'EncodingParams')) {
-      _type = 'EncodingParams';
+
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
@@ -851,14 +830,15 @@ class MessageSource_EncodingParams extends MessageSource {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = _type;
+    map['type'] = 'EncodingParams';
     if (_abi != null) {
       map['abi'] = _abi;
     }
@@ -905,10 +885,14 @@ class AbiParam extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('components')) {
+    if (map.containsKey('components') && (map['components'] != null)) {
       _components = [];
       for (var el in map['components']) {
-        _components.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _components.add(AbiParam.fromMap(el));
+        } else {
+          _components.add(null);
+        }
       }
     }
   }
@@ -933,12 +917,12 @@ class AbiEvent extends TonSdkStructure {
   String get name => _name;
   List<AbiParam> _inputs;
   List<AbiParam> get inputs => _inputs;
-  int _id;
-  int get id => _id;
+  String _id;
+  String get id => _id;
   AbiEvent({
     @required String name,
     @required List<AbiParam> inputs,
-    int id,
+    String id,
   }) {
     _name = ArgumentError.checkNotNull(name, 'AbiEvent name');
     _inputs = ArgumentError.checkNotNull(inputs, 'AbiEvent inputs');
@@ -953,12 +937,16 @@ class AbiEvent extends TonSdkStructure {
     if (map.containsKey('inputs') && (map['inputs'] != null)) {
       _inputs = [];
       for (var el in map['inputs']) {
-        _inputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _inputs.add(AbiParam.fromMap(el));
+        } else {
+          _inputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('id')) {
+    if (map.containsKey('id') && (map['id'] != null)) {
       _id = map['id'];
     }
   }
@@ -1014,10 +1002,14 @@ class AbiData extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('components')) {
+    if (map.containsKey('components') && (map['components'] != null)) {
       _components = [];
       for (var el in map['components']) {
-        _components.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _components.add(AbiParam.fromMap(el));
+        } else {
+          _components.add(null);
+        }
       }
     }
   }
@@ -1047,13 +1039,13 @@ class AbiFunction extends TonSdkStructure {
   List<AbiParam> get inputs => _inputs;
   List<AbiParam> _outputs;
   List<AbiParam> get outputs => _outputs;
-  int _id;
-  int get id => _id;
+  String _id;
+  String get id => _id;
   AbiFunction({
     @required String name,
     @required List<AbiParam> inputs,
     @required List<AbiParam> outputs,
-    int id,
+    String id,
   }) {
     _name = ArgumentError.checkNotNull(name, 'AbiFunction name');
     _inputs = ArgumentError.checkNotNull(inputs, 'AbiFunction inputs');
@@ -1069,7 +1061,11 @@ class AbiFunction extends TonSdkStructure {
     if (map.containsKey('inputs') && (map['inputs'] != null)) {
       _inputs = [];
       for (var el in map['inputs']) {
-        _inputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _inputs.add(AbiParam.fromMap(el));
+        } else {
+          _inputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
@@ -1077,12 +1073,16 @@ class AbiFunction extends TonSdkStructure {
     if (map.containsKey('outputs') && (map['outputs'] != null)) {
       _outputs = [];
       for (var el in map['outputs']) {
-        _outputs.add(AbiParam.fromMap(el));
+        if (el != null) {
+          _outputs.add(AbiParam.fromMap(el));
+        } else {
+          _outputs.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('id')) {
+    if (map.containsKey('id') && (map['id'] != null)) {
       _id = map['id'];
     }
   }
@@ -1134,34 +1134,50 @@ class AbiContract extends TonSdkStructure {
     _data = data;
   }
   AbiContract.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('ABI version')) {
+    if (map.containsKey('ABI version') && (map['ABI version'] != null)) {
       _abi_version_spaced = map['ABI version'];
     }
-    if (map.containsKey('abi_version')) {
+    if (map.containsKey('abi_version') && (map['abi_version'] != null)) {
       _abi_version = map['abi_version'];
     }
-    if (map.containsKey('header')) {
+    if (map.containsKey('header') && (map['header'] != null)) {
       _header = [];
       for (var el in map['header']) {
-        _header.add(el);
+        if (el != null) {
+          _header.add(el);
+        } else {
+          _header.add(null);
+        }
       }
     }
-    if (map.containsKey('functions')) {
+    if (map.containsKey('functions') && (map['functions'] != null)) {
       _functions = [];
       for (var el in map['functions']) {
-        _functions.add(AbiFunction.fromMap(el));
+        if (el != null) {
+          _functions.add(AbiFunction.fromMap(el));
+        } else {
+          _functions.add(null);
+        }
       }
     }
-    if (map.containsKey('events')) {
+    if (map.containsKey('events') && (map['events'] != null)) {
       _events = [];
       for (var el in map['events']) {
-        _events.add(AbiEvent.fromMap(el));
+        if (el != null) {
+          _events.add(AbiEvent.fromMap(el));
+        } else {
+          _events.add(null);
+        }
       }
     }
-    if (map.containsKey('data')) {
+    if (map.containsKey('data') && (map['data'] != null)) {
       _data = [];
       for (var el in map['data']) {
-        _data.add(AbiData.fromMap(el));
+        if (el != null) {
+          _data.add(AbiData.fromMap(el));
+        } else {
+          _data.add(null);
+        }
       }
     }
   }
@@ -1191,36 +1207,32 @@ class AbiContract extends TonSdkStructure {
 }
 
 class ParamsOfEncodeMessageBody extends TonSdkStructure {
-  /// Contract ABI.
+  ///Contract ABI.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Function call parameters.
+  ///Must be specified in non deploy message.
   ///
-  /// Must be specified in non deploy message.
-  ///
-  /// In case of deploy message contains parameters of constructor.
+  ///In case of deploy message contains parameters of constructor.
   CallSet _call_set;
   CallSet get call_set => _call_set;
 
-  /// True if internal message body must be encoded.
+  ///True if internal message body must be encoded.
   bool _is_internal;
   bool get is_internal => _is_internal;
 
-  /// Signing parameters.
+  ///Signing parameters.
   Signer _signer;
   Signer get signer => _signer;
 
-  /// Processing try index.
+  ///Used in message processing with retries.
   ///
-  /// Used in message processing with retries.
+  ///Encoder uses the provided try index to calculate message
+  ///expiration time.
   ///
-  /// Encoder uses the provided try index to calculate message
-  /// expiration time.
+  ///Expiration timeouts will grow with every retry.
   ///
-  /// Expiration timeouts will grow with every retry.
-  ///
-  /// Default value is 0.
+  ///Default value is 0.
   int _processing_try_index;
   int get processing_try_index => _processing_try_index;
   ParamsOfEncodeMessageBody({
@@ -1260,7 +1272,8 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
@@ -1287,15 +1300,14 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
 }
 
 class ResultOfEncodeMessageBody extends TonSdkStructure {
-  /// Message body BOC encoded with `base64`.
+  ///Message body BOC encoded with `base64`.
   String _body;
   String get body => _body;
 
-  /// Optional data to sign. Encoded with `base64`.
-  ///
-  /// Presents when `message` is unsigned. Can be used for external
-  /// message signing. Is this case you need to sing this data and
-  /// produce signed message using `abi.attach_signature`.
+  ///Encoded with `base64`.
+  ///Presents when `message` is unsigned. Can be used for external
+  ///message signing. Is this case you need to sing this data and
+  ///produce signed message using `abi.attach_signature`.
   String _data_to_sign;
   String get data_to_sign => _data_to_sign;
   ResultOfEncodeMessageBody({
@@ -1311,7 +1323,7 @@ class ResultOfEncodeMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('data_to_sign')) {
+    if (map.containsKey('data_to_sign') && (map['data_to_sign'] != null)) {
       _data_to_sign = map['data_to_sign'];
     }
   }
@@ -1329,19 +1341,19 @@ class ResultOfEncodeMessageBody extends TonSdkStructure {
 }
 
 class ParamsOfAttachSignatureToMessageBody extends TonSdkStructure {
-  /// Contract ABI
+  ///Contract ABI
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Public key. Must be encoded with `hex`.
+  ///Must be encoded with `hex`.
   String _public_key;
   String get public_key => _public_key;
 
-  /// Unsigned message BOC. Must be encoded with `base64`.
+  ///Must be encoded with `base64`.
   String _message;
   String get message => _message;
 
-  /// Signature. Must be encoded with `hex`.
+  ///Must be encoded with `hex`.
   String _signature;
   String get signature => _signature;
   ParamsOfAttachSignatureToMessageBody({
@@ -1427,48 +1439,40 @@ class ResultOfAttachSignatureToMessageBody extends TonSdkStructure {
 }
 
 class ParamsOfEncodeMessage extends TonSdkStructure {
-  /// Contract ABI.
+  ///Contract ABI.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Target address the message will be sent to.
-  ///
-  /// Must be specified in case of non-deploy message.
+  ///Must be specified in case of non-deploy message.
   String _address;
   String get address => _address;
 
-  /// Deploy parameters.
-  ///
-  /// Must be specified in case of deploy message.
+  ///Must be specified in case of deploy message.
   DeploySet _deploy_set;
   DeploySet get deploy_set => _deploy_set;
 
-  /// Function call parameters.
+  ///Must be specified in case of non-deploy message.
   ///
-  /// Must be specified in case of non-deploy message.
-  ///
-  /// In case of deploy message it is optional and contains parameters
-  /// of the functions that will to be called upon deploy transaction.
+  ///In case of deploy message it is optional and contains parameters
+  ///of the functions that will to be called upon deploy transaction.
   CallSet _call_set;
   CallSet get call_set => _call_set;
 
-  /// Signing parameters.
+  ///Signing parameters.
   Signer _signer;
   Signer get signer => _signer;
 
-  /// Processing try index.
+  ///Used in message processing with retries (if contract's ABI includes "expire" header).
   ///
-  /// Used in message processing with retries (if contract's ABI includes "expire" header).
+  ///Encoder uses the provided try index to calculate message
+  ///expiration time. The 1st message expiration time is specified in
+  ///Client config.
   ///
-  /// Encoder uses the provided try index to calculate message
-  /// expiration time. The 1st message expiration time is specified in
-  /// Client config.
+  ///Expiration timeouts will grow with every retry.
+  ///Retry grow factor is set in Client config:
+  ///<.....add config parameter with default value here>
   ///
-  /// Expiration timeouts will grow with every retry.
-  /// Retry grow factor is set in Client config:
-  /// <.....add config parameter with default value here>
-  ///
-  /// Default value is 0.
+  ///Default value is 0.
   int _processing_try_index;
   int get processing_try_index => _processing_try_index;
   ParamsOfEncodeMessage({
@@ -1493,25 +1497,22 @@ class ParamsOfEncodeMessage extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('address')) {
+    if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
     }
-    if (map.containsKey('deploy_set')) {
-      if (map['deploy_set'] != null) {
-        _deploy_set = DeploySet.fromMap(map['deploy_set']);
-      }
+    if (map.containsKey('deploy_set') && (map['deploy_set'] != null)) {
+      _deploy_set = DeploySet.fromMap(map['deploy_set']);
     }
-    if (map.containsKey('call_set')) {
-      if (map['call_set'] != null) {
-        _call_set = CallSet.fromMap(map['call_set']);
-      }
+    if (map.containsKey('call_set') && (map['call_set'] != null)) {
+      _call_set = CallSet.fromMap(map['call_set']);
     }
     if (map.containsKey('signer') && (map['signer'] != null)) {
       _signer = Signer.fromMap(map['signer']);
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('processing_try_index')) {
+    if (map.containsKey('processing_try_index') &&
+        (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
   }
@@ -1541,23 +1542,21 @@ class ParamsOfEncodeMessage extends TonSdkStructure {
 }
 
 class ResultOfEncodeMessage extends TonSdkStructure {
-  /// Message BOC encoded with `base64`.
+  ///Message BOC encoded with `base64`.
   String _message;
   String get message => _message;
 
-  /// Optional data to be signed encoded in `base64`.
-  ///
-  /// Returned in case of `Signer::External`. Can be used for external
-  /// message signing. Is this case you need to use this data to create signature and
-  /// then produce signed message using `abi.attach_signature`.
+  ///Returned in case of `Signer::External`. Can be used for external
+  ///message signing. Is this case you need to use this data to create signature and
+  ///then produce signed message using `abi.attach_signature`.
   String _data_to_sign;
   String get data_to_sign => _data_to_sign;
 
-  /// Destination address.
+  ///Destination address.
   String _address;
   String get address => _address;
 
-  /// Message id.
+  ///Message id.
   String _message_id;
   String get message_id => _message_id;
   ResultOfEncodeMessage({
@@ -1580,7 +1579,7 @@ class ResultOfEncodeMessage extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('data_to_sign')) {
+    if (map.containsKey('data_to_sign') && (map['data_to_sign'] != null)) {
       _data_to_sign = map['data_to_sign'];
     }
     if (map.containsKey('address') && (map['address'] != null)) {
@@ -1614,19 +1613,19 @@ class ResultOfEncodeMessage extends TonSdkStructure {
 }
 
 class ParamsOfAttachSignature extends TonSdkStructure {
-  /// Contract ABI
+  ///Contract ABI
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Public key encoded in `hex`.
+  ///Public key encoded in `hex`.
   String _public_key;
   String get public_key => _public_key;
 
-  /// Unsigned message BOC encoded in `base64`.
+  ///Unsigned message BOC encoded in `base64`.
   String _message;
   String get message => _message;
 
-  /// Signature encoded in `hex`.
+  ///Signature encoded in `hex`.
   String _signature;
   String get signature => _signature;
   ParamsOfAttachSignature({
@@ -1685,11 +1684,11 @@ class ParamsOfAttachSignature extends TonSdkStructure {
 }
 
 class ResultOfAttachSignature extends TonSdkStructure {
-  /// Signed message BOC
+  ///Signed message BOC
   String _message;
   String get message => _message;
 
-  /// Message ID
+  ///Message ID
   String _message_id;
   String get message_id => _message_id;
   ResultOfAttachSignature({
@@ -1727,11 +1726,11 @@ class ResultOfAttachSignature extends TonSdkStructure {
 }
 
 class ParamsOfDecodeMessage extends TonSdkStructure {
-  /// contract ABI
+  ///contract ABI
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Message BOC
+  ///Message BOC
   String _message;
   String get message => _message;
   ParamsOfDecodeMessage({
@@ -1768,19 +1767,19 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
 }
 
 class DecodedMessageBody extends TonSdkStructure {
-  /// Type of the message body content.
+  ///Type of the message body content.
   MessageBodyType _body_type;
   MessageBodyType get body_type => _body_type;
 
-  /// Function or event name.
+  ///Function or event name.
   String _name;
   String get name => _name;
 
-  /// Parameters or result value.
+  ///Parameters or result value.
   dynamic _value;
   dynamic get value => _value;
 
-  /// Function header.
+  ///Function header.
   FunctionHeader _header;
   FunctionHeader get header => _header;
   DecodedMessageBody({
@@ -1806,13 +1805,11 @@ class DecodedMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('value')) {
+    if (map.containsKey('value') && (map['value'] != null)) {
       _value = map['value'];
     }
-    if (map.containsKey('header')) {
-      if (map['header'] != null) {
-        _header = FunctionHeader.fromMap(map['header']);
-      }
+    if (map.containsKey('header') && (map['header'] != null)) {
+      _header = FunctionHeader.fromMap(map['header']);
     }
   }
 
@@ -1835,15 +1832,15 @@ class DecodedMessageBody extends TonSdkStructure {
 }
 
 class ParamsOfDecodeMessageBody extends TonSdkStructure {
-  /// Contract ABI used to decode.
+  ///Contract ABI used to decode.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Message body BOC encoded in `base64`.
+  ///Message body BOC encoded in `base64`.
   String _body;
   String get body => _body;
 
-  /// True if the body belongs to the internal message.
+  ///True if the body belongs to the internal message.
   bool _is_internal;
   bool get is_internal => _is_internal;
   ParamsOfDecodeMessageBody({
@@ -1890,19 +1887,19 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
 }
 
 class ParamsOfEncodeAccount extends TonSdkStructure {
-  /// Source of the account state init.
+  ///Source of the account state init.
   StateInitSource _state_init;
   StateInitSource get state_init => _state_init;
 
-  /// Initial balance.
+  ///Initial balance.
   BigInt _balance;
   BigInt get balance => _balance;
 
-  /// Initial value for the `last_trans_lt`.
+  ///Initial value for the `last_trans_lt`.
   BigInt _last_trans_lt;
   BigInt get last_trans_lt => _last_trans_lt;
 
-  /// Initial value for the `last_paid`.
+  ///Initial value for the `last_paid`.
   int _last_paid;
   int get last_paid => _last_paid;
   ParamsOfEncodeAccount({
@@ -1923,13 +1920,13 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('balance')) {
+    if (map.containsKey('balance') && (map['balance'] != null)) {
       _balance = BigInt.from(map['balance']);
     }
-    if (map.containsKey('last_trans_lt')) {
+    if (map.containsKey('last_trans_lt') && (map['last_trans_lt'] != null)) {
       _last_trans_lt = BigInt.from(map['last_trans_lt']);
     }
-    if (map.containsKey('last_paid')) {
+    if (map.containsKey('last_paid') && (map['last_paid'] != null)) {
       _last_paid = map['last_paid'];
     }
   }
@@ -1953,11 +1950,11 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
 }
 
 class ResultOfEncodeAccount extends TonSdkStructure {
-  /// Account BOC encoded in `base64`.
+  ///Account BOC encoded in `base64`.
   String _account;
   String get account => _account;
 
-  /// Account ID  encoded in `hex`.
+  ///Account ID  encoded in `hex`.
   String _id;
   String get id => _id;
   ResultOfEncodeAccount({

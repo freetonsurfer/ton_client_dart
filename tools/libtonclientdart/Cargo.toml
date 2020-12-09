@@ -1,0 +1,28 @@
+[package]
+name = "ton_client_dart"
+version = "1.1.2"
+authors = ["TON Labs"]
+license = "Apache-2.0"
+build = "build.rs"
+
+[lib]
+name = "tonclient"
+crate-type = ["staticlib"]
+
+[build-dependencies]
+serde = "1.0.117"
+serde_json = "1.0.59"
+serde_derive = "1.0.117"
+
+[dependencies]
+libc = "0.2"
+ton_client = {path = "../ton_client"}
+serde_json = "1.0.41"
+serde_derive = "1.0.91"
+serde = "1.0.91"
+
+#[dependencies.ton_client]
+#path = "../../client"
+
+[profile.release]
+lto = true

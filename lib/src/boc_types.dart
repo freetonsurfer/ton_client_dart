@@ -1,7 +1,7 @@
 part of 'tonsdktypes.dart';
 
 class ParamsOfParse extends TonSdkStructure {
-  /// BOC encoded as base64
+  ///BOC encoded as base64
   String _boc;
   String get boc => _boc;
   ParamsOfParse({
@@ -27,7 +27,7 @@ class ParamsOfParse extends TonSdkStructure {
 }
 
 class ResultOfParse extends TonSdkStructure {
-  /// JSON containing parsed BOC
+  ///JSON containing parsed BOC
   dynamic _parsed;
   dynamic get parsed => _parsed;
   ResultOfParse({
@@ -53,15 +53,15 @@ class ResultOfParse extends TonSdkStructure {
 }
 
 class ParamsOfParseShardstate extends TonSdkStructure {
-  /// BOC encoded as base64
+  ///BOC encoded as base64
   String _boc;
   String get boc => _boc;
 
-  /// Shardstate identificator
+  ///Shardstate identificator
   String _id;
   String get id => _id;
 
-  /// Workchain shardstate belongs to
+  ///Workchain shardstate belongs to
   int _workchain_id;
   int get workchain_id => _workchain_id;
   ParamsOfParseShardstate({
@@ -108,7 +108,7 @@ class ParamsOfParseShardstate extends TonSdkStructure {
 }
 
 class ParamsOfGetBlockchainConfig extends TonSdkStructure {
-  /// Key block BOC encoded as base64
+  ///Key block BOC encoded as base64
   String _block_boc;
   String get block_boc => _block_boc;
   ParamsOfGetBlockchainConfig({
@@ -135,7 +135,7 @@ class ParamsOfGetBlockchainConfig extends TonSdkStructure {
 }
 
 class ResultOfGetBlockchainConfig extends TonSdkStructure {
-  /// Blockchain config BOC encoded as base64
+  ///Blockchain config BOC encoded as base64
   String _config_boc;
   String get config_boc => _config_boc;
   ResultOfGetBlockchainConfig({
@@ -162,7 +162,7 @@ class ResultOfGetBlockchainConfig extends TonSdkStructure {
 }
 
 class ParamsOfGetBocHash extends TonSdkStructure {
-  /// BOC encoded as base64
+  ///BOC encoded as base64
   String _boc;
   String get boc => _boc;
   ParamsOfGetBocHash({
@@ -188,7 +188,7 @@ class ParamsOfGetBocHash extends TonSdkStructure {
 }
 
 class ResultOfGetBocHash extends TonSdkStructure {
-  /// BOC root hash encoded with hex
+  ///BOC root hash encoded with hex
   String _hash;
   String get hash => _hash;
   ResultOfGetBocHash({

@@ -40,32 +40,23 @@ class TonSdkCore {
   int _context = -1;
   ReceivePort _interactiveCppRequests;
   int _nextId = 1;
-  String _pathtosdklib = '';
   var _tcRequest;
+  var _clearResponse;
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
       {};
 
   void connect(Map<String, dynamic> config, Uri uriLibPath) async {
     if (Platform.isLinux) {
       _sdkLib = DynamicLibrary.open(uriLibPath.toFilePath());
-      _pathtosdklib = uriLibPath.toFilePath();
-      _pathtosdklib =
-          _pathtosdklib.substring(0, _pathtosdklib.lastIndexOf('/') + 1) +
-              'tonclient_1_linux.so';
     } else {
-      throw("Platform not implemented yet!");
+      throw ("Platform not implemented yet!");
     }
-
-    final wrapperOpen = _sdkLib.lookupFunction<
-        Void Function(Pointer<Utf8> str, Int32 length),
-        void Function(Pointer<Utf8> str, int length)>('wrapper_open');
-    wrapperOpen(Utf8.toUtf8(_pathtosdklib), _pathtosdklib.length);
 
     final configStr = jsonEncode(config);
 
     final createContextPointer =
         _sdkLib.lookup<NativeFunction<w_tc_create_context_func>>(
-            'wrapper_tc_create_context');
+            'tonsdk_dart_tc_create_context');
     final createContext = createContextPointer.asFunction<CreateContext>();
     final createContextMessage =
         Utf8.fromUtf8(createContext(Utf8.toUtf8(configStr), configStr.length));
@@ -92,24 +83,25 @@ class TonSdkCore {
     final nativePort = _interactiveCppRequests.sendPort.nativePort;
 
     final setNativePort = _sdkLib
-        .lookup<NativeFunction<Void Function(Int64 port)>>('setNativePort')
+        .lookup<NativeFunction<Void Function(Int64 port)>>(
+            'tonsdk_dart_set_nativeport')
         .asFunction<void Function(int port)>();
 
     setNativePort(nativePort);
 
     _tcRequest = _sdkLib
-        .lookup<NativeFunction<w_tc_request>>('wrapper_tc_request')
+        .lookup<NativeFunction<w_tc_request>>('tonsdk_dart_tc_request')
         .asFunction<TcRequest>();
+
+    _clearResponse = _sdkLib.lookupFunction<Void Function(Pointer<MyResponse>),
+        void Function(Pointer<MyResponse>)>('tonsdk_dart_clear_response');
   }
 
   void disconnect() {
     final contextClose =
         _sdkLib.lookupFunction<Void Function(Uint32), void Function(int)>(
-            'wrapper_tc_destroy_context');
+            'tonsdk_dart_tc_destroy_context');
     contextClose(_context);
-    final wrapperClose = _sdkLib
-        .lookupFunction<Void Function(), void Function()>('wrapper_close');
-    wrapperClose();
     _interactiveCppRequests.close();
     _context = -1;
     _nextId = 1;
@@ -147,10 +139,7 @@ class TonSdkCore {
         break;
     }
 
-    final clearResponse = _sdkLib.lookupFunction<
-        Void Function(Pointer<MyResponse>),
-        void Function(Pointer<MyResponse>)>('clear_response');
-    clearResponse(rs);
+    _clearResponse(rs);
   }
 
   Future<Map<String, dynamic>> request(String fnName,

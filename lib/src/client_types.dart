@@ -66,20 +66,14 @@ class ClientConfig extends TonSdkStructure {
     _abi = abi;
   }
   ClientConfig.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('network')) {
-      if (map['network'] != null) {
-        _network = NetworkConfig.fromMap(map['network']);
-      }
+    if (map.containsKey('network') && (map['network'] != null)) {
+      _network = NetworkConfig.fromMap(map['network']);
     }
-    if (map.containsKey('crypto')) {
-      if (map['crypto'] != null) {
-        _crypto = CryptoConfig.fromMap(map['crypto']);
-      }
+    if (map.containsKey('crypto') && (map['crypto'] != null)) {
+      _crypto = CryptoConfig.fromMap(map['crypto']);
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = AbiConfig.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = AbiConfig.fromMap(map['abi']);
     }
   }
 
@@ -137,22 +131,27 @@ class NetworkConfig extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('network_retries_count')) {
+    if (map.containsKey('network_retries_count') &&
+        (map['network_retries_count'] != null)) {
       _network_retries_count = map['network_retries_count'];
     }
-    if (map.containsKey('message_retries_count')) {
+    if (map.containsKey('message_retries_count') &&
+        (map['message_retries_count'] != null)) {
       _message_retries_count = map['message_retries_count'];
     }
-    if (map.containsKey('message_processing_timeout')) {
+    if (map.containsKey('message_processing_timeout') &&
+        (map['message_processing_timeout'] != null)) {
       _message_processing_timeout = map['message_processing_timeout'];
     }
-    if (map.containsKey('wait_for_timeout')) {
+    if (map.containsKey('wait_for_timeout') &&
+        (map['wait_for_timeout'] != null)) {
       _wait_for_timeout = map['wait_for_timeout'];
     }
-    if (map.containsKey('out_of_sync_threshold')) {
+    if (map.containsKey('out_of_sync_threshold') &&
+        (map['out_of_sync_threshold'] != null)) {
       _out_of_sync_threshold = map['out_of_sync_threshold'];
     }
-    if (map.containsKey('access_key')) {
+    if (map.containsKey('access_key') && (map['access_key'] != null)) {
       _access_key = map['access_key'];
     }
   }
@@ -191,31 +190,27 @@ class CryptoConfig extends TonSdkStructure {
   int get mnemonic_word_count => _mnemonic_word_count;
   String _hdkey_derivation_path;
   String get hdkey_derivation_path => _hdkey_derivation_path;
-  bool _hdkey_compliant;
-  bool get hdkey_compliant => _hdkey_compliant;
   CryptoConfig({
     int mnemonic_dictionary,
     int mnemonic_word_count,
     String hdkey_derivation_path,
-    bool hdkey_compliant,
   }) {
     _mnemonic_dictionary = mnemonic_dictionary;
     _mnemonic_word_count = mnemonic_word_count;
     _hdkey_derivation_path = hdkey_derivation_path;
-    _hdkey_compliant = hdkey_compliant;
   }
   CryptoConfig.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('mnemonic_dictionary')) {
+    if (map.containsKey('mnemonic_dictionary') &&
+        (map['mnemonic_dictionary'] != null)) {
       _mnemonic_dictionary = map['mnemonic_dictionary'];
     }
-    if (map.containsKey('mnemonic_word_count')) {
+    if (map.containsKey('mnemonic_word_count') &&
+        (map['mnemonic_word_count'] != null)) {
       _mnemonic_word_count = map['mnemonic_word_count'];
     }
-    if (map.containsKey('hdkey_derivation_path')) {
+    if (map.containsKey('hdkey_derivation_path') &&
+        (map['hdkey_derivation_path'] != null)) {
       _hdkey_derivation_path = map['hdkey_derivation_path'];
-    }
-    if (map.containsKey('hdkey_compliant')) {
-      _hdkey_compliant = map['hdkey_compliant'];
     }
   }
 
@@ -229,9 +224,6 @@ class CryptoConfig extends TonSdkStructure {
     }
     if (_hdkey_derivation_path != null) {
       map['hdkey_derivation_path'] = _hdkey_derivation_path;
-    }
-    if (_hdkey_compliant != null) {
-      map['hdkey_compliant'] = _hdkey_compliant;
     }
     return map;
   }
@@ -256,13 +248,15 @@ class AbiConfig extends TonSdkStructure {
         message_expiration_timeout_grow_factor;
   }
   AbiConfig.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('workchain')) {
+    if (map.containsKey('workchain') && (map['workchain'] != null)) {
       _workchain = map['workchain'];
     }
-    if (map.containsKey('message_expiration_timeout')) {
+    if (map.containsKey('message_expiration_timeout') &&
+        (map['message_expiration_timeout'] != null)) {
       _message_expiration_timeout = map['message_expiration_timeout'];
     }
-    if (map.containsKey('message_expiration_timeout_grow_factor')) {
+    if (map.containsKey('message_expiration_timeout_grow_factor') &&
+        (map['message_expiration_timeout_grow_factor'] != null)) {
       _message_expiration_timeout_grow_factor =
           map['message_expiration_timeout_grow_factor'];
     }
@@ -285,11 +279,11 @@ class AbiConfig extends TonSdkStructure {
 }
 
 class BuildInfoDependency extends TonSdkStructure {
-  /// Dependency name. Usually it is a crate name.
+  ///Usually it is a crate name.
   String _name;
   String get name => _name;
 
-  /// Git commit hash of the related repository.
+  ///Git commit hash of the related repository.
   String _git_commit;
   String get git_commit => _git_commit;
   BuildInfoDependency({
@@ -325,6 +319,134 @@ class BuildInfoDependency extends TonSdkStructure {
   }
 }
 
+class ParamsOfAppRequest extends TonSdkStructure {
+  ///Should be used in `resolve_app_request` call
+  int _app_request_id;
+  int get app_request_id => _app_request_id;
+
+  ///Request describing data
+  dynamic _request_data;
+  dynamic get request_data => _request_data;
+  ParamsOfAppRequest({
+    @required int app_request_id,
+    @required dynamic request_data,
+  }) {
+    _app_request_id = ArgumentError.checkNotNull(
+        app_request_id, 'ParamsOfAppRequest app_request_id');
+    _request_data = ArgumentError.checkNotNull(
+        request_data, 'ParamsOfAppRequest request_data');
+  }
+  ParamsOfAppRequest.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('app_request_id') && (map['app_request_id'] != null)) {
+      _app_request_id = map['app_request_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('request_data') && (map['request_data'] != null)) {
+      _request_data = map['request_data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_app_request_id != null) {
+      map['app_request_id'] = _app_request_id;
+    }
+    if (_request_data != null) {
+      map['request_data'] = _request_data;
+    }
+    return map;
+  }
+}
+
+abstract class AppRequestResult extends TonSdkStructure {
+  static AppRequestResult fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'Error') {
+      return AppRequestResult_Error.fromMap(map);
+    }
+    if (map['type'] == 'Ok') {
+      return AppRequestResult_Ok.fromMap(map);
+    }
+    throw ('AppRequestResult unknown from map type');
+  }
+}
+
+///Error occured during request processing
+class AppRequestResult_Error extends AppRequestResult {
+  String _type;
+  String get type => _type;
+
+  ///Error description
+  String _text;
+  String get text => _text;
+  AppRequestResult_Error({
+    @required String text,
+  }) {
+    _type = 'Error';
+    _text = ArgumentError.checkNotNull(text, 'AppRequestResult_Error text');
+  }
+  AppRequestResult_Error.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Error') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Error';
+    }
+    if (map.containsKey('text') && (map['text'] != null)) {
+      _text = map['text'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_text != null) {
+      map['text'] = _text;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Request processed successfully
+class AppRequestResult_Ok extends AppRequestResult {
+  String _type;
+  String get type => _type;
+
+  ///Request processing result
+  dynamic _result;
+  dynamic get result => _result;
+  AppRequestResult_Ok({
+    @required dynamic result,
+  }) {
+    _type = 'Ok';
+    _result = ArgumentError.checkNotNull(result, 'AppRequestResult_Ok result');
+  }
+  AppRequestResult_Ok.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Ok') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Ok';
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
 class ResultOfGetApiReference extends TonSdkStructure {
   dynamic _api;
   dynamic get api => _api;
@@ -351,7 +473,7 @@ class ResultOfGetApiReference extends TonSdkStructure {
 }
 
 class ResultOfVersion extends TonSdkStructure {
-  /// Core Library version
+  ///Core Library version
   String _version;
   String get version => _version;
   ResultOfVersion({
@@ -377,11 +499,11 @@ class ResultOfVersion extends TonSdkStructure {
 }
 
 class ResultOfBuildInfo extends TonSdkStructure {
-  /// Build number assigned to this build by the CI.
+  ///Build number assigned to this build by the CI.
   int _build_number;
   int get build_number => _build_number;
 
-  /// Fingerprint of the most important dependencies.
+  ///Fingerprint of the most important dependencies.
   List<BuildInfoDependency> _dependencies;
   List<BuildInfoDependency> get dependencies => _dependencies;
   ResultOfBuildInfo({
@@ -402,7 +524,11 @@ class ResultOfBuildInfo extends TonSdkStructure {
     if (map.containsKey('dependencies') && (map['dependencies'] != null)) {
       _dependencies = [];
       for (var el in map['dependencies']) {
-        _dependencies.add(BuildInfoDependency.fromMap(el));
+        if (el != null) {
+          _dependencies.add(BuildInfoDependency.fromMap(el));
+        } else {
+          _dependencies.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
@@ -416,6 +542,48 @@ class ResultOfBuildInfo extends TonSdkStructure {
     }
     if (_dependencies != null) {
       map['dependencies'] = _dependencies;
+    }
+    return map;
+  }
+}
+
+class ParamsOfResolveAppRequest extends TonSdkStructure {
+  ///Request ID received from SDK
+  int _app_request_id;
+  int get app_request_id => _app_request_id;
+
+  ///Result of request processing
+  AppRequestResult _result;
+  AppRequestResult get result => _result;
+  ParamsOfResolveAppRequest({
+    @required int app_request_id,
+    @required AppRequestResult result,
+  }) {
+    _app_request_id = ArgumentError.checkNotNull(
+        app_request_id, 'ParamsOfResolveAppRequest app_request_id');
+    _result =
+        ArgumentError.checkNotNull(result, 'ParamsOfResolveAppRequest result');
+  }
+  ParamsOfResolveAppRequest.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('app_request_id') && (map['app_request_id'] != null)) {
+      _app_request_id = map['app_request_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = AppRequestResult.fromMap(map['result']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_app_request_id != null) {
+      map['app_request_id'] = _app_request_id;
+    }
+    if (_result != null) {
+      map['result'] = _result;
     }
     return map;
   }

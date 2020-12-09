@@ -56,24 +56,88 @@ class SortDirection {
   }
 }
 
+class ParamsOfQuery extends TonSdkStructure {
+  ///GraphQL query text.
+  String _query;
+  String get query => _query;
+
+  ///Must be a map with named values thatcan be used in query.
+  dynamic _variables;
+  dynamic get variables => _variables;
+  ParamsOfQuery({
+    @required String query,
+    dynamic variables,
+  }) {
+    _query = ArgumentError.checkNotNull(query, 'ParamsOfQuery query');
+    _variables = variables;
+  }
+  ParamsOfQuery.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('query') && (map['query'] != null)) {
+      _query = map['query'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('variables') && (map['variables'] != null)) {
+      _variables = map['variables'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_query != null) {
+      map['query'] = _query;
+    }
+    if (_variables != null) {
+      map['variables'] = _variables;
+    }
+    return map;
+  }
+}
+
+class ResultOfQuery extends TonSdkStructure {
+  ///Result provided by DAppServer.
+  dynamic _result;
+  dynamic get result => _result;
+  ResultOfQuery({
+    @required dynamic result,
+  }) {
+    _result = ArgumentError.checkNotNull(result, 'ResultOfQuery result');
+  }
+  ResultOfQuery.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    return map;
+  }
+}
+
 class ParamsOfQueryCollection extends TonSdkStructure {
-  /// Collection name (accounts, blocks, transactions, messages, block_signatures)
+  ///Collection name (accounts, blocks, transactions, messages, block_signatures)
   String _collection;
   String get collection => _collection;
 
-  /// Collection filter
+  ///Collection filter
   dynamic _filter;
   dynamic get filter => _filter;
 
-  /// Projection (result) string
+  ///Projection (result) string
   String _result;
   String get result => _result;
 
-  /// Sorting order
+  ///Sorting order
   List<OrderBy> _order;
   List<OrderBy> get order => _order;
 
-  /// Number of documents to return
+  ///Number of documents to return
   int _limit;
   int get limit => _limit;
   ParamsOfQueryCollection({
@@ -97,7 +161,7 @@ class ParamsOfQueryCollection extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('filter')) {
+    if (map.containsKey('filter') && (map['filter'] != null)) {
       _filter = map['filter'];
     }
     if (map.containsKey('result') && (map['result'] != null)) {
@@ -105,13 +169,17 @@ class ParamsOfQueryCollection extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('order')) {
+    if (map.containsKey('order') && (map['order'] != null)) {
       _order = [];
       for (var el in map['order']) {
-        _order.add(OrderBy.fromMap(el));
+        if (el != null) {
+          _order.add(OrderBy.fromMap(el));
+        } else {
+          _order.add(null);
+        }
       }
     }
-    if (map.containsKey('limit')) {
+    if (map.containsKey('limit') && (map['limit'] != null)) {
       _limit = map['limit'];
     }
   }
@@ -138,7 +206,7 @@ class ParamsOfQueryCollection extends TonSdkStructure {
 }
 
 class ResultOfQueryCollection extends TonSdkStructure {
-  /// Objects that match the provided criteria
+  ///Objects that match the provided criteria
   List<dynamic> _result;
   List<dynamic> get result => _result;
   ResultOfQueryCollection({
@@ -151,7 +219,11 @@ class ResultOfQueryCollection extends TonSdkStructure {
     if (map.containsKey('result') && (map['result'] != null)) {
       _result = [];
       for (var el in map['result']) {
-        _result.add(el);
+        if (el != null) {
+          _result.add(el);
+        } else {
+          _result.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
@@ -168,19 +240,19 @@ class ResultOfQueryCollection extends TonSdkStructure {
 }
 
 class ParamsOfWaitForCollection extends TonSdkStructure {
-  /// Collection name (accounts, blocks, transactions, messages, block_signatures)
+  ///Collection name (accounts, blocks, transactions, messages, block_signatures)
   String _collection;
   String get collection => _collection;
 
-  /// Collection filter
+  ///Collection filter
   dynamic _filter;
   dynamic get filter => _filter;
 
-  /// Projection (result) string
+  ///Projection (result) string
   String _result;
   String get result => _result;
 
-  /// Query timeout
+  ///Query timeout
   int _timeout;
   int get timeout => _timeout;
   ParamsOfWaitForCollection({
@@ -202,7 +274,7 @@ class ParamsOfWaitForCollection extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('filter')) {
+    if (map.containsKey('filter') && (map['filter'] != null)) {
       _filter = map['filter'];
     }
     if (map.containsKey('result') && (map['result'] != null)) {
@@ -210,7 +282,7 @@ class ParamsOfWaitForCollection extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('timeout')) {
+    if (map.containsKey('timeout') && (map['timeout'] != null)) {
       _timeout = map['timeout'];
     }
   }
@@ -234,7 +306,7 @@ class ParamsOfWaitForCollection extends TonSdkStructure {
 }
 
 class ResultOfWaitForCollection extends TonSdkStructure {
-  /// First found object that matches the provided criteria
+  ///First found object that matches the provided criteria
   dynamic _result;
   dynamic get result => _result;
   ResultOfWaitForCollection({
@@ -261,7 +333,7 @@ class ResultOfWaitForCollection extends TonSdkStructure {
 }
 
 class ResultOfSubscribeCollection extends TonSdkStructure {
-  /// Subscription handle. Must be closed with `unsubscribe`
+  ///Must be closed with `unsubscribe`
   int _handle;
   int get handle => _handle;
   ResultOfSubscribeCollection({
@@ -287,17 +359,16 @@ class ResultOfSubscribeCollection extends TonSdkStructure {
   }
 }
 
-//typedef unit void;
 class ParamsOfSubscribeCollection extends TonSdkStructure {
-  /// Collection name (accounts, blocks, transactions, messages, block_signatures)
+  ///Collection name (accounts, blocks, transactions, messages, block_signatures)
   String _collection;
   String get collection => _collection;
 
-  /// Collection filter
+  ///Collection filter
   dynamic _filter;
   dynamic get filter => _filter;
 
-  /// Projection (result) string
+  ///Projection (result) string
   String _result;
   String get result => _result;
   ParamsOfSubscribeCollection({
@@ -317,7 +388,7 @@ class ParamsOfSubscribeCollection extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('filter')) {
+    if (map.containsKey('filter') && (map['filter'] != null)) {
       _filter = map['filter'];
     }
     if (map.containsKey('result') && (map['result'] != null)) {

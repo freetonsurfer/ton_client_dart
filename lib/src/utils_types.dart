@@ -117,11 +117,11 @@ class AddressStringFormat_Base64 extends AddressStringFormat {
 }
 
 class ParamsOfConvertAddress extends TonSdkStructure {
-  /// Account address in any TON format.
+  ///Account address in any TON format.
   String _address;
   String get address => _address;
 
-  /// Specify the format to convert to.
+  ///Specify the format to convert to.
   AddressStringFormat _output_format;
   AddressStringFormat get output_format => _output_format;
   ParamsOfConvertAddress({
@@ -159,7 +159,7 @@ class ParamsOfConvertAddress extends TonSdkStructure {
 }
 
 class ResultOfConvertAddress extends TonSdkStructure {
-  /// Address in the specified format
+  ///Address in the specified format
   String _address;
   String get address => _address;
   ResultOfConvertAddress({

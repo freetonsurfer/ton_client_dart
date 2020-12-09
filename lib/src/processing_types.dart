@@ -30,10 +30,7 @@ abstract class ProcessingEvent extends TonSdkStructure {
   }
 }
 
-/// Notifies the app that the current shard block will be fetched
-/// from the network.
-///
-/// Fetched block will be used later in waiting phase.
+///Fetched block will be used later in waiting phase.
 class ProcessingEvent_WillFetchFirstBlock extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -55,10 +52,7 @@ class ProcessingEvent_WillFetchFirstBlock extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the client has failed to fetch current
-/// shard block.
-///
-/// Message processing has finished.
+///Message processing has finished.
 class ProcessingEvent_FetchFirstBlockFailed extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -94,8 +88,7 @@ class ProcessingEvent_FetchFirstBlockFailed extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the message will be sent to the
-/// network.
+///Notifies the app that the message will be sent to the network.
 class ProcessingEvent_WillSend extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -157,7 +150,7 @@ class ProcessingEvent_WillSend extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the message was sent to the network.
+///Notifies the app that the message was sent to the network.
 class ProcessingEvent_DidSend extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -219,12 +212,9 @@ class ProcessingEvent_DidSend extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the sending operation was failed with
-/// network error.
-///
-/// Nevertheless the processing will be continued at the waiting
-/// phase because the message possibly has been delivered to the
-/// node.
+///Nevertheless the processing will be continued at the waiting
+///phase because the message possibly has been delivered to the
+///node.
 class ProcessingEvent_SendFailed extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -299,11 +289,8 @@ class ProcessingEvent_SendFailed extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the next shard block will be fetched
-/// from the network.
-///
-/// Event can occurs more than one time due to block walking
-/// procedure.
+///Event can occurs more than one time due to block walking
+///procedure.
 class ProcessingEvent_WillFetchNextBlock extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -365,10 +352,7 @@ class ProcessingEvent_WillFetchNextBlock extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the next block can't be fetched due to
-/// error.
-///
-/// Processing will be continued after `network_resume_timeout`.
+///Processing will be continued after `network_resume_timeout`.
 class ProcessingEvent_FetchNextBlockFailed extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -443,12 +427,10 @@ class ProcessingEvent_FetchNextBlockFailed extends ProcessingEvent {
   }
 }
 
-/// Notifies the app that the message was expired.
+///Event occurs for contracts which ABI includes header "expire"
 ///
-/// Event occurs for contracts which ABI includes header "expire"
-///
-/// Processing will be continued from encoding phase after
-/// `expiration_retries_timeout`.
+///Processing will be continued from encoding phase after
+///`expiration_retries_timeout`.
 class ProcessingEvent_MessageExpired extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -511,24 +493,21 @@ class ProcessingEvent_MessageExpired extends ProcessingEvent {
 }
 
 class ResultOfProcessMessage extends TonSdkStructure {
-  /// Parsed transaction.
-  ///
-  /// In addition to the regular transaction fields there is a
-  /// `boc` field encoded with `base64` which contains source
-  /// transaction BOC.
+  ///In addition to the regular transaction fields there is a
+  ///`boc` field encoded with `base64` which contains source
+  ///transaction BOC.
   dynamic _transaction;
   dynamic get transaction => _transaction;
 
-  /// List of output messages' BOCs. Encoded as `base64`
+  ///Encoded as `base64`
   List<String> _out_messages;
   List<String> get out_messages => _out_messages;
 
-  /// Optional decoded message bodies according to the optional
-  /// `abi` parameter.
+  ///Optional decoded message bodies according to the optional `abi` parameter.
   DecodedOutput _decoded;
   DecodedOutput get decoded => _decoded;
 
-  /// Transaction fees
+  ///Transaction fees
   TransactionFees _fees;
   TransactionFees get fees => _fees;
   ResultOfProcessMessage({
@@ -553,15 +532,17 @@ class ResultOfProcessMessage extends TonSdkStructure {
     if (map.containsKey('out_messages') && (map['out_messages'] != null)) {
       _out_messages = [];
       for (var el in map['out_messages']) {
-        _out_messages.add(el);
+        if (el != null) {
+          _out_messages.add(el);
+        } else {
+          _out_messages.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('decoded')) {
-      if (map['decoded'] != null) {
-        _decoded = DecodedOutput.fromMap(map['decoded']);
-      }
+    if (map.containsKey('decoded') && (map['decoded'] != null)) {
+      _decoded = DecodedOutput.fromMap(map['decoded']);
     }
     if (map.containsKey('fees') && (map['fees'] != null)) {
       _fees = TransactionFees.fromMap(map['fees']);
@@ -589,14 +570,12 @@ class ResultOfProcessMessage extends TonSdkStructure {
 }
 
 class DecodedOutput extends TonSdkStructure {
-  /// Decoded bodies of the out messages.
-  ///
-  /// If the message can't be decoded, then `None` will be stored in
-  /// the appropriate position.
+  ///If the message can't be decoded, then `None` will be stored in
+  ///the appropriate position.
   List<DecodedMessageBody> _out_messages;
   List<DecodedMessageBody> get out_messages => _out_messages;
 
-  /// Decoded body of the function output message.
+  ///Decoded body of the function output message.
   dynamic _output;
   dynamic get output => _output;
   DecodedOutput({
@@ -611,12 +590,16 @@ class DecodedOutput extends TonSdkStructure {
     if (map.containsKey('out_messages') && (map['out_messages'] != null)) {
       _out_messages = [];
       for (var el in map['out_messages']) {
-        _out_messages.add(el);
+        if (el != null) {
+          _out_messages.add(DecodedMessageBody.fromMap(el));
+        } else {
+          _out_messages.add(null);
+        }
       }
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('output')) {
+    if (map.containsKey('output') && (map['output'] != null)) {
       _output = map['output'];
     }
   }
@@ -634,26 +617,24 @@ class DecodedOutput extends TonSdkStructure {
 }
 
 class ParamsOfSendMessage extends TonSdkStructure {
-  /// Message BOC.
+  ///Message BOC.
   String _message;
   String get message => _message;
 
-  /// Optional message ABI.
+  ///If this parameter is specified and the message has the
+  ///`expire` header then expiration time will be checked against
+  ///the current time to prevent unnecessary sending of already expired message.
   ///
-  /// If this parameter is specified and the message has the
-  /// `expire` header then expiration time will be checked against
-  /// the current time to prevent unnecessary sending of already expired message.
+  ///The `message already expired` error will be returned in this
+  ///case.
   ///
-  /// The `message already expired` error will be returned in this
-  /// case.
-  ///
-  /// Note, that specifying `abi` for ABI compliant contracts is
-  /// strongly recommended, so that proper processing strategy can be
-  /// chosen.
+  ///Note, that specifying `abi` for ABI compliant contracts is
+  ///strongly recommended, so that proper processing strategy can be
+  ///chosen.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Flag for requesting events sending
+  ///Flag for requesting events sending
   bool _send_events;
   bool get send_events => _send_events;
   ParamsOfSendMessage({
@@ -673,10 +654,8 @@ class ParamsOfSendMessage extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
     if (map.containsKey('send_events') && (map['send_events'] != null)) {
       _send_events = map['send_events'];
@@ -701,11 +680,8 @@ class ParamsOfSendMessage extends TonSdkStructure {
 }
 
 class ResultOfSendMessage extends TonSdkStructure {
-  /// The last generated shard block of the message destination account before the
-  /// message was sent.
-  ///
-  /// This block id must be used as a parameter of the
-  /// `wait_for_transaction`.
+  ///This block id must be used as a parameter of the
+  ///`wait_for_transaction`.
   String _shard_block_id;
   String get shard_block_id => _shard_block_id;
   ResultOfSendMessage({
@@ -732,26 +708,22 @@ class ResultOfSendMessage extends TonSdkStructure {
 }
 
 class ParamsOfWaitForTransaction extends TonSdkStructure {
-  /// Optional ABI for decoding the transaction result.
+  ///If it is specified, then the output messages' bodies will be
+  ///decoded according to this ABI.
   ///
-  /// If it is specified, then the output messages' bodies will be
-  /// decoded according to this ABI.
-  ///
-  /// The `abi_decoded` result field will be filled out.
+  ///The `abi_decoded` result field will be filled out.
   Abi _abi;
   Abi get abi => _abi;
 
-  /// Message BOC. Encoded with `base64`.
+  ///Encoded with `base64`.
   String _message;
   String get message => _message;
 
-  /// The last generated block id of the destination account shard before the message was sent.
-  ///
-  /// You must provide the same value as the `send_message` has returned.
+  ///You must provide the same value as the `send_message` has returned.
   String _shard_block_id;
   String get shard_block_id => _shard_block_id;
 
-  /// Flag that enables/disables intermediate events
+  ///Flag that enables/disables intermediate events
   bool _send_events;
   bool get send_events => _send_events;
   ParamsOfWaitForTransaction({
@@ -769,10 +741,8 @@ class ParamsOfWaitForTransaction extends TonSdkStructure {
         send_events, 'ParamsOfWaitForTransaction send_events');
   }
   ParamsOfWaitForTransaction.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('abi')) {
-      if (map['abi'] != null) {
-        _abi = Abi.fromMap(map['abi']);
-      }
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
     }
     if (map.containsKey('message') && (map['message'] != null)) {
       _message = map['message'];
@@ -810,11 +780,11 @@ class ParamsOfWaitForTransaction extends TonSdkStructure {
 }
 
 class ParamsOfProcessMessage extends TonSdkStructure {
-  /// Message encode parameters.
+  ///Message encode parameters.
   ParamsOfEncodeMessage _message_encode_params;
   ParamsOfEncodeMessage get message_encode_params => _message_encode_params;
 
-  /// Flag for requesting events sending
+  ///Flag for requesting events sending
   bool _send_events;
   bool get send_events => _send_events;
   ParamsOfProcessMessage({
