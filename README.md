@@ -114,7 +114,6 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 - Web support will be implemented in Q4 2021 or on user demand.
 
 ## TODO
-- Move to SDK 1.2.0
 - Windows support
 - iMac support
 - improve tests
