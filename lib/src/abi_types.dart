@@ -1,5 +1,51 @@
 part of 'tonsdktypes.dart';
 
+class AbiErrorCode {
+  String _value;
+  String get value => _value;
+  AbiErrorCode.RequiredAddressMissingForEncodeMessage() {
+    _value = 'RequiredAddressMissingForEncodeMessage';
+  }
+  AbiErrorCode.RequiredCallSetMissingForEncodeMessage() {
+    _value = 'RequiredCallSetMissingForEncodeMessage';
+  }
+  AbiErrorCode.InvalidJson() {
+    _value = 'InvalidJson';
+  }
+  AbiErrorCode.InvalidMessage() {
+    _value = 'InvalidMessage';
+  }
+  AbiErrorCode.EncodeDeployMessageFailed() {
+    _value = 'EncodeDeployMessageFailed';
+  }
+  AbiErrorCode.EncodeRunMessageFailed() {
+    _value = 'EncodeRunMessageFailed';
+  }
+  AbiErrorCode.AttachSignatureFailed() {
+    _value = 'AttachSignatureFailed';
+  }
+  AbiErrorCode.InvalidTvcImage() {
+    _value = 'InvalidTvcImage';
+  }
+  AbiErrorCode.RequiredPublicKeyMissingForFunctionHeader() {
+    _value = 'RequiredPublicKeyMissingForFunctionHeader';
+  }
+  AbiErrorCode.InvalidSigner() {
+    _value = 'InvalidSigner';
+  }
+  AbiErrorCode.InvalidAbi() {
+    _value = 'InvalidAbi';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  AbiErrorCode.fromMap(str) {
+    _value = str;
+  }
+}
+
 abstract class Abi extends TonSdkStructure {
   static Abi fromMap(Map<String, dynamic> map) {
     if (map['type'] == 'Contract') {
@@ -762,43 +808,51 @@ class MessageSource_EncodingParams extends MessageSource {
   Abi _abi;
   Abi get abi => _abi;
 
-  ///Must be specified in non deploy message.
+  ///Must be specified in case of non-deploy message.
+  String _address;
+  String get address => _address;
+
+  ///Must be specified in case of deploy message.
+  DeploySet _deploy_set;
+  DeploySet get deploy_set => _deploy_set;
+
+  ///Must be specified in case of non-deploy message.
   ///
-  ///In case of deploy message contains parameters of constructor.
+  ///In case of deploy message it is optional and contains parameters
+  ///of the functions that will to be called upon deploy transaction.
   CallSet _call_set;
   CallSet get call_set => _call_set;
-
-  ///True if internal message body must be encoded.
-  bool _is_internal;
-  bool get is_internal => _is_internal;
 
   ///Signing parameters.
   Signer _signer;
   Signer get signer => _signer;
 
-  ///Used in message processing with retries.
+  ///Used in message processing with retries (if contract's ABI includes "expire" header).
   ///
   ///Encoder uses the provided try index to calculate message
-  ///expiration time.
+  ///expiration time. The 1st message expiration time is specified in
+  ///Client config.
   ///
   ///Expiration timeouts will grow with every retry.
+  ///Retry grow factor is set in Client config:
+  ///<.....add config parameter with default value here>
   ///
   ///Default value is 0.
   int _processing_try_index;
   int get processing_try_index => _processing_try_index;
   MessageSource_EncodingParams({
     @required Abi abi,
-    @required CallSet call_set,
-    @required bool is_internal,
+    String address,
+    DeploySet deploy_set,
+    CallSet call_set,
     @required Signer signer,
     int processing_try_index,
   }) {
     _type = 'EncodingParams';
     _abi = ArgumentError.checkNotNull(abi, 'MessageSource_EncodingParams abi');
-    _call_set = ArgumentError.checkNotNull(
-        call_set, 'MessageSource_EncodingParams call_set');
-    _is_internal = ArgumentError.checkNotNull(
-        is_internal, 'MessageSource_EncodingParams is_internal');
+    _address = address;
+    _deploy_set = deploy_set;
+    _call_set = call_set;
     _signer = ArgumentError.checkNotNull(
         signer, 'MessageSource_EncodingParams signer');
     _processing_try_index = processing_try_index;
@@ -809,21 +863,19 @@ class MessageSource_EncodingParams extends MessageSource {
     } else {
       throw ('Wrong map data');
     }
-
     if (map.containsKey('abi') && (map['abi'] != null)) {
       _abi = Abi.fromMap(map['abi']);
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    }
+    if (map.containsKey('deploy_set') && (map['deploy_set'] != null)) {
+      _deploy_set = DeploySet.fromMap(map['deploy_set']);
+    }
     if (map.containsKey('call_set') && (map['call_set'] != null)) {
       _call_set = CallSet.fromMap(map['call_set']);
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('is_internal') && (map['is_internal'] != null)) {
-      _is_internal = map['is_internal'];
-    } else {
-      throw ('Wrong map data');
     }
     if (map.containsKey('signer') && (map['signer'] != null)) {
       _signer = Signer.fromMap(map['signer']);
@@ -837,16 +889,20 @@ class MessageSource_EncodingParams extends MessageSource {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {};
-    map['type'] = 'EncodingParams';
+    Map<String, dynamic> map = {
+      'type': 'EncodingParams',
+    };
     if (_abi != null) {
       map['abi'] = _abi;
     }
+    if (_address != null) {
+      map['address'] = _address;
+    }
+    if (_deploy_set != null) {
+      map['deploy_set'] = _deploy_set;
+    }
     if (_call_set != null) {
       map['call_set'] = _call_set;
-    }
-    if (_is_internal != null) {
-      map['is_internal'] = _is_internal;
     }
     if (_signer != null) {
       map['signer'] = _signer;

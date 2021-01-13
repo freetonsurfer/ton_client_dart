@@ -34,7 +34,7 @@ class NetModule extends _TonSdkModule {
 
   ///Cancels a subscription specified by its handle.
   Future<void> unsubscribe(ResultOfSubscribeCollection params) async {
-    await _tonCore.request('net.unsubscribe', params.toString());
+    final res = await _tonCore.request('net.unsubscribe', params.toString());
     return;
   }
 
@@ -49,15 +49,35 @@ class NetModule extends _TonSdkModule {
     return ResultOfSubscribeCollection.fromMap(res);
   }
 
-  /// Suspends network module to stop any network activity
+  ///Suspends network module to stop any network activity
   Future<void> suspend() async {
-    await _tonCore.request('net.suspend');
+    final res = await _tonCore.request('net.suspend');
     return;
   }
 
-  /// Resumes network module to enable network activity
+  ///Resumes network module to enable network activity
   Future<void> resume() async {
-    await _tonCore.request('net.resume');
+    final res = await _tonCore.request('net.resume');
+    return;
+  }
+
+  ///Returns ID of the last block in a specified account shard
+  Future<ResultOfFindLastShardBlock> find_last_shard_block(
+      ParamsOfFindLastShardBlock params) async {
+    final res =
+        await _tonCore.request('net.find_last_shard_block', params.toString());
+    return ResultOfFindLastShardBlock.fromMap(res);
+  }
+
+  ///Requests the list of alternative endpoints from server
+  Future<EndpointsSet> fetch_endpoints() async {
+    final res = await _tonCore.request('net.fetch_endpoints');
+    return EndpointsSet.fromMap(res);
+  }
+
+  ///Sets the list of endpoints to use on reinit
+  Future<void> set_endpoints(EndpointsSet params) async {
+    await _tonCore.request('net.set_endpoints', params.toString());
     return;
   }
 }

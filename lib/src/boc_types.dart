@@ -1,5 +1,30 @@
 part of 'tonsdktypes.dart';
 
+class BocErrorCode {
+  String _value;
+  String get value => _value;
+  BocErrorCode.InvalidBoc() {
+    _value = 'InvalidBoc';
+  }
+  BocErrorCode.SerializationError() {
+    _value = 'SerializationError';
+  }
+  BocErrorCode.InappropriateBlock() {
+    _value = 'InappropriateBlock';
+  }
+  BocErrorCode.MissingSourceBoc() {
+    _value = 'MissingSourceBoc';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  BocErrorCode.fromMap(str) {
+    _value = str;
+  }
+}
+
 class ParamsOfParse extends TonSdkStructure {
   ///BOC encoded as base64
   String _boc;
@@ -208,6 +233,58 @@ class ResultOfGetBocHash extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_hash != null) {
       map['hash'] = _hash;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetCodeFromTvc extends TonSdkStructure {
+  ///Contract TVC image encoded as base64
+  String _tvc;
+  String get tvc => _tvc;
+  ParamsOfGetCodeFromTvc({
+    @required String tvc,
+  }) {
+    _tvc = ArgumentError.checkNotNull(tvc, 'ParamsOfGetCodeFromTvc tvc');
+  }
+  ParamsOfGetCodeFromTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('tvc') && (map['tvc'] != null)) {
+      _tvc = map['tvc'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_tvc != null) {
+      map['tvc'] = _tvc;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetCodeFromTvc extends TonSdkStructure {
+  ///Contract code encoded as base64
+  String _code;
+  String get code => _code;
+  ResultOfGetCodeFromTvc({
+    @required String code,
+  }) {
+    _code = ArgumentError.checkNotNull(code, 'ResultOfGetCodeFromTvc code');
+  }
+  ResultOfGetCodeFromTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
     }
     return map;
   }

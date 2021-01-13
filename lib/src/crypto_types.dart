@@ -1,5 +1,75 @@
 part of 'tonsdktypes.dart';
 
+class CryptoErrorCode {
+  String _value;
+  String get value => _value;
+  CryptoErrorCode.InvalidPublicKey() {
+    _value = 'InvalidPublicKey';
+  }
+  CryptoErrorCode.InvalidSecretKey() {
+    _value = 'InvalidSecretKey';
+  }
+  CryptoErrorCode.InvalidKey() {
+    _value = 'InvalidKey';
+  }
+  CryptoErrorCode.InvalidFactorizeChallenge() {
+    _value = 'InvalidFactorizeChallenge';
+  }
+  CryptoErrorCode.InvalidBigInt() {
+    _value = 'InvalidBigInt';
+  }
+  CryptoErrorCode.ScryptFailed() {
+    _value = 'ScryptFailed';
+  }
+  CryptoErrorCode.InvalidKeySize() {
+    _value = 'InvalidKeySize';
+  }
+  CryptoErrorCode.NaclSecretBoxFailed() {
+    _value = 'NaclSecretBoxFailed';
+  }
+  CryptoErrorCode.NaclBoxFailed() {
+    _value = 'NaclBoxFailed';
+  }
+  CryptoErrorCode.NaclSignFailed() {
+    _value = 'NaclSignFailed';
+  }
+  CryptoErrorCode.Bip39InvalidEntropy() {
+    _value = 'Bip39InvalidEntropy';
+  }
+  CryptoErrorCode.Bip39InvalidPhrase() {
+    _value = 'Bip39InvalidPhrase';
+  }
+  CryptoErrorCode.Bip32InvalidKey() {
+    _value = 'Bip32InvalidKey';
+  }
+  CryptoErrorCode.Bip32InvalidDerivePath() {
+    _value = 'Bip32InvalidDerivePath';
+  }
+  CryptoErrorCode.Bip39InvalidDictionary() {
+    _value = 'Bip39InvalidDictionary';
+  }
+  CryptoErrorCode.Bip39InvalidWordCount() {
+    _value = 'Bip39InvalidWordCount';
+  }
+  CryptoErrorCode.MnemonicGenerationFailed() {
+    _value = 'MnemonicGenerationFailed';
+  }
+  CryptoErrorCode.MnemonicFromEntropyFailed() {
+    _value = 'MnemonicFromEntropyFailed';
+  }
+  CryptoErrorCode.SigningBoxNotRegistered() {
+    _value = 'SigningBoxNotRegistered';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  CryptoErrorCode.fromMap(str) {
+    _value = str;
+  }
+}
+
 //typedef SigningBoxHandle int;
 class ParamsOfFactorize extends TonSdkStructure {
   ///Hexadecimal representation of u64 composite number.

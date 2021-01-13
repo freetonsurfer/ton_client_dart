@@ -1,5 +1,30 @@
 part of 'tonsdktypes.dart';
 
+class DebotErrorCode {
+  String _value;
+  String get value => _value;
+  DebotErrorCode.DebotStartFailed() {
+    _value = 'DebotStartFailed';
+  }
+  DebotErrorCode.DebotFetchFailed() {
+    _value = 'DebotFetchFailed';
+  }
+  DebotErrorCode.DebotExecutionFailed() {
+    _value = 'DebotExecutionFailed';
+  }
+  DebotErrorCode.DebotInvalidHandle() {
+    _value = 'DebotInvalidHandle';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  DebotErrorCode.fromMap(str) {
+    _value = str;
+  }
+}
+
 ///[UNSTABLE](UNSTABLE.md) Handle of registered in SDK debot
 //typedef DebotHandle int;
 ///[UNSTABLE](UNSTABLE.md) Describes a debot action in a Debot Context.
@@ -166,6 +191,9 @@ abstract class ParamsOfAppDebotBrowser extends TonSdkStructure {
     if (map['type'] == 'Switch') {
       return ParamsOfAppDebotBrowser_Switch.fromMap(map);
     }
+    if (map['type'] == 'SwitchCompleted') {
+      return ParamsOfAppDebotBrowser_SwitchCompleted.fromMap(map);
+    }
     if (map['type'] == 'ShowAction') {
       return ParamsOfAppDebotBrowser_ShowAction.fromMap(map);
     }
@@ -252,6 +280,28 @@ class ParamsOfAppDebotBrowser_Switch extends ParamsOfAppDebotBrowser {
     if (_context_id != null) {
       map['context_id'] = _context_id;
     }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notify browser that all context actions are shown.
+class ParamsOfAppDebotBrowser_SwitchCompleted extends ParamsOfAppDebotBrowser {
+  String _type;
+  String get type => _type;
+  ParamsOfAppDebotBrowser_SwitchCompleted() {
+    _type = 'SwitchCompleted';
+  }
+  ParamsOfAppDebotBrowser_SwitchCompleted.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'SwitchCompleted') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'SwitchCompleted';
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
     map['type'] = _type;
     return map;
   }

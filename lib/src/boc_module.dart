@@ -47,4 +47,12 @@ class BocModule extends _TonSdkModule {
     final res = await _tonCore.request('boc.get_boc_hash', params.toString());
     return ResultOfGetBocHash.fromMap(res);
   }
+
+  ///Extracts code from TVC contract image
+  Future<ResultOfGetCodeFromTvc> get_code_from_tvc(
+      ParamsOfGetCodeFromTvc params) async {
+    final res =
+        await _tonCore.request('boc.get_code_from_tvc', params.toString());
+    return ResultOfGetCodeFromTvc.fromMap(res);
+  }
 }

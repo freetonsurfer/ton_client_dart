@@ -103,6 +103,10 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfNaclSign.fromMap(res);
   }
 
+  ///Verifies the signature in `signed` using the signer's public key `public`
+  ///and returns the message `unsigned`.
+  ///
+  ///If the signature fails verification, crypto_sign_open raises an exception.
   Future<ResultOfNaclSignOpen> nacl_sign_open(
       ParamsOfNaclSignOpen params) async {
     final res =
@@ -110,6 +114,8 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfNaclSignOpen.fromMap(res);
   }
 
+  ///Signs the message `unsigned` using the secret key `secret`
+  ///and returns a signature `signature`.
   Future<ResultOfNaclSignDetached> nacl_sign_detached(
       ParamsOfNaclSign params) async {
     final res =
@@ -117,6 +123,7 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfNaclSignDetached.fromMap(res);
   }
 
+  ///Generates a random NaCl key pair
   Future<KeyPair> nacl_box_keypair() async {
     final res = await _tonCore.request('crypto.nacl_box_keypair');
     return KeyPair.fromMap(res);
