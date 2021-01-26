@@ -48,12 +48,23 @@ class TonSdkCore {
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
       {};
 
-  void connect(Map<String, dynamic> config, Uri uriLibPath) async {
+  void connect(Map<String, dynamic> config) async {
     if (Platform.isLinux) {
-      _sdkLib = DynamicLibrary.open(uriLibPath.toFilePath());
+      final path = await Isolate.resolvePackageUri(Uri.parse(
+          'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
+      _sdkLib = DynamicLibrary.open(path.toFilePath());
+    } else if (Platform.isWindows) {
+      final path = await Isolate.resolvePackageUri(Uri.parse(
+          'package:ton_client_dart/src/tonsdklib/ton_client_dart.dll'));
+      _sdkLib = DynamicLibrary.open(path.toFilePath());
     } else {
       throw ("Platform not implemented yet!");
     }
+    /*if (Platform.isLinux) {
+      _sdkLib = DynamicLibrary.open(uriLibPath.toFilePath());
+    } else {
+      throw ("Platform not implemented yet!");
+    }*/
 
     //create native port
     final initializeApiDL = _sdkLib.lookupFunction<
@@ -85,7 +96,7 @@ class TonSdkCore {
     }
 
     _context = contextJson['result'];
-    print("context: " + _context.toString());
+    //print("context: " + _context.toString());
 
     final dartStringFree = _sdkLib
         .lookup<NativeFunction<DartStringFreeFFI>>("dart_string_free")

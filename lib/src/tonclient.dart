@@ -5,7 +5,6 @@ import 'core.dart';
 import 'dart:convert';
 import "package:hex/hex.dart";
 import 'dart:io';
-import 'dart:isolate';
 
 import 'dart:async';
 
@@ -78,9 +77,8 @@ class TonClient {
     if (_utils != null) {
       throw ('Client core already connected! Use TonClient.disconnect to close connection!');
     }
-    var uriPath = await Isolate.resolvePackageUri(Uri.parse(
-        'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
-    _tonCore.connect(config, uriPath);
+
+    _tonCore.connect(config);
     _utils = UtilsModule(_tonCore);
     _abi = AbiModule(_tonCore);
     _boc = BocModule(_tonCore);
