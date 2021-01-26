@@ -8,13 +8,16 @@ import 'dart:io';
 
 //TODO refactor
 
-typedef w_tc_create_context_func = Pointer<Utf8> Function(
-    Pointer<Utf8> str, Int32 length);
-typedef CreateContext = Pointer<Utf8> Function(Pointer<Utf8> str, int length);
+typedef CreateContextFFI = Pointer<Utf8> Function(Int64, Pointer<Utf8>);
+typedef CreateContext = Pointer<Utf8> Function(int, Pointer<Utf8>);
+//typedef w_tc_create_context_func = Pointer<Utf8> Function(
+//    Pointer<Utf8> str, Int32 length);
+//typedef CreateContext = Pointer<Utf8> Function(Pointer<Utf8> str, int length);
 typedef w_tc_request = Void Function(
-    Int32, Pointer<Utf8>, Int32, Pointer<Utf8>, Int32, Int32);
-typedef TcRequest = void Function(
-    int, Pointer<Utf8>, int, Pointer<Utf8>, int, int);
+    Int32, Pointer<Utf8>, Pointer<Utf8>, Int32);
+typedef TcRequest = void Function(int, Pointer<Utf8>, Pointer<Utf8>, int);
+typedef DartStringFree = void Function(Pointer<Utf8>);
+typedef DartStringFreeFFI = Void Function(Pointer<Utf8>);
 
 class MyResponse extends Struct {
   @Uint8()
@@ -52,27 +55,10 @@ class TonSdkCore {
       throw ("Platform not implemented yet!");
     }
 
-    final configStr = jsonEncode(config);
-
-    final createContextPointer =
-        _sdkLib.lookup<NativeFunction<w_tc_create_context_func>>(
-            'tonsdk_dart_tc_create_context');
-    final createContext = createContextPointer.asFunction<CreateContext>();
-    final createContextMessage =
-        Utf8.fromUtf8(createContext(Utf8.toUtf8(configStr), configStr.length));
-
-    final contextJson =
-        jsonDecode(createContextMessage) as Map<String, dynamic>;
-
-    if (!contextJson.containsKey('result')) {
-      throw ("Can't create context! ${contextJson['error']}");
-    }
-
-    _context = contextJson['result'];
     //create native port
     final initializeApiDL = _sdkLib.lookupFunction<
         IntPtr Function(Pointer<Void>),
-        int Function(Pointer<Void>)>('Dart_InitializeApiDL');
+        int Function(Pointer<Void>)>('dart_initialize_api_dl');
     if (initializeApiDL(NativeApi.initializeApiDLData) != 0) {
       throw 'Failed to initialize Dart API';
     }
@@ -82,25 +68,50 @@ class TonSdkCore {
       });
     final nativePort = _interactiveCppRequests.sendPort.nativePort;
 
-    final setNativePort = _sdkLib
+    //create context
+    final configStr = jsonEncode(config);
+
+    final createContextPointer =
+        _sdkLib.lookup<NativeFunction<CreateContextFFI>>('dart_create_context');
+    final createContext = createContextPointer.asFunction<CreateContext>();
+    final createContextPtr = createContext(nativePort, Utf8.toUtf8(configStr));
+    final createContextMessage = Utf8.fromUtf8(createContextPtr);
+
+    final contextJson =
+        jsonDecode(createContextMessage) as Map<String, dynamic>;
+
+    if (!contextJson.containsKey('result')) {
+      throw ("Can't create context! ${contextJson['error']}");
+    }
+
+    _context = contextJson['result'];
+    print("context: " + _context.toString());
+
+    final dartStringFree = _sdkLib
+        .lookup<NativeFunction<DartStringFreeFFI>>("dart_string_free")
+        .asFunction<DartStringFree>();
+    dartStringFree(createContextPtr);
+
+    /*final setNativePort = _sdkLib
         .lookup<NativeFunction<Void Function(Int64 port)>>(
             'tonsdk_dart_set_nativeport')
         .asFunction<void Function(int port)>();
 
-    setNativePort(nativePort);
+    setNativePort(nativePort);*/
 
+    //pointers to requests functions
     _tcRequest = _sdkLib
-        .lookup<NativeFunction<w_tc_request>>('tonsdk_dart_tc_request')
+        .lookup<NativeFunction<w_tc_request>>('dart_request')
         .asFunction<TcRequest>();
 
     _clearResponse = _sdkLib.lookupFunction<Void Function(Pointer<MyResponse>),
-        void Function(Pointer<MyResponse>)>('tonsdk_dart_clear_response');
+        void Function(Pointer<MyResponse>)>('dart_response_free');
   }
 
   void disconnect() {
     final contextClose =
         _sdkLib.lookupFunction<Void Function(Uint32), void Function(int)>(
-            'tonsdk_dart_tc_destroy_context');
+            'dart_destroy_context');
     contextClose(_context);
     _interactiveCppRequests.close();
     _context = -1;
@@ -153,9 +164,8 @@ class TonSdkCore {
     _requests[id] = tuple;
 
     final param_utf = Utf8.toUtf8(fnParams);
-    final param_len = Utf8.strlen(param_utf);
-    _tcRequest(
-        _context, Utf8.toUtf8(fnName), fnName.length, param_utf, param_len, id);
+    //final param_len = Utf8.strlen(param_utf);
+    _tcRequest(_context, Utf8.toUtf8(fnName), param_utf, id);
 
     return completer.future;
   }

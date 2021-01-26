@@ -78,8 +78,8 @@ class TonClient {
     if (_utils != null) {
       throw ('Client core already connected! Use TonClient.disconnect to close connection!');
     }
-    var uriPath = await Isolate.resolvePackageUri(
-        Uri.parse('package:ton_client_dart/src/tonsdklib/libtonclientdart.so'));
+    var uriPath = await Isolate.resolvePackageUri(Uri.parse(
+        'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
     _tonCore.connect(config, uriPath);
     _utils = UtilsModule(_tonCore);
     _abi = AbiModule(_tonCore);
