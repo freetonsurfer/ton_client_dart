@@ -15,7 +15,7 @@ client_test(TonClient client) {
 
     test('build_info', () async {
       var res = await client.build_info();
-      expect(res.build_number, equals(1003000));
+      expect(res.build_number, equals(1002000));
     });
   });
 }
