@@ -1,5 +1,5 @@
 import 'tonsdktypes.dart';
-import 'core.dart';
+import 'tonsdkcore.dart';
 
 part 'client_module.dart';
 part 'abi_module.dart';

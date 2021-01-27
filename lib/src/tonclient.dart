@@ -1,7 +1,7 @@
 //import 'package:cli/tonsdkmodule.dart';
 import 'tonsdkmodule.dart';
 import 'tonsdktypes.dart';
-import 'core.dart';
+import 'tonsdkcore.dart';
 import 'dart:convert';
 import "package:hex/hex.dart";
 import 'dart:io';
@@ -136,20 +136,20 @@ class TonClient {
     return base64.encode(bytes);
   }
 
-  /// encode hex string to Base64 string
-  static String hex2base64(String hex_str) {
-    var bytes = HEX.decode(hex_str);
-    return base64.encode(bytes);
-  }
-
   /// decode String to Base64 string
   static String base642str(String base64_str) {
     var bytes = base64.decode(base64_str);
     return utf8.decode(bytes);
   }
 
+  /// encode hex string to Base64 string
+  static String hex2base64(String hex_str) {
+    var bytes = HEX.decode(hex_str);
+    return base64.encode(bytes);
+  }
+
   static Future<String> loadAbiFromFile(String path) async {
-    var abijson = await File('test/files/events.abi.json').readAsStringSync();
+    var abijson = await File(path).readAsStringSync();
     final safe = jsonDecode(abijson);
     abijson = jsonEncode(safe);
     return abijson.replaceAll('"', '\\"');
