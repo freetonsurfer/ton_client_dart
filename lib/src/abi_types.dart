@@ -211,11 +211,11 @@ class FunctionHeader extends TonSdkStructure {
   int _expire;
   int get expire => _expire;
 
-  ///If not specified, `now` is used(if ABI includes `time` header).
+  ///If not specified, `now` is used (if ABI includes `time` header).
   BigInt _time;
   BigInt get time => _time;
 
-  ///Encoded in `hex`.If not specified, method fails with exception (if ABI includes `pubkey` header)..
+  ///Encoded in `hex`. If not specified, method fails with exception (if ABI includes `pubkey` header)..
   String _pubkey;
   String get pubkey => _pubkey;
   FunctionHeader({

@@ -66,7 +66,7 @@ class ParamsOfQuery extends TonSdkStructure{
 ///GraphQL query text.
 String _query;
 String get query => _query;
-///Must be a map with named values thatcan be used in query.
+///Must be a map with named values that can be used in query.
 dynamic _variables;
 dynamic get variables => _variables;
 ParamsOfQuery({@required String query, dynamic variables,}){

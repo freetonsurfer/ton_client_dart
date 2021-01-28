@@ -126,7 +126,7 @@ String get type => _type;
 ///Encoded as base64.
 String _boc;
 String get boc => _boc;
-///Can be used to calculatetransaction fees without balance check
+///Can be used to calculate transaction fees without balance check
 bool _unlimited_balance;
 bool get unlimited_balance => _unlimited_balance;
 AccountForExecutor_Account({@required String boc, bool unlimited_balance,}){
@@ -321,7 +321,7 @@ List<String> get out_messages => _out_messages;
 ///Optional decoded message bodies according to the optional `abi` parameter.
 DecodedOutput _decoded;
 DecodedOutput get decoded => _decoded;
-///Encoded as `base64`.Attention! Only `account_state.storage.state.data` part of the boc is updated.
+///Encoded as `base64`. Attention! Only `account_state.storage.state.data` part of the boc is updated.
 String _account;
 String get account => _account;
 ResultOfRunTvm({@required List<String> out_messages, DecodedOutput decoded,@required String account,}){

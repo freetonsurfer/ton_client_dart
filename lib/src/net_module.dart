@@ -34,7 +34,7 @@ class NetModule extends _TonSdkModule {
 
   ///Cancels a subscription specified by its handle.
   Future<void> unsubscribe(ResultOfSubscribeCollection params) async {
-    final res = await _tonCore.request('net.unsubscribe', params.toString());
+    await _tonCore.request('net.unsubscribe', params.toString());
     return;
   }
 
@@ -51,13 +51,13 @@ class NetModule extends _TonSdkModule {
 
   ///Suspends network module to stop any network activity
   Future<void> suspend() async {
-    final res = await _tonCore.request('net.suspend');
+    await _tonCore.request('net.suspend');
     return;
   }
 
   ///Resumes network module to enable network activity
   Future<void> resume() async {
-    final res = await _tonCore.request('net.resume');
+    await _tonCore.request('net.resume');
     return;
   }
 

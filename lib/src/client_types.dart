@@ -130,7 +130,7 @@ class NetworkConfig extends TonSdkStructure{
 ///DApp Server public address. For instance, for `net.ton.dev/graphql` GraphQL endpoint the server address will be net.ton.dev
 String _server_address;
 String get server_address => _server_address;
-///Any correct URL format can be specified, including IP addresses
+///Any correct URL format can be specified, including IP addresses This parameter is prevailing over `server_address`.
 List<String> _endpoints;
 List<String> get endpoints => _endpoints;
 ///The number of automatic network retries that SDK performs in case of connection problems The default value is 5.
@@ -145,7 +145,7 @@ int get message_processing_timeout => _message_processing_timeout;
 ///Maximum timeout that is used for query response. The default value is 40 sec.
 int _wait_for_timeout;
 int get wait_for_timeout => _wait_for_timeout;
-///If client's device time is out of sink and difference is more thanthe threshhold then error will occur. Also the error will occur if the specified threshhold is more than
+///If client's device time is out of sinc and difference is more than the threshold then error will occur. Also an error will occur if the specified threshold is more than
 ///`message_processing_timeout/2`.
 ///The default value is 15 sec.
 int _out_of_sync_threshold;
@@ -198,7 +198,7 @@ return map;
 
 ///Crypto config.
 class CryptoConfig extends TonSdkStructure{
-///Mnemonic dictionary that will be used by default in crypto funcions. If not specified, 1 dictionary will be used.
+///Mnemonic dictionary that will be used by default in crypto functions. If not specified, 1 dictionary will be used.
 int _mnemonic_dictionary;
 int get mnemonic_dictionary => _mnemonic_dictionary;
 ///Mnemonic word count that will be used by default in crypto functions. If not specified the default value will be 12.

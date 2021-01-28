@@ -2264,7 +2264,7 @@ class ParamsOfSigningBoxSign extends TonSdkStructure {
 }
 
 class ResultOfSigningBoxSign extends TonSdkStructure {
-  ///Encoded with `base64`.
+  ///Encoded with `hex`.
   String _signature;
   String get signature => _signature;
   ResultOfSigningBoxSign({

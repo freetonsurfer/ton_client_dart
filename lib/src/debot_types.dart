@@ -29,11 +29,11 @@ class DebotErrorCode {
 //typedef DebotHandle int;
 ///[UNSTABLE](UNSTABLE.md) Describes a debot action in a Debot Context.
 class DebotAction extends TonSdkStructure {
-  ///Should be used by Debot Browser as name ofmenu item.
+  ///Should be used by Debot Browser as name of menu item.
   String _description;
   String get description => _description;
 
-  ///Can be a debot function name or a print string(for Print Action).
+  ///Can be a debot function name or a print string (for Print Action).
   String _name;
   String get name => _name;
 
@@ -45,7 +45,7 @@ class DebotAction extends TonSdkStructure {
   int _to;
   int get to => _to;
 
-  ///In the form of "param=value,flag".attribute example: instant, args, fargs, sign.
+  ///In the form of "param=value,flag". attribute example: instant, args, fargs, sign.
   String _attributes;
   String get attributes => _attributes;
 
