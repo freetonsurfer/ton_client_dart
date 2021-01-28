@@ -106,9 +106,9 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 
 
 ## Supported Platforms
-- Linux - supported
+- Linux - supported :white_check_mark:
+- Windows - supported :white_check_mark:
 - Android - now we are working on Android support at it will be available as soon as possible.
-- Windows support will be implemented in Jan 2021 or on user demand.
 - macOS support will be implemented in Q1 2021 or on user demand.
 - iOS support will be implemented in Q2 2021 or on user demand.
 - Web support will be implemented in Q4 2021 or on user demand.
