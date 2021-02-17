@@ -319,14 +319,23 @@ class DeploySet extends TonSdkStructure {
   ///List of initial values for contract's public variables.
   dynamic _initial_data;
   dynamic get initial_data => _initial_data;
+
+  ///Public key resolving priority:
+  ///1. Public key from deploy set.
+  ///2. Public key, specified in TVM file.
+  ///3. Public key, provided by Signer.
+  String _initial_pubkey;
+  String get initial_pubkey => _initial_pubkey;
   DeploySet({
     @required String tvc,
     int workchain_id,
     dynamic initial_data,
+    String initial_pubkey,
   }) {
     _tvc = ArgumentError.checkNotNull(tvc, 'DeploySet tvc');
     _workchain_id = workchain_id;
     _initial_data = initial_data;
+    _initial_pubkey = initial_pubkey;
   }
   DeploySet.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('tvc') && (map['tvc'] != null)) {
@@ -340,6 +349,9 @@ class DeploySet extends TonSdkStructure {
     if (map.containsKey('initial_data') && (map['initial_data'] != null)) {
       _initial_data = map['initial_data'];
     }
+    if (map.containsKey('initial_pubkey') && (map['initial_pubkey'] != null)) {
+      _initial_pubkey = map['initial_pubkey'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -352,6 +364,9 @@ class DeploySet extends TonSdkStructure {
     }
     if (_initial_data != null) {
       map['initial_data'] = _initial_data;
+    }
+    if (_initial_pubkey != null) {
+      map['initial_pubkey'] = _initial_pubkey;
     }
     return map;
   }
@@ -858,15 +873,18 @@ class MessageSource_EncodingParams extends MessageSource {
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    } else {
+      throw ('Wrong map data');
+    }
     if (map.containsKey('type') && (map['type'] == 'EncodingParams')) {
       _type = 'EncodingParams';
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('abi') && (map['abi'] != null)) {
-      _abi = Abi.fromMap(map['abi']);
-    } else {
-      throw ('Wrong map data');
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
     }
     if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
@@ -889,9 +907,10 @@ class MessageSource_EncodingParams extends MessageSource {
   }
 
   Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {
-      'type': 'EncodingParams',
-    };
+    Map<String, dynamic> map = {};
+    if (_type != null) {
+      map['type'] = _type;
+    }
     if (_abi != null) {
       map['abi'] = _abi;
     }
@@ -1668,6 +1687,167 @@ class ResultOfEncodeMessage extends TonSdkStructure {
   }
 }
 
+class ParamsOfEncodeInternalMessage extends TonSdkStructure {
+  ///Contract ABI.
+  Abi _abi;
+  Abi get abi => _abi;
+
+  ///Must be specified in case of non-deploy message.
+  String _address;
+  String get address => _address;
+
+  ///Must be specified in case of deploy message.
+  DeploySet _deploy_set;
+  DeploySet get deploy_set => _deploy_set;
+
+  ///Must be specified in case of non-deploy message.
+  ///
+  ///In case of deploy message it is optional and contains parameters
+  ///of the functions that will to be called upon deploy transaction.
+  CallSet _call_set;
+  CallSet get call_set => _call_set;
+
+  ///Value in nanograms to be sent with message.
+  String _value;
+  String get value => _value;
+
+  ///Default is true.
+  bool _bounce;
+  bool get bounce => _bounce;
+
+  ///Default is false.
+  bool _enable_ihr;
+  bool get enable_ihr => _enable_ihr;
+  ParamsOfEncodeInternalMessage({
+    @required Abi abi,
+    String address,
+    DeploySet deploy_set,
+    CallSet call_set,
+    @required String value,
+    bool bounce,
+    bool enable_ihr,
+  }) {
+    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfEncodeInternalMessage abi');
+    _address = address;
+    _deploy_set = deploy_set;
+    _call_set = call_set;
+    _value = ArgumentError.checkNotNull(
+        value, 'ParamsOfEncodeInternalMessage value');
+    _bounce = bounce;
+    _enable_ihr = enable_ihr;
+  }
+  ParamsOfEncodeInternalMessage.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    }
+    if (map.containsKey('deploy_set') && (map['deploy_set'] != null)) {
+      _deploy_set = DeploySet.fromMap(map['deploy_set']);
+    }
+    if (map.containsKey('call_set') && (map['call_set'] != null)) {
+      _call_set = CallSet.fromMap(map['call_set']);
+    }
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = map['value'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('bounce') && (map['bounce'] != null)) {
+      _bounce = map['bounce'];
+    }
+    if (map.containsKey('enable_ihr') && (map['enable_ihr'] != null)) {
+      _enable_ihr = map['enable_ihr'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_abi != null) {
+      map['abi'] = _abi;
+    }
+    if (_address != null) {
+      map['address'] = _address;
+    }
+    if (_deploy_set != null) {
+      map['deploy_set'] = _deploy_set;
+    }
+    if (_call_set != null) {
+      map['call_set'] = _call_set;
+    }
+    if (_value != null) {
+      map['value'] = _value;
+    }
+    if (_bounce != null) {
+      map['bounce'] = _bounce;
+    }
+    if (_enable_ihr != null) {
+      map['enable_ihr'] = _enable_ihr;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncodeInternalMessage extends TonSdkStructure {
+  ///Message BOC encoded with `base64`.
+  String _message;
+  String get message => _message;
+
+  ///Destination address.
+  String _address;
+  String get address => _address;
+
+  ///Message id.
+  String _message_id;
+  String get message_id => _message_id;
+  ResultOfEncodeInternalMessage({
+    @required String message,
+    @required String address,
+    @required String message_id,
+  }) {
+    _message = ArgumentError.checkNotNull(
+        message, 'ResultOfEncodeInternalMessage message');
+    _address = ArgumentError.checkNotNull(
+        address, 'ResultOfEncodeInternalMessage address');
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ResultOfEncodeInternalMessage message_id');
+  }
+  ResultOfEncodeInternalMessage.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('message') && (map['message'] != null)) {
+      _message = map['message'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message != null) {
+      map['message'] = _message;
+    }
+    if (_address != null) {
+      map['address'] = _address;
+    }
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
+    }
+    return map;
+  }
+}
+
 class ParamsOfAttachSignature extends TonSdkStructure {
   ///Contract ABI
   Abi _abi;
@@ -1958,17 +2138,23 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
   ///Initial value for the `last_paid`.
   int _last_paid;
   int get last_paid => _last_paid;
+
+  ///The BOC intself returned if no cache type provided
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
   ParamsOfEncodeAccount({
     @required StateInitSource state_init,
     BigInt balance,
     BigInt last_trans_lt,
     int last_paid,
+    BocCacheType boc_cache,
   }) {
     _state_init = ArgumentError.checkNotNull(
         state_init, 'ParamsOfEncodeAccount state_init');
     _balance = balance;
     _last_trans_lt = last_trans_lt;
     _last_paid = last_paid;
+    _boc_cache = boc_cache;
   }
   ParamsOfEncodeAccount.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('state_init') && (map['state_init'] != null)) {
@@ -1985,6 +2171,9 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
     if (map.containsKey('last_paid') && (map['last_paid'] != null)) {
       _last_paid = map['last_paid'];
     }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2000,6 +2189,9 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
     }
     if (_last_paid != null) {
       map['last_paid'] = _last_paid;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
     }
     return map;
   }

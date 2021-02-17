@@ -206,19 +206,29 @@ Abi get abi => _abi;
 ///Skip transaction check flag
 bool _skip_transaction_check;
 bool get skip_transaction_check => _skip_transaction_check;
-ParamsOfRunExecutor({@required String message,@required AccountForExecutor account, ExecutionOptions execution_options, Abi abi, bool skip_transaction_check,}){
+///The BOC intself returned if no cache type provided
+BocCacheType _boc_cache;
+BocCacheType get boc_cache => _boc_cache;
+///Empty string is returned if the flag is `false`
+bool _return_updated_account;
+bool get return_updated_account => _return_updated_account;
+ParamsOfRunExecutor({@required String message,@required AccountForExecutor account, ExecutionOptions execution_options, Abi abi, bool skip_transaction_check, BocCacheType boc_cache, bool return_updated_account,}){
 
 _message = ArgumentError.checkNotNull(message, 'ParamsOfRunExecutor message');
 _account = ArgumentError.checkNotNull(account, 'ParamsOfRunExecutor account');
 _execution_options = execution_options;
 _abi = abi;
 _skip_transaction_check = skip_transaction_check;
+_boc_cache = boc_cache;
+_return_updated_account = return_updated_account;
 }
 ParamsOfRunExecutor.fromMap(Map<String,dynamic> map){if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
 if (map.containsKey('account')&&(map['account']!=null)) {_account = AccountForExecutor.fromMap(map['account']);}else{throw('Wrong map data');}
 if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
 if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
 if (map.containsKey('skip_transaction_check')&&(map['skip_transaction_check']!=null)) {_skip_transaction_check = map['skip_transaction_check'];}
+if (map.containsKey('boc_cache')&&(map['boc_cache']!=null)) {_boc_cache = BocCacheType.fromMap(map['boc_cache']);}
+if (map.containsKey('return_updated_account')&&(map['return_updated_account']!=null)) {_return_updated_account = map['return_updated_account'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -228,6 +238,8 @@ if (_account!=null) {map['account'] = _account;}
 if (_execution_options!=null) {map['execution_options'] = _execution_options;}
 if (_abi!=null) {map['abi'] = _abi;}
 if (_skip_transaction_check!=null) {map['skip_transaction_check'] = _skip_transaction_check;}
+if (_boc_cache!=null) {map['boc_cache'] = _boc_cache;}
+if (_return_updated_account!=null) {map['return_updated_account'] = _return_updated_account;}
 return map;
 }
 }
@@ -291,17 +303,27 @@ ExecutionOptions get execution_options => _execution_options;
 ///Contract ABI for dedcoding output messages
 Abi _abi;
 Abi get abi => _abi;
-ParamsOfRunTvm({@required String message,@required String account, ExecutionOptions execution_options, Abi abi,}){
+///The BOC intself returned if no cache type provided
+BocCacheType _boc_cache;
+BocCacheType get boc_cache => _boc_cache;
+///Empty string is returned if the flag is `false`
+bool _return_updated_account;
+bool get return_updated_account => _return_updated_account;
+ParamsOfRunTvm({@required String message,@required String account, ExecutionOptions execution_options, Abi abi, BocCacheType boc_cache, bool return_updated_account,}){
 
 _message = ArgumentError.checkNotNull(message, 'ParamsOfRunTvm message');
 _account = ArgumentError.checkNotNull(account, 'ParamsOfRunTvm account');
 _execution_options = execution_options;
 _abi = abi;
+_boc_cache = boc_cache;
+_return_updated_account = return_updated_account;
 }
 ParamsOfRunTvm.fromMap(Map<String,dynamic> map){if (map.containsKey('message')&&(map['message']!=null)) {_message = map['message'];}else{throw('Wrong map data');}
 if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
 if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
 if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = Abi.fromMap(map['abi']);}
+if (map.containsKey('boc_cache')&&(map['boc_cache']!=null)) {_boc_cache = BocCacheType.fromMap(map['boc_cache']);}
+if (map.containsKey('return_updated_account')&&(map['return_updated_account']!=null)) {_return_updated_account = map['return_updated_account'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -310,6 +332,8 @@ if (_message!=null) {map['message'] = _message;}
 if (_account!=null) {map['account'] = _account;}
 if (_execution_options!=null) {map['execution_options'] = _execution_options;}
 if (_abi!=null) {map['abi'] = _abi;}
+if (_boc_cache!=null) {map['boc_cache'] = _boc_cache;}
+if (_return_updated_account!=null) {map['return_updated_account'] = _return_updated_account;}
 return map;
 }
 }

@@ -123,6 +123,14 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfNaclSignDetached.fromMap(res);
   }
 
+  ///Verifies the signature with public key and `unsigned` data.
+  Future<ResultOfNaclSignDetachedVerify> nacl_sign_detached_verify(
+      ParamsOfNaclSignDetachedVerify params) async {
+    final res = await _tonCore.request(
+        'crypto.nacl_sign_detached_verify', params.toString());
+    return ResultOfNaclSignDetachedVerify.fromMap(res);
+  }
+
   ///Generates a random NaCl key pair
   Future<KeyPair> nacl_box_keypair() async {
     final res = await _tonCore.request('crypto.nacl_box_keypair');

@@ -41,6 +41,12 @@ class DebotModule extends _TonSdkModule {
     return;
   }
 
+  ///Used by Debot Browser to send response on Dinterface call or from other Debots.
+  Future<void> send(ParamsOfSend params) async {
+    await _tonCore.request('debot.send', params.toString());
+    return;
+  }
+
   ///Removes handle from Client Context and drops debot engine referenced by that handle.
   Future<void> remove(RegisteredDebot params) async {
     await _tonCore.request('debot.remove', params.toString());

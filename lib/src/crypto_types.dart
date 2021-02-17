@@ -60,6 +60,9 @@ class CryptoErrorCode {
   CryptoErrorCode.SigningBoxNotRegistered() {
     _value = 'SigningBoxNotRegistered';
   }
+  CryptoErrorCode.InvalidSignature() {
+    _value = 'InvalidSignature';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -921,6 +924,90 @@ class ResultOfNaclSignDetached extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_signature != null) {
       map['signature'] = _signature;
+    }
+    return map;
+  }
+}
+
+class ParamsOfNaclSignDetachedVerify extends TonSdkStructure {
+  ///Encoded with `base64`.
+  String _unsigned;
+  String get unsigned => _unsigned;
+
+  ///Encoded with `hex`.
+  String _signature;
+  String get signature => _signature;
+
+  ///Signer's public key - unprefixed 0-padded to 64 symbols hex string.
+  String _public;
+  String get public => _public;
+  ParamsOfNaclSignDetachedVerify({
+    @required String unsigned,
+    @required String signature,
+    @required String public,
+  }) {
+    _unsigned = ArgumentError.checkNotNull(
+        unsigned, 'ParamsOfNaclSignDetachedVerify unsigned');
+    _signature = ArgumentError.checkNotNull(
+        signature, 'ParamsOfNaclSignDetachedVerify signature');
+    _public = ArgumentError.checkNotNull(
+        public, 'ParamsOfNaclSignDetachedVerify public');
+  }
+  ParamsOfNaclSignDetachedVerify.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('unsigned') && (map['unsigned'] != null)) {
+      _unsigned = map['unsigned'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('signature') && (map['signature'] != null)) {
+      _signature = map['signature'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_unsigned != null) {
+      map['unsigned'] = _unsigned;
+    }
+    if (_signature != null) {
+      map['signature'] = _signature;
+    }
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    return map;
+  }
+}
+
+class ResultOfNaclSignDetachedVerify extends TonSdkStructure {
+  ///`true` if verification succeeded or `false` if it failed
+  bool _succeeded;
+  bool get succeeded => _succeeded;
+  ResultOfNaclSignDetachedVerify({
+    @required bool succeeded,
+  }) {
+    _succeeded = ArgumentError.checkNotNull(
+        succeeded, 'ResultOfNaclSignDetachedVerify succeeded');
+  }
+  ResultOfNaclSignDetachedVerify.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('succeeded') && (map['succeeded'] != null)) {
+      _succeeded = map['succeeded'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_succeeded != null) {
+      map['succeeded'] = _succeeded;
     }
     return map;
   }

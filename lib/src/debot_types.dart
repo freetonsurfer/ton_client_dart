@@ -15,6 +15,24 @@ class DebotErrorCode {
   DebotErrorCode.DebotInvalidHandle() {
     _value = 'DebotInvalidHandle';
   }
+  DebotErrorCode.DebotInvalidJsonParams() {
+    _value = 'DebotInvalidJsonParams';
+  }
+  DebotErrorCode.DebotInvalidFunctionId() {
+    _value = 'DebotInvalidFunctionId';
+  }
+  DebotErrorCode.DebotInvalidAbi() {
+    _value = 'DebotInvalidAbi';
+  }
+  DebotErrorCode.DebotGetMethodFailed() {
+    _value = 'DebotGetMethodFailed';
+  }
+  DebotErrorCode.DebotInvalidMsg() {
+    _value = 'DebotInvalidMsg';
+  }
+  DebotErrorCode.DebotExternaCallFailed() {
+    _value = 'DebotExternaCallFailed';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -205,6 +223,9 @@ abstract class ParamsOfAppDebotBrowser extends TonSdkStructure {
     }
     if (map['type'] == 'InvokeDebot') {
       return ParamsOfAppDebotBrowser_InvokeDebot.fromMap(map);
+    }
+    if (map['type'] == 'Send') {
+      return ParamsOfAppDebotBrowser_Send.fromMap(map);
     }
     throw ('ParamsOfAppDebotBrowser unknown from map type');
   }
@@ -458,6 +479,44 @@ class ParamsOfAppDebotBrowser_InvokeDebot extends ParamsOfAppDebotBrowser {
   }
 }
 
+///Used by Debot to call DInterface implemented by Debot Browser.
+class ParamsOfAppDebotBrowser_Send extends ParamsOfAppDebotBrowser {
+  String _type;
+  String get type => _type;
+
+  ///Message body contains interface function and parameters.
+  String _message;
+  String get message => _message;
+  ParamsOfAppDebotBrowser_Send({
+    @required String message,
+  }) {
+    _type = 'Send';
+    _message = ArgumentError.checkNotNull(
+        message, 'ParamsOfAppDebotBrowser_Send message');
+  }
+  ParamsOfAppDebotBrowser_Send.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Send') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Send';
+    }
+    if (map.containsKey('message') && (map['message'] != null)) {
+      _message = map['message'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message != null) {
+      map['message'] = _message;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
 ///[UNSTABLE](UNSTABLE.md) Returning values from Debot Browser callbacks.
 abstract class ResultOfAppDebotBrowser extends TonSdkStructure {
   static ResultOfAppDebotBrowser fromMap(Map<String, dynamic> map) {
@@ -636,6 +695,76 @@ class ParamsOfExecute extends TonSdkStructure {
     }
     if (_action != null) {
       map['action'] = _action;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Parameters of `send` function.
+class ParamsOfSend extends TonSdkStructure {
+  ///Debot handle which references an instance of debot engine.
+  int _debot_handle;
+  int get debot_handle => _debot_handle;
+
+  ///Std address of interface or debot.
+  String _source;
+  String get source => _source;
+
+  ///Function Id to call
+  int _func_id;
+  int get func_id => _func_id;
+
+  ///Json string with parameters
+  String _params;
+  String get params => _params;
+  ParamsOfSend({
+    @required int debot_handle,
+    @required String source,
+    @required int func_id,
+    @required String params,
+  }) {
+    _debot_handle =
+        ArgumentError.checkNotNull(debot_handle, 'ParamsOfSend debot_handle');
+    _source = ArgumentError.checkNotNull(source, 'ParamsOfSend source');
+    _func_id = ArgumentError.checkNotNull(func_id, 'ParamsOfSend func_id');
+    _params = ArgumentError.checkNotNull(params, 'ParamsOfSend params');
+  }
+  ParamsOfSend.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
+      _debot_handle = map['debot_handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('source') && (map['source'] != null)) {
+      _source = map['source'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('func_id') && (map['func_id'] != null)) {
+      _func_id = map['func_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('params') && (map['params'] != null)) {
+      _params = map['params'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_debot_handle != null) {
+      map['debot_handle'] = _debot_handle;
+    }
+    if (_source != null) {
+      map['source'] = _source;
+    }
+    if (_func_id != null) {
+      map['func_id'] = _func_id;
+    }
+    if (_params != null) {
+      map['params'] = _params;
     }
     return map;
   }

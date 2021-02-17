@@ -9,6 +9,12 @@ class NetModule extends _TonSdkModule {
     return ResultOfQuery.fromMap(res);
   }
 
+  ///Performs multiple queries per single fetch.
+  Future<ResultOfBatchQuery> batch_query(ParamsOfBatchQuery params) async {
+    final res = await _tonCore.request('net.batch_query', params.toString());
+    return ResultOfBatchQuery.fromMap(res);
+  }
+
   ///Queries data that satisfies the `filter` conditions,
   ///limits the number of returned records and orders them.
   ///The projection fields are limited to `result` fields
@@ -17,6 +23,15 @@ class NetModule extends _TonSdkModule {
     final res =
         await _tonCore.request('net.query_collection', params.toString());
     return ResultOfQueryCollection.fromMap(res);
+  }
+
+  ///Aggregates values from the specified `fields` for records
+  ///that satisfies the `filter` conditions,
+  Future<ResultOfAggregateCollection> aggregate_collection(
+      ParamsOfAggregateCollection params) async {
+    final res =
+        await _tonCore.request('net.aggregate_collection', params.toString());
+    return ResultOfAggregateCollection.fromMap(res);
   }
 
   ///Triggers only once.

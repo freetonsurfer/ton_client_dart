@@ -55,4 +55,22 @@ class BocModule extends _TonSdkModule {
         await _tonCore.request('boc.get_code_from_tvc', params.toString());
     return ResultOfGetCodeFromTvc.fromMap(res);
   }
+
+  ///Get BOC from cache
+  Future<ResultOfBocCacheGet> cache_get(ParamsOfBocCacheGet params) async {
+    final res = await _tonCore.request('boc.cache_get', params.toString());
+    return ResultOfBocCacheGet.fromMap(res);
+  }
+
+  ///Save BOC into cache
+  Future<ResultOfBocCacheSet> cache_set(ParamsOfBocCacheSet params) async {
+    final res = await _tonCore.request('boc.cache_set', params.toString());
+    return ResultOfBocCacheSet.fromMap(res);
+  }
+
+  ///BOCs which don't have another pins will be removed from cache
+  Future<void> cache_unpin(ParamsOfBocCacheUnpin params) async {
+    await _tonCore.request('boc.cache_unpin', params.toString());
+    return;
+  }
 }

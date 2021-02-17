@@ -106,15 +106,19 @@ CryptoConfig _crypto;
 CryptoConfig get crypto => _crypto;
 AbiConfig _abi;
 AbiConfig get abi => _abi;
-ClientConfig({ NetworkConfig network, CryptoConfig crypto, AbiConfig abi,}){
+BocConfig _boc;
+BocConfig get boc => _boc;
+ClientConfig({ NetworkConfig network, CryptoConfig crypto, AbiConfig abi, BocConfig boc,}){
 
 _network = network;
 _crypto = crypto;
 _abi = abi;
+_boc = boc;
 }
 ClientConfig.fromMap(Map<String,dynamic> map){if (map.containsKey('network')&&(map['network']!=null)) {_network = NetworkConfig.fromMap(map['network']);}
 if (map.containsKey('crypto')&&(map['crypto']!=null)) {_crypto = CryptoConfig.fromMap(map['crypto']);}
 if (map.containsKey('abi')&&(map['abi']!=null)) {_abi = AbiConfig.fromMap(map['abi']);}
+if (map.containsKey('boc')&&(map['boc']!=null)) {_boc = BocConfig.fromMap(map['boc']);}
 }
 
 Map<String,dynamic> toMap(){
@@ -122,6 +126,7 @@ Map<String,dynamic> map ={};
 if (_network!=null) {map['network'] = _network;}
 if (_crypto!=null) {map['crypto'] = _crypto;}
 if (_abi!=null) {map['abi'] = _abi;}
+if (_boc!=null) {map['boc'] = _boc;}
 return map;
 }
 }
@@ -133,39 +138,43 @@ String get server_address => _server_address;
 ///Any correct URL format can be specified, including IP addresses This parameter is prevailing over `server_address`.
 List<String> _endpoints;
 List<String> get endpoints => _endpoints;
-///The number of automatic network retries that SDK performs in case of connection problems The default value is 5.
+///You must use `network.max_reconnect_timeout` that allows to specify maximum network resolving timeout.
 int _network_retries_count;
 int get network_retries_count => _network_retries_count;
-///The number of automatic message processing retries that SDK performs in case of `Message Expired (507)` error - but only for those messages which local emulation was successfull or failed with replay protection error. The default value is 5.
+///Default value is 120000 (2 min)
+int _max_reconnect_timeout;
+int get max_reconnect_timeout => _max_reconnect_timeout;
+///Deprecated
+int _reconnect_timeout;
+int get reconnect_timeout => _reconnect_timeout;
+///The number of automatic message processing retries that SDK performs in case of `Message Expired (507)` error - but only for those messages which local emulation was successful or failed with replay protection error. The default value is 5.
 int _message_retries_count;
 int get message_retries_count => _message_retries_count;
-///Timeout that is used to process message delivery for the contracts which ABI does not include "expire" header. If the message is not delivered within the speficied timeout the appropriate error occurs.
+///Timeout that is used to process message delivery for the contracts which ABI does not include "expire" header. If the message is not delivered within the specified timeout the appropriate error occurs.
 int _message_processing_timeout;
 int get message_processing_timeout => _message_processing_timeout;
 ///Maximum timeout that is used for query response. The default value is 40 sec.
 int _wait_for_timeout;
 int get wait_for_timeout => _wait_for_timeout;
-///If client's device time is out of sinc and difference is more than the threshold then error will occur. Also an error will occur if the specified threshold is more than
+///If client's device time is out of sync and difference is more than the threshold then error will occur. Also an error will occur if the specified threshold is more than
 ///`message_processing_timeout/2`.
 ///The default value is 15 sec.
 int _out_of_sync_threshold;
 int get out_of_sync_threshold => _out_of_sync_threshold;
-///Timeout between reconnect attempts
-int _reconnect_timeout;
-int get reconnect_timeout => _reconnect_timeout;
 ///At the moment is not used in production
 String _access_key;
 String get access_key => _access_key;
-NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, int reconnect_timeout, String access_key,}){
+NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int max_reconnect_timeout, int reconnect_timeout, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, String access_key,}){
 
 _server_address = server_address;
 _endpoints = endpoints;
 _network_retries_count = network_retries_count;
+_max_reconnect_timeout = max_reconnect_timeout;
+_reconnect_timeout = reconnect_timeout;
 _message_retries_count = message_retries_count;
 _message_processing_timeout = message_processing_timeout;
 _wait_for_timeout = wait_for_timeout;
 _out_of_sync_threshold = out_of_sync_threshold;
-_reconnect_timeout = reconnect_timeout;
 _access_key = access_key;
 }
 NetworkConfig.fromMap(Map<String,dynamic> map){if (map.containsKey('server_address')&&(map['server_address']!=null)) {_server_address = map['server_address'];}
@@ -173,11 +182,12 @@ if (map.containsKey('endpoints')&&(map['endpoints']!=null)) {_endpoints = [];
 for (var el in map['endpoints']) {
 if (el != null) {_endpoints.add(el);}else {_endpoints.add(null);}}}
 if (map.containsKey('network_retries_count')&&(map['network_retries_count']!=null)) {_network_retries_count = map['network_retries_count'];}
+if (map.containsKey('max_reconnect_timeout')&&(map['max_reconnect_timeout']!=null)) {_max_reconnect_timeout = map['max_reconnect_timeout'];}
+if (map.containsKey('reconnect_timeout')&&(map['reconnect_timeout']!=null)) {_reconnect_timeout = map['reconnect_timeout'];}
 if (map.containsKey('message_retries_count')&&(map['message_retries_count']!=null)) {_message_retries_count = map['message_retries_count'];}
 if (map.containsKey('message_processing_timeout')&&(map['message_processing_timeout']!=null)) {_message_processing_timeout = map['message_processing_timeout'];}
 if (map.containsKey('wait_for_timeout')&&(map['wait_for_timeout']!=null)) {_wait_for_timeout = map['wait_for_timeout'];}
 if (map.containsKey('out_of_sync_threshold')&&(map['out_of_sync_threshold']!=null)) {_out_of_sync_threshold = map['out_of_sync_threshold'];}
-if (map.containsKey('reconnect_timeout')&&(map['reconnect_timeout']!=null)) {_reconnect_timeout = map['reconnect_timeout'];}
 if (map.containsKey('access_key')&&(map['access_key']!=null)) {_access_key = map['access_key'];}
 }
 
@@ -186,11 +196,12 @@ Map<String,dynamic> map ={};
 if (_server_address!=null) {map['server_address'] = _server_address;}
 if (_endpoints!=null) {map['endpoints'] = _endpoints;}
 if (_network_retries_count!=null) {map['network_retries_count'] = _network_retries_count;}
+if (_max_reconnect_timeout!=null) {map['max_reconnect_timeout'] = _max_reconnect_timeout;}
+if (_reconnect_timeout!=null) {map['reconnect_timeout'] = _reconnect_timeout;}
 if (_message_retries_count!=null) {map['message_retries_count'] = _message_retries_count;}
 if (_message_processing_timeout!=null) {map['message_processing_timeout'] = _message_processing_timeout;}
 if (_wait_for_timeout!=null) {map['wait_for_timeout'] = _wait_for_timeout;}
 if (_out_of_sync_threshold!=null) {map['out_of_sync_threshold'] = _out_of_sync_threshold;}
-if (_reconnect_timeout!=null) {map['reconnect_timeout'] = _reconnect_timeout;}
 if (_access_key!=null) {map['access_key'] = _access_key;}
 return map;
 }
@@ -257,6 +268,24 @@ return map;
 }
 }
 
+class BocConfig extends TonSdkStructure{
+///Default is 10 MB
+int _cache_max_size;
+int get cache_max_size => _cache_max_size;
+BocConfig({ int cache_max_size,}){
+
+_cache_max_size = cache_max_size;
+}
+BocConfig.fromMap(Map<String,dynamic> map){if (map.containsKey('cache_max_size')&&(map['cache_max_size']!=null)) {_cache_max_size = map['cache_max_size'];}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_cache_max_size!=null) {map['cache_max_size'] = _cache_max_size;}
+return map;
+}
+}
+
 class BuildInfoDependency extends TonSdkStructure{
 ///Usually it is a crate name.
 String _name;
@@ -317,7 +346,7 @@ throw('AppRequestResult unknown from map type');
 }
 }
 
-///Error occured during request processing
+///Error occurred during request processing
 class AppRequestResult_Error extends AppRequestResult{
 String _type;
 String get type => _type;
