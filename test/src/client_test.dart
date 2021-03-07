@@ -5,17 +5,17 @@ client_test(TonClient client) {
     test('version', () async {
       var res = await client.version();
 
-      expect(res.version, equals('1.8.0'));
+      expect(res.version, equals('1.10.0'));
     });
 
     test('get_api_reference_api', () async {
       var res = await client.get_api_reference();
-      expect(res.api['version'], equals('1.8.0'));
+      expect(res.api['version'], equals('1.10.0'));
     });
 
     test('build_info', () async {
       var res = await client.build_info();
-      expect(res.build_number, equals(1003000));
+      expect(res.build_number, equals(1002000));
     });
   });
 }

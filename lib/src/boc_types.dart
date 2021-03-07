@@ -138,7 +138,7 @@ return map;
 }
 
 class ParamsOfGetBlockchainConfig extends TonSdkStructure{
-///Key block BOC encoded as base64
+///Key block BOC or zerostate BOC encoded as base64
 String _block_boc;
 String get block_boc => _block_boc;
 ParamsOfGetBlockchainConfig({@required String block_boc,}){
@@ -343,6 +343,182 @@ Map<String,dynamic> toMap(){
 Map<String,dynamic> map ={};
 if (_pin!=null) {map['pin'] = _pin;}
 if (_boc_ref!=null) {map['boc_ref'] = _boc_ref;}
+return map;
+}
+}
+
+///Cell builder operation.
+abstract class BuilderOp extends TonSdkStructure{
+static BuilderOp fromMap(Map<String,dynamic> map){
+if (map['type']=='Integer'){
+return BuilderOp_Integer.fromMap(map);
+}
+if (map['type']=='BitString'){
+return BuilderOp_BitString.fromMap(map);
+}
+if (map['type']=='Cell'){
+return BuilderOp_Cell.fromMap(map);
+}
+if (map['type']=='CellBoc'){
+return BuilderOp_CellBoc.fromMap(map);
+}
+throw('BuilderOp unknown from map type');
+}
+}
+
+///Append integer to cell data.
+class BuilderOp_Integer extends BuilderOp{
+String _type;
+String get type => _type;
+///Bit size of the value.
+int _size;
+int get size => _size;
+///e.g. `123`, `-123`. - Decimal string. e.g. `"123"`, `"-123"`.
+///- `0x` prefixed hexadecimal string.
+///  e.g `0x123`, `0X123`, `-0x123`.
+dynamic _value;
+dynamic get value => _value;
+BuilderOp_Integer({@required int size,@required dynamic value,}){
+
+_type = 'Integer';
+_size = ArgumentError.checkNotNull(size, 'BuilderOp_Integer size');
+_value = ArgumentError.checkNotNull(value, 'BuilderOp_Integer value');
+}
+BuilderOp_Integer.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'Integer'){throw('Wrong map data');}else{_type = 'Integer';}
+if (map.containsKey('size')&&(map['size']!=null)) {_size = map['size'];}else{throw('Wrong map data');}
+if (map.containsKey('value')&&(map['value']!=null)) {_value = map['value'];}else{throw('Wrong map data');}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_size!=null) {map['size'] = _size;}
+if (_value!=null) {map['value'] = _value;}
+map['type'] = _type;return map;
+}
+}
+
+///Append bit string to cell data.
+class BuilderOp_BitString extends BuilderOp{
+String _type;
+String get type => _type;
+///Contains hexadecimal string representation:
+///- Can end with `_` tag.
+///- Can be prefixed with `x` or `X`.
+///- Can be prefixed with `x{` or `X{` and ended with `}`.
+///
+///Contains binary string represented as a sequence
+///of `0` and `1` prefixed with `n` or `N`.
+///
+///Examples:
+///`1AB`, `x1ab`, `X1AB`, `x{1abc}`, `X{1ABC}`
+///`2D9_`, `x2D9_`, `X2D9_`, `x{2D9_}`, `X{2D9_}`
+///`n00101101100`, `N00101101100`
+String _value;
+String get value => _value;
+BuilderOp_BitString({@required String value,}){
+
+_type = 'BitString';
+_value = ArgumentError.checkNotNull(value, 'BuilderOp_BitString value');
+}
+BuilderOp_BitString.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'BitString'){throw('Wrong map data');}else{_type = 'BitString';}
+if (map.containsKey('value')&&(map['value']!=null)) {_value = map['value'];}else{throw('Wrong map data');}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_value!=null) {map['value'] = _value;}
+map['type'] = _type;return map;
+}
+}
+
+///Append ref to nested cells
+class BuilderOp_Cell extends BuilderOp{
+String _type;
+String get type => _type;
+///Nested cell builder
+List<BuilderOp> _builder;
+List<BuilderOp> get builder => _builder;
+BuilderOp_Cell({@required List<BuilderOp> builder,}){
+
+_type = 'Cell';
+_builder = ArgumentError.checkNotNull(builder, 'BuilderOp_Cell builder');
+}
+BuilderOp_Cell.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'Cell'){throw('Wrong map data');}else{_type = 'Cell';}
+if (map.containsKey('builder')&&(map['builder']!=null)) {_builder = [];
+for (var el in map['builder']) {
+if (el != null) {_builder.add(BuilderOp.fromMap(el));}else {_builder.add(null);}}}else{throw('Wrong map data');}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_builder!=null) {map['builder'] = _builder;}
+map['type'] = _type;return map;
+}
+}
+
+///Append ref to nested cell
+class BuilderOp_CellBoc extends BuilderOp{
+String _type;
+String get type => _type;
+///Nested cell BOC encoded with `base64` or BOC cache key.
+String _boc;
+String get boc => _boc;
+BuilderOp_CellBoc({@required String boc,}){
+
+_type = 'CellBoc';
+_boc = ArgumentError.checkNotNull(boc, 'BuilderOp_CellBoc boc');
+}
+BuilderOp_CellBoc.fromMap(Map<String,dynamic> map){if (!map.containsKey('type') || map['type']!= 'CellBoc'){throw('Wrong map data');}else{_type = 'CellBoc';}
+if (map.containsKey('boc')&&(map['boc']!=null)) {_boc = map['boc'];}else{throw('Wrong map data');}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_boc!=null) {map['boc'] = _boc;}
+map['type'] = _type;return map;
+}
+}
+
+class ParamsOfEncodeBoc extends TonSdkStructure{
+///Cell builder operations.
+List<BuilderOp> _builder;
+List<BuilderOp> get builder => _builder;
+///Cache type to put the result. The BOC itself returned if no cache type provided.
+BocCacheType _boc_cache;
+BocCacheType get boc_cache => _boc_cache;
+ParamsOfEncodeBoc({@required List<BuilderOp> builder, BocCacheType boc_cache,}){
+
+_builder = ArgumentError.checkNotNull(builder, 'ParamsOfEncodeBoc builder');
+_boc_cache = boc_cache;
+}
+ParamsOfEncodeBoc.fromMap(Map<String,dynamic> map){if (map.containsKey('builder')&&(map['builder']!=null)) {_builder = [];
+for (var el in map['builder']) {
+if (el != null) {_builder.add(BuilderOp.fromMap(el));}else {_builder.add(null);}}}else{throw('Wrong map data');}
+if (map.containsKey('boc_cache')&&(map['boc_cache']!=null)) {_boc_cache = BocCacheType.fromMap(map['boc_cache']);}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_builder!=null) {map['builder'] = _builder;}
+if (_boc_cache!=null) {map['boc_cache'] = _boc_cache;}
+return map;
+}
+}
+
+class ResultOfEncodeBoc extends TonSdkStructure{
+///Encoded cell BOC or BOC cache key.
+String _boc;
+String get boc => _boc;
+ResultOfEncodeBoc({@required String boc,}){
+
+_boc = ArgumentError.checkNotNull(boc, 'ResultOfEncodeBoc boc');
+}
+ResultOfEncodeBoc.fromMap(Map<String,dynamic> map){if (map.containsKey('boc')&&(map['boc']!=null)) {_boc = map['boc'];}else{throw('Wrong map data');}
+}
+
+Map<String,dynamic> toMap(){
+Map<String,dynamic> map ={};
+if (_boc!=null) {map['boc'] = _boc;}
 return map;
 }
 }

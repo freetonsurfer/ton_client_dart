@@ -145,14 +145,14 @@ class CryptoModule extends _TonSdkModule {
     return KeyPair.fromMap(res);
   }
 
-  ///Encrypt and authenticate a message using the senders secret key, the recievers public
+  ///Encrypt and authenticate a message using the senders secret key, the receivers public
   ///key, and a nonce.
   Future<ResultOfNaclBox> nacl_box(ParamsOfNaclBox params) async {
     final res = await _tonCore.request('crypto.nacl_box', params.toString());
     return ResultOfNaclBox.fromMap(res);
   }
 
-  ///Decrypt and verify the cipher text using the recievers secret key, the senders public key, and the nonce.
+  ///Decrypt and verify the cipher text using the receivers secret key, the senders public key, and the nonce.
   Future<ResultOfNaclBoxOpen> nacl_box_open(ParamsOfNaclBoxOpen params) async {
     final res =
         await _tonCore.request('crypto.nacl_box_open', params.toString());

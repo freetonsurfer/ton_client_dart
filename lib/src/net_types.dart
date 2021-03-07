@@ -166,18 +166,13 @@ class ParamsOfQueryOperation_QueryCollection extends ParamsOfQueryOperation {
     _limit = limit;
   }
   ParamsOfQueryOperation_QueryCollection.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('type') && (map['type'] == 'QueryCollection')) {
-      _type = 'QueryCollection';
-    } else {
-      throw ('Wrong map data');
-    }
     if (map.containsKey('collection') && (map['collection'] != null)) {
       _collection = map['collection'];
     } else {
       throw ('Wrong map data');
     }
     if (map.containsKey('type') && (map['type'] == 'QueryCollection')) {
-      _type = map['result'];
+      _type = 'QueryCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -285,7 +280,7 @@ class ParamsOfQueryOperation_WaitForCollection extends ParamsOfQueryOperation {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = _type;
+    map['type'] = 'WaitForCollection';
     if (_collection != null) {
       map['collection'] = _collection;
     }
@@ -330,13 +325,13 @@ class ParamsOfQueryOperation_AggregateCollection
     _fields = fields;
   }
   ParamsOfQueryOperation_AggregateCollection.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('type') && (map['type'] == 'AggregateCollection')) {
-      _type = 'AggregateCollection';
+    if (map.containsKey('collection') && (map['collection'] != null)) {
+      _collection = map['collection'];
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('collection') && (map['collection'] != null)) {
-      _collection = map['collection'];
+    if (map.containsKey('type') && (map['type'] == 'AggregateCollection')) {
+      _type = 'AggregateCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -357,7 +352,7 @@ class ParamsOfQueryOperation_AggregateCollection
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = _type;
+    map['type'] = 'AggregateCollection';
     if (_collection != null) {
       map['collection'] = _collection;
     }

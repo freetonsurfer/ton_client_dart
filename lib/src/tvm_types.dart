@@ -206,7 +206,7 @@ Abi get abi => _abi;
 ///Skip transaction check flag
 bool _skip_transaction_check;
 bool get skip_transaction_check => _skip_transaction_check;
-///The BOC intself returned if no cache type provided
+///The BOC itself returned if no cache type provided
 BocCacheType _boc_cache;
 BocCacheType get boc_cache => _boc_cache;
 ///Empty string is returned if the flag is `false`
@@ -300,10 +300,10 @@ String get account => _account;
 ///Execution options.
 ExecutionOptions _execution_options;
 ExecutionOptions get execution_options => _execution_options;
-///Contract ABI for dedcoding output messages
+///Contract ABI for decoding output messages
 Abi _abi;
 Abi get abi => _abi;
-///The BOC intself returned if no cache type provided
+///The BOC itself returned if no cache type provided
 BocCacheType _boc_cache;
 BocCacheType get boc_cache => _boc_cache;
 ///Empty string is returned if the flag is `false`
@@ -345,7 +345,7 @@ List<String> get out_messages => _out_messages;
 ///Optional decoded message bodies according to the optional `abi` parameter.
 DecodedOutput _decoded;
 DecodedOutput get decoded => _decoded;
-///Encoded as `base64`. Attention! Only `account_state.storage.state.data` part of the boc is updated.
+///Encoded as `base64`. Attention! Only `account_state.storage.state.data` part of the BOC is updated.
 String _account;
 String get account => _account;
 ResultOfRunTvm({@required List<String> out_messages, DecodedOutput decoded,@required String account,}){
@@ -380,19 +380,28 @@ String get function_name => _function_name;
 ///Input parameters
 dynamic _input;
 dynamic get input => _input;
+///Execution options
 ExecutionOptions _execution_options;
 ExecutionOptions get execution_options => _execution_options;
-ParamsOfRunGet({@required String account,@required String function_name, dynamic input, ExecutionOptions execution_options,}){
+///Default is `false`. Input parameters may use any of lists representations
+///If you receive this error on Web: "Runtime error. Unreachable code should not be executed...",
+///set this flag to true.
+///This may happen, for example, when elector contract contains too many participants
+bool _tuple_list_as_array;
+bool get tuple_list_as_array => _tuple_list_as_array;
+ParamsOfRunGet({@required String account,@required String function_name, dynamic input, ExecutionOptions execution_options, bool tuple_list_as_array,}){
 
 _account = ArgumentError.checkNotNull(account, 'ParamsOfRunGet account');
 _function_name = ArgumentError.checkNotNull(function_name, 'ParamsOfRunGet function_name');
 _input = input;
 _execution_options = execution_options;
+_tuple_list_as_array = tuple_list_as_array;
 }
 ParamsOfRunGet.fromMap(Map<String,dynamic> map){if (map.containsKey('account')&&(map['account']!=null)) {_account = map['account'];}else{throw('Wrong map data');}
 if (map.containsKey('function_name')&&(map['function_name']!=null)) {_function_name = map['function_name'];}else{throw('Wrong map data');}
 if (map.containsKey('input')&&(map['input']!=null)) {_input = map['input'];}
 if (map.containsKey('execution_options')&&(map['execution_options']!=null)) {_execution_options = ExecutionOptions.fromMap(map['execution_options']);}
+if (map.containsKey('tuple_list_as_array')&&(map['tuple_list_as_array']!=null)) {_tuple_list_as_array = map['tuple_list_as_array'];}
 }
 
 Map<String,dynamic> toMap(){
@@ -401,12 +410,13 @@ if (_account!=null) {map['account'] = _account;}
 if (_function_name!=null) {map['function_name'] = _function_name;}
 if (_input!=null) {map['input'] = _input;}
 if (_execution_options!=null) {map['execution_options'] = _execution_options;}
+if (_tuple_list_as_array!=null) {map['tuple_list_as_array'] = _tuple_list_as_array;}
 return map;
 }
 }
 
 class ResultOfRunGet extends TonSdkStructure{
-///Values returned by getmethod on stack
+///Values returned by get-method on stack
 dynamic _output;
 dynamic get output => _output;
 ResultOfRunGet({@required dynamic output,}){

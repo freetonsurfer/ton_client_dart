@@ -184,7 +184,7 @@ String jsonFieldTypeToDartType(Map<String, dynamic> typeinfo) {
     return jsonFieldTypeToDartType(typeinfo['optional_inner']);
   }
 
-  print('${typeinfo}');
+  //print('${typeinfo}');
   if (typeinfo['type'] == 'Generic') {
     return 'Function';
   }

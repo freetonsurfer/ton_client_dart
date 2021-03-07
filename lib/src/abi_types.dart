@@ -36,6 +36,9 @@ class AbiErrorCode {
   AbiErrorCode.InvalidAbi() {
     _value = 'InvalidAbi';
   }
+  AbiErrorCode.InvalidFunctionId() {
+    _value = 'InvalidFunctionId';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -255,7 +258,7 @@ class FunctionHeader extends TonSdkStructure {
 }
 
 class CallSet extends TonSdkStructure {
-  ///Function name that is being called.
+  ///Function name that is being called. Or function id encoded as string in hex (starting with 0x).
   String _function_name;
   String get function_name => _function_name;
 
@@ -873,18 +876,15 @@ class MessageSource_EncodingParams extends MessageSource {
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('abi') && (map['abi'] != null)) {
-      _abi = Abi.fromMap(map['abi']);
-    } else {
-      throw ('Wrong map data');
-    }
     if (map.containsKey('type') && (map['type'] == 'EncodingParams')) {
       _type = 'EncodingParams';
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('address') && (map['address'] != null)) {
-      _address = map['address'];
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    } else {
+      throw ('Wrong map data');
     }
     if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
@@ -908,9 +908,7 @@ class MessageSource_EncodingParams extends MessageSource {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_type != null) {
-      map['type'] = _type;
-    }
+    map['type'] = 'EncodingParams';
     if (_abi != null) {
       map['abi'] = _abi;
     }
@@ -1688,13 +1686,17 @@ class ResultOfEncodeMessage extends TonSdkStructure {
 }
 
 class ParamsOfEncodeInternalMessage extends TonSdkStructure {
-  ///Contract ABI.
+  ///Can be None if both deploy_set and call_set are None.
   Abi _abi;
   Abi get abi => _abi;
 
   ///Must be specified in case of non-deploy message.
   String _address;
   String get address => _address;
+
+  ///Source address of the message.
+  String _src_address;
+  String get src_address => _src_address;
 
   ///Must be specified in case of deploy message.
   DeploySet _deploy_set;
@@ -1707,7 +1709,7 @@ class ParamsOfEncodeInternalMessage extends TonSdkStructure {
   CallSet _call_set;
   CallSet get call_set => _call_set;
 
-  ///Value in nanograms to be sent with message.
+  ///Value in nanotokens to be sent with message.
   String _value;
   String get value => _value;
 
@@ -1719,16 +1721,18 @@ class ParamsOfEncodeInternalMessage extends TonSdkStructure {
   bool _enable_ihr;
   bool get enable_ihr => _enable_ihr;
   ParamsOfEncodeInternalMessage({
-    @required Abi abi,
+    Abi abi,
     String address,
+    String src_address,
     DeploySet deploy_set,
     CallSet call_set,
     @required String value,
     bool bounce,
     bool enable_ihr,
   }) {
-    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfEncodeInternalMessage abi');
+    _abi = abi;
     _address = address;
+    _src_address = src_address;
     _deploy_set = deploy_set;
     _call_set = call_set;
     _value = ArgumentError.checkNotNull(
@@ -1739,11 +1743,12 @@ class ParamsOfEncodeInternalMessage extends TonSdkStructure {
   ParamsOfEncodeInternalMessage.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
       _abi = Abi.fromMap(map['abi']);
-    } else {
-      throw ('Wrong map data');
     }
     if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
+    }
+    if (map.containsKey('src_address') && (map['src_address'] != null)) {
+      _src_address = map['src_address'];
     }
     if (map.containsKey('deploy_set') && (map['deploy_set'] != null)) {
       _deploy_set = DeploySet.fromMap(map['deploy_set']);
@@ -1771,6 +1776,9 @@ class ParamsOfEncodeInternalMessage extends TonSdkStructure {
     }
     if (_address != null) {
       map['address'] = _address;
+    }
+    if (_src_address != null) {
+      map['src_address'] = _src_address;
     }
     if (_deploy_set != null) {
       map['deploy_set'] = _deploy_set;
@@ -2139,7 +2147,7 @@ class ParamsOfEncodeAccount extends TonSdkStructure {
   int _last_paid;
   int get last_paid => _last_paid;
 
-  ///The BOC intself returned if no cache type provided
+  ///The BOC itself returned if no cache type provided
   BocCacheType _boc_cache;
   BocCacheType get boc_cache => _boc_cache;
   ParamsOfEncodeAccount({

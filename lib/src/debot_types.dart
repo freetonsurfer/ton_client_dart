@@ -30,8 +30,8 @@ class DebotErrorCode {
   DebotErrorCode.DebotInvalidMsg() {
     _value = 'DebotInvalidMsg';
   }
-  DebotErrorCode.DebotExternaCallFailed() {
-    _value = 'DebotExternaCallFailed';
+  DebotErrorCode.DebotExternalCallFailed() {
+    _value = 'DebotExternalCallFailed';
   }
   @override
   String toString() {
@@ -177,15 +177,27 @@ class RegisteredDebot extends TonSdkStructure {
   ///Debot handle which references an instance of debot engine.
   int _debot_handle;
   int get debot_handle => _debot_handle;
+
+  ///Debot abi as json string.
+  String _debot_abi;
+  String get debot_abi => _debot_abi;
   RegisteredDebot({
     @required int debot_handle,
+    @required String debot_abi,
   }) {
     _debot_handle = ArgumentError.checkNotNull(
         debot_handle, 'RegisteredDebot debot_handle');
+    _debot_abi =
+        ArgumentError.checkNotNull(debot_abi, 'RegisteredDebot debot_abi');
   }
   RegisteredDebot.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
       _debot_handle = map['debot_handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('debot_abi') && (map['debot_abi'] != null)) {
+      _debot_abi = map['debot_abi'];
     } else {
       throw ('Wrong map data');
     }
@@ -195,6 +207,9 @@ class RegisteredDebot extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_debot_handle != null) {
       map['debot_handle'] = _debot_handle;
+    }
+    if (_debot_abi != null) {
+      map['debot_abi'] = _debot_abi;
     }
     return map;
   }
@@ -706,28 +721,16 @@ class ParamsOfSend extends TonSdkStructure {
   int _debot_handle;
   int get debot_handle => _debot_handle;
 
-  ///Std address of interface or debot.
-  String _source;
-  String get source => _source;
-
-  ///Function Id to call
-  int _func_id;
-  int get func_id => _func_id;
-
-  ///Json string with parameters
-  String _params;
-  String get params => _params;
+  ///BOC of internal message to debot encoded in base64 format.
+  String _message;
+  String get message => _message;
   ParamsOfSend({
     @required int debot_handle,
-    @required String source,
-    @required int func_id,
-    @required String params,
+    @required String message,
   }) {
     _debot_handle =
         ArgumentError.checkNotNull(debot_handle, 'ParamsOfSend debot_handle');
-    _source = ArgumentError.checkNotNull(source, 'ParamsOfSend source');
-    _func_id = ArgumentError.checkNotNull(func_id, 'ParamsOfSend func_id');
-    _params = ArgumentError.checkNotNull(params, 'ParamsOfSend params');
+    _message = ArgumentError.checkNotNull(message, 'ParamsOfSend message');
   }
   ParamsOfSend.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
@@ -735,18 +738,8 @@ class ParamsOfSend extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
-    if (map.containsKey('source') && (map['source'] != null)) {
-      _source = map['source'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('func_id') && (map['func_id'] != null)) {
-      _func_id = map['func_id'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('params') && (map['params'] != null)) {
-      _params = map['params'];
+    if (map.containsKey('message') && (map['message'] != null)) {
+      _message = map['message'];
     } else {
       throw ('Wrong map data');
     }
@@ -757,14 +750,8 @@ class ParamsOfSend extends TonSdkStructure {
     if (_debot_handle != null) {
       map['debot_handle'] = _debot_handle;
     }
-    if (_source != null) {
-      map['source'] = _source;
-    }
-    if (_func_id != null) {
-      map['func_id'] = _func_id;
-    }
-    if (_params != null) {
-      map['params'] = _params;
+    if (_message != null) {
+      map['message'] = _message;
     }
     return map;
   }

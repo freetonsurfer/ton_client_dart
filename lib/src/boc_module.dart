@@ -35,6 +35,7 @@ class BocModule extends _TonSdkModule {
     return ResultOfParse.fromMap(res);
   }
 
+  ///Extract blockchain configuration from key block and also from zerostate.
   Future<ResultOfGetBlockchainConfig> get_blockchain_config(
       ParamsOfGetBlockchainConfig params) async {
     final res =
@@ -72,5 +73,11 @@ class BocModule extends _TonSdkModule {
   Future<void> cache_unpin(ParamsOfBocCacheUnpin params) async {
     await _tonCore.request('boc.cache_unpin', params.toString());
     return;
+  }
+
+  ///Encodes BOC from builder operations.
+  Future<ResultOfEncodeBoc> encode_boc(ParamsOfEncodeBoc params) async {
+    final res = await _tonCore.request('boc.encode_boc', params.toString());
+    return ResultOfEncodeBoc.fromMap(res);
   }
 }
