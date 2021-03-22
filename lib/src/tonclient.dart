@@ -73,7 +73,7 @@ class TonClient {
 
   ///Initialize TonClient with provided config
   /// Should be always run before usage
-  void connect(Map<String, dynamic> config) async {
+  Future<void> connect(Map<String, dynamic> config) async {
     if (_utils != null) {
       throw ('Client core already connected! Use TonClient.disconnect to close connection!');
     }
@@ -91,7 +91,7 @@ class TonClient {
 
   ///Free TonClient and resources
   ///should be always run when you don't need client any more
-  void disconnect() {
+  Future<void> disconnect() async {
     if (_utils == null) {
       throw ('Client core not connected! Use TonClient.connect to open connection!');
     }
