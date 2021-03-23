@@ -24,6 +24,13 @@ class MyResponse extends Struct {
         ..params_json = json;
 }
 
+typedef _store_dart_post_cobject_C = Void Function(
+    Pointer<NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>> ptr,
+    );
+typedef _store_dart_post_cobject_Dart = void Function(
+    Pointer<NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>> ptr,
+    );
+
 ///Core class
 class TonSdkCore {
   DynamicLibrary _sdkLib;
@@ -33,10 +40,10 @@ class TonSdkCore {
   var _sdkRequest;
   var _sdkClearResponse;
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
-      {};
+  {};
 
   void connect(Map<String, dynamic> config) async {
-    if (Platform.isLinux) {
+    /*if (Platform.isLinux) {
       final path = await Isolate.resolvePackageUri(Uri.parse(
           'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
       _sdkLib = DynamicLibrary.open(path.toFilePath());
@@ -44,23 +51,36 @@ class TonSdkCore {
       final path = await Isolate.resolvePackageUri(Uri.parse(
           'package:ton_client_dart/src/tonsdklib/ton_client_dart.dll'));
       _sdkLib = DynamicLibrary.open(path.toFilePath());
+    } else */
+    if (Platform.isAndroid) {
+      _sdkLib = DynamicLibrary.open('libton_client_dart.so');
+    } else if (Platform.isIOS) {
+      _sdkLib = DynamicLibrary.process();
     } else {
       throw ("Platform not implemented yet!");
     }
 
     //create native port
-    final initializeApiDL = _sdkLib.lookupFunction<
+    /*final initializeApiDL = _sdkLib.lookupFunction<
         IntPtr Function(Pointer<Void>),
         int Function(Pointer<Void>)>('dart_initialize_api_dl');
     if (initializeApiDL(NativeApi.initializeApiDLData) != 0) {
       throw 'Failed to initialize Dart API';
-    }
+    }*/
+
+    final _store_dart_post_cobject_Dart store_dart_post_cobject =
+    _sdkLib.lookupFunction<_store_dart_post_cobject_C,
+        _store_dart_post_cobject_Dart>('store_dart_post_cobject');
+
+    store_dart_post_cobject(NativeApi.postCObject);
+    //print("Setup Done");
+
     _interactiveCppRequests = ReceivePort()
       ..listen((data) {
         responseHandler(data);
       });
     final nativePort = _interactiveCppRequests.sendPort.nativePort;
-
+    //print('native port $nativePort');
     //create context
     final configStr = jsonEncode(config);
 
@@ -74,7 +94,7 @@ class TonSdkCore {
         void Function(Pointer<Utf8>)>("dart_string_free");
 
     final contextJson =
-        jsonDecode(createContextMessage) as Map<String, dynamic>;
+    jsonDecode(createContextMessage) as Map<String, dynamic>;
 
     if (!contextJson.containsKey('result')) {
       dartStringFree(createContextPtr);
@@ -94,12 +114,13 @@ class TonSdkCore {
     _sdkClearResponse = _sdkLib.lookupFunction<
         Void Function(Pointer<MyResponse>),
         void Function(Pointer<MyResponse>)>('dart_response_free');
+    //print("connect done");
   }
 
   void disconnect() {
     final contextClose =
-        _sdkLib.lookupFunction<Void Function(Uint32), void Function(int)>(
-            'dart_destroy_context');
+    _sdkLib.lookupFunction<Void Function(Uint32), void Function(int)>(
+        'dart_destroy_context');
     contextClose(_context);
     _interactiveCppRequests.close();
     _context = -1;
@@ -107,6 +128,7 @@ class TonSdkCore {
   }
 
   void responseHandler(int data) {
+    //print('responseHandler in');
     final rs = Pointer<MyResponse>.fromAddress(data);
     final rs_val = rs.ref;
     final jsonStr = Utf8.fromUtf8(rs_val.params_json);
@@ -123,7 +145,7 @@ class TonSdkCore {
     }
 
     final json =
-        jsonStr != '' ? jsonDecode(jsonStr) as Map<String, dynamic> : null;
+    jsonStr != '' ? jsonDecode(jsonStr) as Map<String, dynamic> : null;
     switch (rs_val.response_type) {
       case 0: // RESULT
         completer.complete(json);
