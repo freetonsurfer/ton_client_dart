@@ -1,6 +1,8 @@
+//inspired by allo-isolate 
+//https://github.com/sunshine-protocol/allo-isolate
 #![allow(missing_docs)]
-use crate::dart_array::DartArray;
-use std::{ffi::CString, os::raw};
+//use crate::dart_array::DartArray;
+use std::{os::raw};
 
 /// A port is used to send or receive inter-isolate messages
 pub type DartPort = i64;
@@ -125,7 +127,7 @@ pub struct DartNativeTypedData {
 ///  return true if the message was posted.
 pub type DartPostCObjectFnType =
     unsafe extern "C" fn(port_id: DartPort, message: *mut DartCObject) -> bool;
-
+/*
 impl Drop for DartCObject {
     fn drop(&mut self) {
         if self.ty == DartCObjectType::DartString {
@@ -158,4 +160,4 @@ impl Drop for DartCObject {
             };
         }
     }
-}
+}*/
