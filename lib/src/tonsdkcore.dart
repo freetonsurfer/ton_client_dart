@@ -15,21 +15,7 @@ class MyResponse extends Struct {
   int response_type;
 
   Pointer<Utf8> params_json;
-
-  /*factory MyResponse.allocate(int fin, int id, int type, Pointer<Utf8> json) =>
-      allocate<MyResponse>().ref
-        ..finished = fin
-        ..request_id = id
-        ..response_type = type
-        ..params_json = json;*/
 }
-
-typedef _store_dart_post_cobject_C = Void Function(
-  Pointer<NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>> ptr,
-);
-typedef _store_dart_post_cobject_Dart = void Function(
-  Pointer<NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>> ptr,
-);
 
 ///Core class
 class TonSdkCore {
@@ -56,26 +42,23 @@ class TonSdkCore {
     }
 
     //create native port
-    /*final initializeApiDL = _sdkLib.lookupFunction<
-        IntPtr Function(Pointer<Void>),
-        int Function(Pointer<Void>)>('dart_initialize_api_dl');
-    if (initializeApiDL(NativeApi.initializeApiDLData) != 0) {
-      throw 'Failed to initialize Dart API';
-    }*/
-
-    final _store_dart_post_cobject_Dart store_dart_post_cobject =
-        _sdkLib.lookupFunction<_store_dart_post_cobject_C,
-            _store_dart_post_cobject_Dart>('store_dart_post_cobject');
+    final store_dart_post_cobject = _sdkLib.lookupFunction<
+        Void Function(
+            Pointer<
+                NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>>),
+        void Function(
+            Pointer<
+                NativeFunction<
+                    Int8 Function(Int64,
+                        Pointer<Dart_CObject>)>>)>('store_dart_post_cobject');
 
     store_dart_post_cobject(NativeApi.postCObject);
-    //print("Setup Done");
 
     _interactiveCppRequests = ReceivePort()
       ..listen((data) {
         responseHandler(data);
       });
     final nativePort = _interactiveCppRequests.sendPort.nativePort;
-    //print('native port $nativePort');
     //create context
     final configStr = jsonEncode(config);
 
@@ -98,7 +81,6 @@ class TonSdkCore {
     }
 
     _context = contextJson['result'];
-    //print("context: " + _context.toString());
 
     dartStringFree(createContextPtr);
 
@@ -110,7 +92,6 @@ class TonSdkCore {
     _sdkClearResponse = _sdkLib.lookupFunction<
         Void Function(Pointer<MyResponse>),
         void Function(Pointer<MyResponse>)>('dart_response_free');
-    //print("connect done");
   }
 
   void disconnect() {
@@ -124,7 +105,6 @@ class TonSdkCore {
   }
 
   void responseHandler(int data) {
-    //print('responseHandler in');
     final rs = Pointer<MyResponse>.fromAddress(data);
     final rs_val = rs.ref;
     final jsonStr = rs_val.params_json.toDartString();
