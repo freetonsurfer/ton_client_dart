@@ -1,0 +1,6 @@
+language = "C"
+autogen_warning = "// NOTE: Append the lines below to ios/Classes/<your>Plugin.h"
+
+[defines]
+"target_os = ios" = "TARGET_OS_IOS"
+"target_os = macos" = "TARGET_OS_MACOS"

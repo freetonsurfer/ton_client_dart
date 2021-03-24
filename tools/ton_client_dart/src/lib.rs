@@ -6,23 +6,18 @@ extern crate ton_client;
 
 pub use ton_client::{create_context, destroy_context, request};
 
-#[link(name = "dartnativeport")]
-extern {
-    fn dart_set_nativeport(iPort: i64);
-    fn dart_post_object(obj: *mut DartResponse);
-    fn Dart_InitializeApiDL(obj: *mut libc::c_void) -> libc::intptr_t;
-}
+pub mod dart_types;
 
-#[no_mangle]
-pub unsafe extern "C" fn dart_initialize_api_dl(obj: *mut libc::c_void) -> libc::intptr_t
-{
-    return Dart_InitializeApiDL(obj);
-}
+static mut NATIVE_PORT:i64 = -1;
+
+// Please don't use `AtomicPtr` here
+// see https://github.com/rust-lang/rfcs/issues/2481
+static mut POST_COBJECT: Option<dart_types::DartPostCObjectFnType> = None;
+
 
 #[no_mangle]
 pub unsafe extern "C" fn dart_create_context(port: i64, config: *const c_char) -> *mut c_char {
-    dart_set_nativeport(port) ;
-    
+    NATIVE_PORT = port;
     let c_str: &CStr = CStr::from_ptr(config);
     let str_slice: &str = c_str.to_str().unwrap();
     let str_buf: String = str_slice.to_owned(); 
@@ -34,7 +29,7 @@ pub unsafe extern "C" fn dart_create_context(port: i64, config: *const c_char) -
 
 #[no_mangle]
 pub unsafe extern "C" fn dart_destroy_context(context: u32) {
-    dart_set_nativeport(-1);
+    NATIVE_PORT = -1;
     destroy_context(context);    
 }
 
@@ -69,8 +64,27 @@ fn dart_response_handler(request_id: u32, params_json: String, response_type: u3
         response_type: response_type,
         finished: finished,
     }));
+    post_object(response);
+}
 
-    unsafe{dart_post_object(response);}
+fn post_object( obj: *const DartResponse) -> bool {
+    unsafe {
+        if let Some(func) = POST_COBJECT {
+            let boxed_msg = Box::new(dart_types::DartCObject {
+                ty: dart_types::DartCObjectType::DartInt64,
+                value: dart_types::DartCObjectValue { as_int64: obj as i64 },
+            });
+            let ptr = Box::into_raw(boxed_msg);
+            // Send the message
+            let result = func(NATIVE_PORT, ptr);
+            // free the object
+            let boxed_obj = Box::from_raw(ptr);
+            drop(boxed_obj);
+            result
+        } else {
+            false
+        }
+    }
 }
 
 #[no_mangle]
@@ -86,5 +100,37 @@ pub unsafe extern "C" fn dart_string_free(ptr: *mut c_char) {
     drop(s);
 }
 
-
-
+/// Stores the function pointer of `Dart_PostCObject`, this only should be
+/// called once at the start up of the Dart/Flutter Application. it is exported
+/// and marked as `#[no_mangle]`.
+///
+/// you could use it from Dart as following:
+///
+/// #### Safety
+/// This function should only be called once at the start up of the Dart
+/// application.
+///
+/// ### Example
+/// ```dart,ignore
+/// import 'dart:ffi';
+///
+/// typedef dartPostCObject = Pointer Function(
+///         Pointer<NativeFunction<Int8 Function(Int64,
+/// Pointer<Dart_CObject>)>>);
+///
+/// // assumes that _dl is the `DynamicLibrary`
+/// final storeDartPostCObject =
+///     _dl.lookupFunction<dartPostCObject, dartPostCObject>(
+/// 'store_dart_post_cobject',
+/// );
+///
+/// // then later call
+///
+/// storeDartPostCObject(NativeApi.postCObject);
+/// ```
+#[no_mangle]
+pub unsafe extern "C" fn store_dart_post_cobject(
+    ptr: dart_types::DartPostCObjectFnType,
+) {
+    POST_COBJECT = Some(ptr);
+}

@@ -1,4 +1,11 @@
+.DS_Store
+.dart_tool/
+
 .packages
+.pub/
+
+build/
+
 pubspec.lock
 /.dart_tool/*
 test/files/test_process_message.txt
