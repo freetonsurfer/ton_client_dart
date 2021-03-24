@@ -38,7 +38,7 @@ class TonSdkCore {
           'package:ton_client_dart/src/tonsdklib/ton_client_dart.dll'));
       _sdkLib = DynamicLibrary.open(path.toFilePath());
     } else if (Platform.isAndroid) {
-      _sdkLib = DynamicLibrary.open('ton_client_dart.dll');
+      _sdkLib = DynamicLibrary.open('ton_client_dart.so');
     } else if (Platform.isIOS) {
       _sdkLib = DynamicLibrary.process();
     } else {
