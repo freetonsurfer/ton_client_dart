@@ -16,12 +16,12 @@ class MyResponse extends Struct {
 
   Pointer<Utf8> params_json;
 
-  factory MyResponse.allocate(int fin, int id, int type, Pointer<Utf8> json) =>
+  /*factory MyResponse.allocate(int fin, int id, int type, Pointer<Utf8> json) =>
       allocate<MyResponse>().ref
         ..finished = fin
         ..request_id = id
         ..response_type = type
-        ..params_json = json;
+        ..params_json = json;*/
 }
 
 typedef _store_dart_post_cobject_C = Void Function(
@@ -82,8 +82,9 @@ class TonSdkCore {
     final createContext = _sdkLib.lookupFunction<
         Pointer<Utf8> Function(Int64, Pointer<Utf8>),
         Pointer<Utf8> Function(int, Pointer<Utf8>)>("dart_create_context");
-    final createContextPtr = createContext(nativePort, Utf8.toUtf8(configStr));
-    final createContextMessage = Utf8.fromUtf8(createContextPtr);
+    final createContextPtr =
+        createContext(nativePort, configStr.toNativeUtf8());
+    final createContextMessage = createContextPtr.toDartString();
 
     final dartStringFree = _sdkLib.lookupFunction<Void Function(Pointer<Utf8>),
         void Function(Pointer<Utf8>)>("dart_string_free");
@@ -126,7 +127,7 @@ class TonSdkCore {
     //print('responseHandler in');
     final rs = Pointer<MyResponse>.fromAddress(data);
     final rs_val = rs.ref;
-    final jsonStr = Utf8.fromUtf8(rs_val.params_json);
+    final jsonStr = rs_val.params_json.toDartString();
 
     if (!_requests.containsKey(rs_val.request_id)) {
       return;
@@ -168,7 +169,7 @@ class TonSdkCore {
         completer, responseHandler);
     _requests[id] = tuple;
 
-    _sdkRequest(_context, Utf8.toUtf8(fnName), Utf8.toUtf8(fnParams), id);
+    _sdkRequest(_context, fnName.toNativeUtf8(), fnParams.toNativeUtf8(), id);
 
     return completer.future;
   }
