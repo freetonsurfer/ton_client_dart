@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'dart:isolate';
 import 'dart:async';
 import 'package:tuple/tuple.dart';
-import 'dart:io';
+//import 'dart:io';
 
 class MyResponse extends Struct {
   @Uint8()
@@ -28,25 +28,8 @@ class TonSdkCore {
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
       {};
 
-  void openLibrary(String libPath) {
-    try {
-      if (Platform.isLinux) {
-        final path = libPath + 'libton_client_dart.so';
-        _sdkLib = DynamicLibrary.open(path);
-      } else if (Platform.isWindows) {
-        final path = libPath + 'ton_client_dart.dll';
-        _sdkLib = DynamicLibrary.open(path);
-      } else {
-        throw ("Platform not implemented yet!");
-      }
-    } catch (e) {
-      print('Error: Try to check dynamic library path.\n${e}');
-      exit(1);
-    }
-  }
-
-  void connect(Map<String, dynamic> config, String libPath) async {
-    openLibrary(libPath);
+  void connect(DynamicLibrary sdkLib, Map<String, dynamic> config) async {
+    _sdkLib = sdkLib;
 
     //create native port
     final store_dart_post_cobject = _sdkLib.lookupFunction<

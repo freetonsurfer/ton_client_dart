@@ -5,6 +5,7 @@ import 'tonsdkcore.dart';
 import 'dart:convert';
 import "package:hex/hex.dart";
 import 'dart:io';
+import 'dart:ffi';
 
 import 'dart:async';
 
@@ -71,6 +72,22 @@ class TonClient {
 
   ClientModule _client;
 
+  DynamicLibrary getLibrary(String libPath) {
+    try {
+      if (Platform.isLinux) {
+        final path = libPath + 'libton_client_dart.so';
+        return DynamicLibrary.open(path);
+      } else if (Platform.isWindows) {
+        final path = libPath + 'ton_client_dart.dll';
+        return DynamicLibrary.open(path);
+      } else {
+        throw ("Platform not implemented yet!");
+      }
+    } catch (e) {
+      throw ('Error: Try to check dynamic library path.\n$e');
+    }
+  }
+
   ///Initialize TonClient with provided config
   /// Should be always run before usage
   Future<void> connect(Map<String, dynamic> config,
@@ -79,7 +96,7 @@ class TonClient {
       throw ('Client core already connected! Use TonClient.disconnect to close connection!');
     }
 
-    _tonCore.connect(config, libPath);
+    _tonCore.connect(getLibrary(libPath), config);
     _utils = UtilsModule(_tonCore);
     _abi = AbiModule(_tonCore);
     _boc = BocModule(_tonCore);
