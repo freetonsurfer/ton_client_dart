@@ -28,22 +28,25 @@ class TonSdkCore {
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
       {};
 
-  void connect(Map<String, dynamic> config) async {
-    if (Platform.isLinux) {
-      final path = await Isolate.resolvePackageUri(Uri.parse(
-          'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
-      _sdkLib = DynamicLibrary.open(path.toFilePath());
-    } else if (Platform.isWindows) {
-      final path = await Isolate.resolvePackageUri(Uri.parse(
-          'package:ton_client_dart/src/tonsdklib/ton_client_dart.dll'));
-      _sdkLib = DynamicLibrary.open(path.toFilePath());
-    } else if (Platform.isAndroid) {
-      _sdkLib = DynamicLibrary.open('ton_client_dart.so');
-    } else if (Platform.isIOS) {
-      _sdkLib = DynamicLibrary.process();
-    } else {
-      throw ("Platform not implemented yet!");
+  void openLibrary(String libPath) {
+    try {
+      if (Platform.isLinux) {
+        final path = libPath + 'libton_client_dart.so';
+        _sdkLib = DynamicLibrary.open(path);
+      } else if (Platform.isWindows) {
+        final path = libPath + 'ton_client_dart.dll';
+        _sdkLib = DynamicLibrary.open(path);
+      } else {
+        throw ("Platform not implemented yet!");
+      }
+    } catch (e) {
+      print('Error: Try to check dynamic library path.\n${e}');
+      exit(1);
     }
+  }
+
+  void connect(Map<String, dynamic> config, String libPath) async {
+    openLibrary(libPath);
 
     //create native port
     final store_dart_post_cobject = _sdkLib.lookupFunction<

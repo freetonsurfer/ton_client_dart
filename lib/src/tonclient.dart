@@ -73,12 +73,13 @@ class TonClient {
 
   ///Initialize TonClient with provided config
   /// Should be always run before usage
-  Future<void> connect(Map<String, dynamic> config) async {
+  Future<void> connect(Map<String, dynamic> config,
+      {String libPath = ""}) async {
     if (_utils != null) {
       throw ('Client core already connected! Use TonClient.disconnect to close connection!');
     }
 
-    _tonCore.connect(config);
+    _tonCore.connect(config, libPath);
     _utils = UtilsModule(_tonCore);
     _abi = AbiModule(_tonCore);
     _boc = BocModule(_tonCore);
