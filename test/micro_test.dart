@@ -37,7 +37,7 @@ void main() async {
       expect(res.version, equals('1.11.1'));
     });
 
-    test('query', () async {
+    /*test('query', () async {
       final query = await client.net.query_collection(ParamsOfQueryCollection(
           collection: 'accounts',
           result: 'id code_hash',
@@ -55,6 +55,6 @@ void main() async {
           query.result[0]['code_hash'],
           equals(
               '207dc560c5956de1a2c1479356f8f3ee70a59767db2bf4788b1d61ad42cdad82'));
-    });
+    });*/
   });
 }

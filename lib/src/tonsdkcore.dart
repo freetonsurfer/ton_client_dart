@@ -15,13 +15,6 @@ class MyResponse extends Struct {
   int response_type;
 
   Pointer<Utf8> params_json;
-
-  factory MyResponse.allocate(int fin, int id, int type, Pointer<Utf8> json) =>
-      allocate<MyResponse>().ref
-        ..finished = fin
-        ..request_id = id
-        ..response_type = type
-        ..params_json = json;
 }
 
 ///Core class
@@ -35,40 +28,53 @@ class TonSdkCore {
   final Map<int, Tuple2<Completer<Map<String, dynamic>>, Function>> _requests =
       {};
 
-  void connect(Map<String, dynamic> config) async {
-    if (Platform.isLinux) {
-      final path = await Isolate.resolvePackageUri(Uri.parse(
-          'package:ton_client_dart/src/tonsdklib/libton_client_dart.so'));
-      _sdkLib = DynamicLibrary.open(path.toFilePath());
-    } else if (Platform.isWindows) {
-      final path = await Isolate.resolvePackageUri(Uri.parse(
-          'package:ton_client_dart/src/tonsdklib/ton_client_dart.dll'));
-      _sdkLib = DynamicLibrary.open(path.toFilePath());
-    } else {
-      throw ("Platform not implemented yet!");
+  void openLibrary(String libPath) {
+    try {
+      if (Platform.isLinux) {
+        final path = libPath + 'libton_client_dart.so';
+        _sdkLib = DynamicLibrary.open(path);
+      } else if (Platform.isWindows) {
+        final path = libPath + 'ton_client_dart.dll';
+        _sdkLib = DynamicLibrary.open(path);
+      } else {
+        throw ("Platform not implemented yet!");
+      }
+    } catch (e) {
+      print('Error: Try to check dynamic library path.\n${e}');
+      exit(1);
     }
+  }
+
+  void connect(Map<String, dynamic> config, String libPath) async {
+    openLibrary(libPath);
 
     //create native port
-    final initializeApiDL = _sdkLib.lookupFunction<
-        IntPtr Function(Pointer<Void>),
-        int Function(Pointer<Void>)>('dart_initialize_api_dl');
-    if (initializeApiDL(NativeApi.initializeApiDLData) != 0) {
-      throw 'Failed to initialize Dart API';
-    }
+    final store_dart_post_cobject = _sdkLib.lookupFunction<
+        Void Function(
+            Pointer<
+                NativeFunction<Int8 Function(Int64, Pointer<Dart_CObject>)>>),
+        void Function(
+            Pointer<
+                NativeFunction<
+                    Int8 Function(Int64,
+                        Pointer<Dart_CObject>)>>)>('store_dart_post_cobject');
+
+    store_dart_post_cobject(NativeApi.postCObject);
+
     _interactiveCppRequests = ReceivePort()
       ..listen((data) {
         responseHandler(data);
       });
     final nativePort = _interactiveCppRequests.sendPort.nativePort;
-
     //create context
     final configStr = jsonEncode(config);
 
     final createContext = _sdkLib.lookupFunction<
         Pointer<Utf8> Function(Int64, Pointer<Utf8>),
         Pointer<Utf8> Function(int, Pointer<Utf8>)>("dart_create_context");
-    final createContextPtr = createContext(nativePort, Utf8.toUtf8(configStr));
-    final createContextMessage = Utf8.fromUtf8(createContextPtr);
+    final createContextPtr =
+        createContext(nativePort, configStr.toNativeUtf8());
+    final createContextMessage = createContextPtr.toDartString();
 
     final dartStringFree = _sdkLib.lookupFunction<Void Function(Pointer<Utf8>),
         void Function(Pointer<Utf8>)>("dart_string_free");
@@ -82,7 +88,6 @@ class TonSdkCore {
     }
 
     _context = contextJson['result'];
-    //print("context: " + _context.toString());
 
     dartStringFree(createContextPtr);
 
@@ -109,7 +114,7 @@ class TonSdkCore {
   void responseHandler(int data) {
     final rs = Pointer<MyResponse>.fromAddress(data);
     final rs_val = rs.ref;
-    final jsonStr = Utf8.fromUtf8(rs_val.params_json);
+    final jsonStr = rs_val.params_json.toDartString();
 
     if (!_requests.containsKey(rs_val.request_id)) {
       return;
@@ -151,7 +156,7 @@ class TonSdkCore {
         completer, responseHandler);
     _requests[id] = tuple;
 
-    _sdkRequest(_context, Utf8.toUtf8(fnName), Utf8.toUtf8(fnParams), id);
+    _sdkRequest(_context, fnName.toNativeUtf8(), fnParams.toNativeUtf8(), id);
 
     return completer.future;
   }

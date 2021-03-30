@@ -31,7 +31,7 @@ void main() async {
   var client = TonClient();
   setUp(() async {
     try {
-      await client.connect(CLIENT_DEFAULT_SETUP);
+      await client.connect(CLIENT_DEFAULT_SETUP, libPath: 'libraries/');
     } catch (e) {
       print('$e');
     }

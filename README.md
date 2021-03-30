@@ -108,17 +108,16 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 ## Supported Platforms
 - Linux - supported :heavy_check_mark:
 - Windows - supported :heavy_check_mark:
-- Android - now we are working on Android support at it will be available as soon as possible.
-- macOS support will be implemented in Q1 2021 or on user demand.
-- iOS support will be implemented in Q2 2021 or on user demand.
-- Web support will be implemented in Q4 2021 or on user demand.
+- Android - supported :heavy_check_mark:
+- iOS - supported :heavy_check_mark:
+- macOS support will be implemented in Q2 2021 or on user demand.
+- Web support will be implemented in future or on user demand.
 
 ## TODO
 - iMac support
 - improve tests
 - improve help documents and comments
 - check memory leaks
-- Flutter support
 - improve error msgs
 - think about
   - helper function usage
