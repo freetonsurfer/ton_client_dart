@@ -108,8 +108,8 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 ## Supported Platforms
 - Linux - supported :heavy_check_mark:
 - Windows - supported :heavy_check_mark:
-- Android - supported :heavy_check_mark:
-- iOS - supported :heavy_check_mark:
+- Android - supported :heavy_check_mark: [here](https://github.com/freetonsurfer/ton_client_flutter)
+- iOS - supported :heavy_check_mark: [here](https://github.com/freetonsurfer/ton_client_flutter)
 - macOS support will be implemented in Q2 2021 or on user demand.
 - Web support will be implemented in future or on user demand.
 
