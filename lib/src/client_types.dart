@@ -161,10 +161,13 @@ int get wait_for_timeout => _wait_for_timeout;
 ///The default value is 15 sec.
 int _out_of_sync_threshold;
 int get out_of_sync_threshold => _out_of_sync_threshold;
+///Maximum number of randomly chosen endpoints the library uses to send message. The default value is 2 endpoints.
+int _sending_endpoint_count;
+int get sending_endpoint_count => _sending_endpoint_count;
 ///At the moment is not used in production
 String _access_key;
 String get access_key => _access_key;
-NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int max_reconnect_timeout, int reconnect_timeout, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, String access_key,}){
+NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int max_reconnect_timeout, int reconnect_timeout, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, int sending_endpoint_count, String access_key,}){
 
 _server_address = server_address;
 _endpoints = endpoints;
@@ -175,6 +178,7 @@ _message_retries_count = message_retries_count;
 _message_processing_timeout = message_processing_timeout;
 _wait_for_timeout = wait_for_timeout;
 _out_of_sync_threshold = out_of_sync_threshold;
+_sending_endpoint_count = sending_endpoint_count;
 _access_key = access_key;
 }
 NetworkConfig.fromMap(Map<String,dynamic> map){if (map.containsKey('server_address')&&(map['server_address']!=null)) {_server_address = map['server_address'];}
@@ -188,6 +192,7 @@ if (map.containsKey('message_retries_count')&&(map['message_retries_count']!=nul
 if (map.containsKey('message_processing_timeout')&&(map['message_processing_timeout']!=null)) {_message_processing_timeout = map['message_processing_timeout'];}
 if (map.containsKey('wait_for_timeout')&&(map['wait_for_timeout']!=null)) {_wait_for_timeout = map['wait_for_timeout'];}
 if (map.containsKey('out_of_sync_threshold')&&(map['out_of_sync_threshold']!=null)) {_out_of_sync_threshold = map['out_of_sync_threshold'];}
+if (map.containsKey('sending_endpoint_count')&&(map['sending_endpoint_count']!=null)) {_sending_endpoint_count = map['sending_endpoint_count'];}
 if (map.containsKey('access_key')&&(map['access_key']!=null)) {_access_key = map['access_key'];}
 }
 
@@ -202,6 +207,7 @@ if (_message_retries_count!=null) {map['message_retries_count'] = _message_retri
 if (_message_processing_timeout!=null) {map['message_processing_timeout'] = _message_processing_timeout;}
 if (_wait_for_timeout!=null) {map['wait_for_timeout'] = _wait_for_timeout;}
 if (_out_of_sync_threshold!=null) {map['out_of_sync_threshold'] = _out_of_sync_threshold;}
+if (_sending_endpoint_count!=null) {map['sending_endpoint_count'] = _sending_endpoint_count;}
 if (_access_key!=null) {map['access_key'] = _access_key;}
 return map;
 }

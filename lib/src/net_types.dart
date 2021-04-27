@@ -122,6 +122,9 @@ abstract class ParamsOfQueryOperation extends TonSdkStructure {
     if (map['type'] == 'AggregateCollection') {
       return ParamsOfQueryOperation_AggregateCollection.fromMap(map);
     }
+    if (map['type'] == 'QueryCounterparties') {
+      return ParamsOfQueryOperation_QueryCounterparties.fromMap(map);
+    }
     throw ('ParamsOfQueryOperation unknown from map type');
   }
 }
@@ -361,6 +364,83 @@ class ParamsOfQueryOperation_AggregateCollection
     }
     if (_fields != null) {
       map['fields'] = _fields;
+    }
+    return map;
+  }
+}
+
+class ParamsOfQueryOperation_QueryCounterparties
+    extends ParamsOfQueryOperation {
+  String _type = 'QueryCounterparties';
+  String get type => _type;
+
+  ///Account address
+  String _account;
+  String get account => _account;
+
+  ///Projection (result) string
+  String _result;
+  String get result => _result;
+
+  ///Number of counterparties to return
+  int _first;
+  int get first => _first;
+
+  ///`cursor` field of the last received result
+  String _after;
+  String get after => _after;
+  ParamsOfQueryOperation_QueryCounterparties({
+    @required String account,
+    @required String result,
+    int first,
+    String after,
+  }) {
+    _type = 'QueryCounterparties';
+    _account = ArgumentError.checkNotNull(
+        account, 'ParamsOfQueryOperation_QueryCounterparties account');
+    _result = ArgumentError.checkNotNull(
+        result, 'ParamsOfQueryOperation_QueryCounterparties result');
+    _first = first;
+    _after = after;
+  }
+  ParamsOfQueryOperation_QueryCounterparties.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('account') && (map['account'] != null)) {
+      _account = map['account'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('type') && (map['type'] == 'QueryCounterparties')) {
+      _type = 'AggregateCollection';
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('first') && (map['first'] != null)) {
+      _first = map['first'];
+    }
+    if (map.containsKey('after') && (map['after'] != null)) {
+      _after = map['after'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    map['type'] = 'QueryCounterparties';
+    if (_account != null) {
+      map['account'] = _account;
+    }
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    if (_first != null) {
+      map['first'] = _first;
+    }
+    if (_after != null) {
+      map['after'] = _after;
     }
     return map;
   }
@@ -700,7 +780,7 @@ class ParamsOfAggregateCollection extends TonSdkStructure {
   String _collection;
   String get collection => _collection;
 
-  ///Collection filter.
+  ///Collection filter
   dynamic _filter;
   dynamic get filter => _filter;
 
@@ -1038,6 +1118,72 @@ class EndpointsSet extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_endpoints != null) {
       map['endpoints'] = _endpoints;
+    }
+    return map;
+  }
+}
+
+class ParamsOfQueryCounterparties extends TonSdkStructure {
+  ///Account address
+  String _account;
+  String get account => _account;
+
+  ///Projection (result) string
+  String _result;
+  String get result => _result;
+
+  ///Number of counterparties to return
+  int _first;
+  int get first => _first;
+
+  ///`cursor` field of the last received result
+  String _after;
+  String get after => _after;
+  ParamsOfQueryCounterparties({
+    @required String account,
+    @required String result,
+    int first,
+    String after,
+  }) {
+    _account = ArgumentError.checkNotNull(
+        account, 'ParamsOfQueryCounterparties account');
+    _result = ArgumentError.checkNotNull(
+        result, 'ParamsOfQueryCounterparties result');
+    _first = first;
+    _after = after;
+  }
+  ParamsOfQueryCounterparties.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('account') && (map['account'] != null)) {
+      _account = map['account'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('first') && (map['first'] != null)) {
+      _first = map['first'];
+    }
+    if (map.containsKey('after') && (map['after'] != null)) {
+      _after = map['after'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_account != null) {
+      map['account'] = _account;
+    }
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    if (_first != null) {
+      map['first'] = _first;
+    }
+    if (_after != null) {
+      map['after'] = _after;
     }
     return map;
   }

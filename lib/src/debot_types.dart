@@ -33,6 +33,12 @@ class DebotErrorCode {
   DebotErrorCode.DebotExternalCallFailed() {
     _value = 'DebotExternalCallFailed';
   }
+  DebotErrorCode.DebotBrowserCallbackFailed() {
+    _value = 'DebotBrowserCallbackFailed';
+  }
+  DebotErrorCode.DebotOperationRejected() {
+    _value = 'DebotOperationRejected';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -145,17 +151,339 @@ class DebotAction extends TonSdkStructure {
   }
 }
 
-///[UNSTABLE](UNSTABLE.md) Parameters to start debot.
-class ParamsOfStart extends TonSdkStructure {
+///[UNSTABLE](UNSTABLE.md) Describes DeBot metadata.
+class DebotInfo extends TonSdkStructure {
+  ///DeBot short name.
+  String _name;
+  String get name => _name;
+
+  ///DeBot semantic version.
+  String _version;
+  String get version => _version;
+
+  ///The name of DeBot deployer.
+  String _publisher;
+  String get publisher => _publisher;
+
+  ///Short info about DeBot.
+  String _key;
+  String get key => _key;
+
+  ///The name of DeBot developer.
+  String _author;
+  String get author => _author;
+
+  ///TON address of author for questions and donations.
+  String _support;
+  String get support => _support;
+
+  ///String with the first messsage from DeBot.
+  String _hello;
+  String get hello => _hello;
+
+  ///String with DeBot interface language (ISO-639).
+  String _language;
+  String get language => _language;
+
+  ///String with DeBot ABI.
+  String _dabi;
+  String get dabi => _dabi;
+
+  ///DeBot icon.
+  String _icon;
+  String get icon => _icon;
+
+  ///Vector with IDs of DInterfaces used by DeBot.
+  List<String> _interfaces;
+  List<String> get interfaces => _interfaces;
+  DebotInfo({
+    String name,
+    String version,
+    String publisher,
+    String key,
+    String author,
+    String support,
+    String hello,
+    String language,
+    String dabi,
+    String icon,
+    @required List<String> interfaces,
+  }) {
+    _name = name;
+    _version = version;
+    _publisher = publisher;
+    _key = key;
+    _author = author;
+    _support = support;
+    _hello = hello;
+    _language = language;
+    _dabi = dabi;
+    _icon = icon;
+    _interfaces =
+        ArgumentError.checkNotNull(interfaces, 'DebotInfo interfaces');
+  }
+  DebotInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('name') && (map['name'] != null)) {
+      _name = map['name'];
+    }
+    if (map.containsKey('version') && (map['version'] != null)) {
+      _version = map['version'];
+    }
+    if (map.containsKey('publisher') && (map['publisher'] != null)) {
+      _publisher = map['publisher'];
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    }
+    if (map.containsKey('author') && (map['author'] != null)) {
+      _author = map['author'];
+    }
+    if (map.containsKey('support') && (map['support'] != null)) {
+      _support = map['support'];
+    }
+    if (map.containsKey('hello') && (map['hello'] != null)) {
+      _hello = map['hello'];
+    }
+    if (map.containsKey('language') && (map['language'] != null)) {
+      _language = map['language'];
+    }
+    if (map.containsKey('dabi') && (map['dabi'] != null)) {
+      _dabi = map['dabi'];
+    }
+    if (map.containsKey('icon') && (map['icon'] != null)) {
+      _icon = map['icon'];
+    }
+    if (map.containsKey('interfaces') && (map['interfaces'] != null)) {
+      _interfaces = [];
+      for (var el in map['interfaces']) {
+        if (el != null) {
+          _interfaces.add(el);
+        } else {
+          _interfaces.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_name != null) {
+      map['name'] = _name;
+    }
+    if (_version != null) {
+      map['version'] = _version;
+    }
+    if (_publisher != null) {
+      map['publisher'] = _publisher;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_author != null) {
+      map['author'] = _author;
+    }
+    if (_support != null) {
+      map['support'] = _support;
+    }
+    if (_hello != null) {
+      map['hello'] = _hello;
+    }
+    if (_language != null) {
+      map['language'] = _language;
+    }
+    if (_dabi != null) {
+      map['dabi'] = _dabi;
+    }
+    if (_icon != null) {
+      map['icon'] = _icon;
+    }
+    if (_interfaces != null) {
+      map['interfaces'] = _interfaces;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Describes the operation that the DeBot wants to perform.
+abstract class DebotActivity extends TonSdkStructure {
+  static DebotActivity fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'Transaction') {
+      return DebotActivity_Transaction.fromMap(map);
+    }
+    throw ('DebotActivity unknown from map type');
+  }
+}
+
+///DeBot wants to create new transaction in blockchain.
+class DebotActivity_Transaction extends DebotActivity {
+  String _type;
+  String get type => _type;
+
+  ///External inbound message BOC.
+  String _msg;
+  String get msg => _msg;
+
+  ///Target smart contract address.
+  String _dst;
+  String get dst => _dst;
+
+  ///List of spendings as a result of transaction.
+  List<Spending> _out;
+  List<Spending> get out => _out;
+
+  ///Transaction total fee.
+  BigInt _fee;
+  BigInt get fee => _fee;
+
+  ///Indicates if target smart contract updates its code.
+  bool _setcode;
+  bool get setcode => _setcode;
+
+  ///Public key from keypair that was used to sign external message.
+  String _signkey;
+  String get signkey => _signkey;
+  DebotActivity_Transaction({
+    @required String msg,
+    @required String dst,
+    @required List<Spending> out,
+    @required BigInt fee,
+    @required bool setcode,
+    @required String signkey,
+  }) {
+    _type = 'Transaction';
+    _msg = ArgumentError.checkNotNull(msg, 'DebotActivity_Transaction msg');
+    _dst = ArgumentError.checkNotNull(dst, 'DebotActivity_Transaction dst');
+    _out = ArgumentError.checkNotNull(out, 'DebotActivity_Transaction out');
+    _fee = ArgumentError.checkNotNull(fee, 'DebotActivity_Transaction fee');
+    _setcode = ArgumentError.checkNotNull(
+        setcode, 'DebotActivity_Transaction setcode');
+    _signkey = ArgumentError.checkNotNull(
+        signkey, 'DebotActivity_Transaction signkey');
+  }
+  DebotActivity_Transaction.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Transaction') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Transaction';
+    }
+    if (map.containsKey('msg') && (map['msg'] != null)) {
+      _msg = map['msg'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dst') && (map['dst'] != null)) {
+      _dst = map['dst'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('out') && (map['out'] != null)) {
+      _out = [];
+      for (var el in map['out']) {
+        if (el != null) {
+          _out.add(Spending.fromMap(el));
+        } else {
+          _out.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('fee') && (map['fee'] != null)) {
+      _fee = BigInt.from(map['fee']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('setcode') && (map['setcode'] != null)) {
+      _setcode = map['setcode'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('signkey') && (map['signkey'] != null)) {
+      _signkey = map['signkey'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_msg != null) {
+      map['msg'] = _msg;
+    }
+    if (_dst != null) {
+      map['dst'] = _dst;
+    }
+    if (_out != null) {
+      map['out'] = _out;
+    }
+    if (_fee != null) {
+      map['fee'] = _fee;
+    }
+    if (_setcode != null) {
+      map['setcode'] = _setcode;
+    }
+    if (_signkey != null) {
+      map['signkey'] = _signkey;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Describes how much funds will be debited from the target  contract balance as a result of the transaction.
+class Spending extends TonSdkStructure {
+  ///Amount of nanotokens that will be sent to `dst` address.
+  BigInt _amount;
+  BigInt get amount => _amount;
+
+  ///Destination address of recipient of funds.
+  String _dst;
+  String get dst => _dst;
+  Spending({
+    @required BigInt amount,
+    @required String dst,
+  }) {
+    _amount = ArgumentError.checkNotNull(amount, 'Spending amount');
+    _dst = ArgumentError.checkNotNull(dst, 'Spending dst');
+  }
+  Spending.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('amount') && (map['amount'] != null)) {
+      _amount = BigInt.from(map['amount']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dst') && (map['dst'] != null)) {
+      _dst = map['dst'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_amount != null) {
+      map['amount'] = _amount;
+    }
+    if (_dst != null) {
+      map['dst'] = _dst;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Parameters to init DeBot.
+class ParamsOfInit extends TonSdkStructure {
   ///Debot smart contract address
   String _address;
   String get address => _address;
-  ParamsOfStart({
+  ParamsOfInit({
     @required String address,
   }) {
-    _address = ArgumentError.checkNotNull(address, 'ParamsOfStart address');
+    _address = ArgumentError.checkNotNull(address, 'ParamsOfInit address');
   }
-  ParamsOfStart.fromMap(Map<String, dynamic> map) {
+  ParamsOfInit.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('address') && (map['address'] != null)) {
       _address = map['address'];
     } else {
@@ -172,7 +500,7 @@ class ParamsOfStart extends TonSdkStructure {
   }
 }
 
-///[UNSTABLE](UNSTABLE.md) Structure for storing debot handle returned from `start` and `fetch` functions.
+///[UNSTABLE](UNSTABLE.md) Structure for storing debot handle returned from `init` function.
 class RegisteredDebot extends TonSdkStructure {
   ///Debot handle which references an instance of debot engine.
   int _debot_handle;
@@ -181,14 +509,20 @@ class RegisteredDebot extends TonSdkStructure {
   ///Debot abi as json string.
   String _debot_abi;
   String get debot_abi => _debot_abi;
+
+  ///Debot metadata.
+  DebotInfo _info;
+  DebotInfo get info => _info;
   RegisteredDebot({
     @required int debot_handle,
     @required String debot_abi,
+    @required DebotInfo info,
   }) {
     _debot_handle = ArgumentError.checkNotNull(
         debot_handle, 'RegisteredDebot debot_handle');
     _debot_abi =
         ArgumentError.checkNotNull(debot_abi, 'RegisteredDebot debot_abi');
+    _info = ArgumentError.checkNotNull(info, 'RegisteredDebot info');
   }
   RegisteredDebot.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
@@ -201,6 +535,11 @@ class RegisteredDebot extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('info') && (map['info'] != null)) {
+      _info = DebotInfo.fromMap(map['info']);
+    } else {
+      throw ('Wrong map data');
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -210,6 +549,9 @@ class RegisteredDebot extends TonSdkStructure {
     }
     if (_debot_abi != null) {
       map['debot_abi'] = _debot_abi;
+    }
+    if (_info != null) {
+      map['info'] = _info;
     }
     return map;
   }
@@ -241,6 +583,9 @@ abstract class ParamsOfAppDebotBrowser extends TonSdkStructure {
     }
     if (map['type'] == 'Send') {
       return ParamsOfAppDebotBrowser_Send.fromMap(map);
+    }
+    if (map['type'] == 'Approve') {
+      return ParamsOfAppDebotBrowser_Approve.fromMap(map);
     }
     throw ('ParamsOfAppDebotBrowser unknown from map type');
   }
@@ -532,6 +877,44 @@ class ParamsOfAppDebotBrowser_Send extends ParamsOfAppDebotBrowser {
   }
 }
 
+///Requests permission from DeBot Browser to execute DeBot operation.
+class ParamsOfAppDebotBrowser_Approve extends ParamsOfAppDebotBrowser {
+  String _type;
+  String get type => _type;
+
+  ///DeBot activity details.
+  DebotActivity _activity;
+  DebotActivity get activity => _activity;
+  ParamsOfAppDebotBrowser_Approve({
+    @required DebotActivity activity,
+  }) {
+    _type = 'Approve';
+    _activity = ArgumentError.checkNotNull(
+        activity, 'ParamsOfAppDebotBrowser_Approve activity');
+  }
+  ParamsOfAppDebotBrowser_Approve.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Approve') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Approve';
+    }
+    if (map.containsKey('activity') && (map['activity'] != null)) {
+      _activity = DebotActivity.fromMap(map['activity']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_activity != null) {
+      map['activity'] = _activity;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
 ///[UNSTABLE](UNSTABLE.md) Returning values from Debot Browser callbacks.
 abstract class ResultOfAppDebotBrowser extends TonSdkStructure {
   static ResultOfAppDebotBrowser fromMap(Map<String, dynamic> map) {
@@ -543,6 +926,9 @@ abstract class ResultOfAppDebotBrowser extends TonSdkStructure {
     }
     if (map['type'] == 'InvokeDebot') {
       return ResultOfAppDebotBrowser_InvokeDebot.fromMap(map);
+    }
+    if (map['type'] == 'Approve') {
+      return ResultOfAppDebotBrowser_Approve.fromMap(map);
     }
     throw ('ResultOfAppDebotBrowser unknown from map type');
   }
@@ -646,9 +1032,75 @@ class ResultOfAppDebotBrowser_InvokeDebot extends ResultOfAppDebotBrowser {
   }
 }
 
-///[UNSTABLE](UNSTABLE.md) Parameters to fetch debot.
+///Result of `approve` callback.
+class ResultOfAppDebotBrowser_Approve extends ResultOfAppDebotBrowser {
+  String _type;
+  String get type => _type;
+
+  ///Indicates whether the DeBot is allowed to perform the specified operation.
+  bool _approved;
+  bool get approved => _approved;
+  ResultOfAppDebotBrowser_Approve({
+    @required bool approved,
+  }) {
+    _type = 'Approve';
+    _approved = ArgumentError.checkNotNull(
+        approved, 'ResultOfAppDebotBrowser_Approve approved');
+  }
+  ResultOfAppDebotBrowser_Approve.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Approve') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Approve';
+    }
+    if (map.containsKey('approved') && (map['approved'] != null)) {
+      _approved = map['approved'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_approved != null) {
+      map['approved'] = _approved;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Parameters to start DeBot. DeBot must be already initialized with init() function.
+class ParamsOfStart extends TonSdkStructure {
+  ///Debot handle which references an instance of debot engine.
+  int _debot_handle;
+  int get debot_handle => _debot_handle;
+  ParamsOfStart({
+    @required int debot_handle,
+  }) {
+    _debot_handle =
+        ArgumentError.checkNotNull(debot_handle, 'ParamsOfStart debot_handle');
+  }
+  ParamsOfStart.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
+      _debot_handle = map['debot_handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_debot_handle != null) {
+      map['debot_handle'] = _debot_handle;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md) Parameters to fetch DeBot metadata.
 class ParamsOfFetch extends TonSdkStructure {
-  ///Debot smart contract address
+  ///Debot smart contract address.
   String _address;
   String get address => _address;
   ParamsOfFetch({
@@ -668,6 +1120,33 @@ class ParamsOfFetch extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_address != null) {
       map['address'] = _address;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md)
+class ResultOfFetch extends TonSdkStructure {
+  ///Debot metadata.
+  DebotInfo _info;
+  DebotInfo get info => _info;
+  ResultOfFetch({
+    @required DebotInfo info,
+  }) {
+    _info = ArgumentError.checkNotNull(info, 'ResultOfFetch info');
+  }
+  ResultOfFetch.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('info') && (map['info'] != null)) {
+      _info = DebotInfo.fromMap(map['info']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_info != null) {
+      map['info'] = _info;
     }
     return map;
   }
@@ -752,6 +1231,34 @@ class ParamsOfSend extends TonSdkStructure {
     }
     if (_message != null) {
       map['message'] = _message;
+    }
+    return map;
+  }
+}
+
+///[UNSTABLE](UNSTABLE.md)
+class ParamsOfRemove extends TonSdkStructure {
+  ///Debot handle which references an instance of debot engine.
+  int _debot_handle;
+  int get debot_handle => _debot_handle;
+  ParamsOfRemove({
+    @required int debot_handle,
+  }) {
+    _debot_handle =
+        ArgumentError.checkNotNull(debot_handle, 'ParamsOfRemove debot_handle');
+  }
+  ParamsOfRemove.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('debot_handle') && (map['debot_handle'] != null)) {
+      _debot_handle = map['debot_handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_debot_handle != null) {
+      map['debot_handle'] = _debot_handle;
     }
     return map;
   }
