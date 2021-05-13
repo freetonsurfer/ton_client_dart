@@ -10,6 +10,7 @@ part './src/client_test.dart';
 part './src/abi_test.dart';
 part './src/processing_net_test.dart';
 part './src/tvm_test.dart';
+part './src/debot_test.dart';
 
 var CLIENT_DEFAULT_SETUP = {
   'network': {
@@ -48,4 +49,5 @@ void main() async {
   utils_test(client);
   tvm_test(client);
   processing_net_test(client);
+  debot_test(client);
 }

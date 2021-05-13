@@ -116,6 +116,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 ## TODO
 - iMac support
 - improve tests
+- improve debot tests
 - improve help documents and comments
 - check memory leaks
 - improve error msgs
