@@ -166,8 +166,8 @@ class DebotInfo extends TonSdkStructure {
   String get publisher => _publisher;
 
   ///Short info about DeBot.
-  String _key;
-  String get key => _key;
+  String _caption;
+  String get caption => _caption;
 
   ///The name of DeBot developer.
   String _author;
@@ -200,7 +200,7 @@ class DebotInfo extends TonSdkStructure {
     String name,
     String version,
     String publisher,
-    String key,
+    String caption,
     String author,
     String support,
     String hello,
@@ -212,7 +212,7 @@ class DebotInfo extends TonSdkStructure {
     _name = name;
     _version = version;
     _publisher = publisher;
-    _key = key;
+    _caption = caption;
     _author = author;
     _support = support;
     _hello = hello;
@@ -232,8 +232,8 @@ class DebotInfo extends TonSdkStructure {
     if (map.containsKey('publisher') && (map['publisher'] != null)) {
       _publisher = map['publisher'];
     }
-    if (map.containsKey('key') && (map['key'] != null)) {
-      _key = map['key'];
+    if (map.containsKey('caption') && (map['caption'] != null)) {
+      _caption = map['caption'];
     }
     if (map.containsKey('author') && (map['author'] != null)) {
       _author = map['author'];
@@ -278,8 +278,8 @@ class DebotInfo extends TonSdkStructure {
     if (_publisher != null) {
       map['publisher'] = _publisher;
     }
-    if (_key != null) {
-      map['key'] = _key;
+    if (_caption != null) {
+      map['caption'] = _caption;
     }
     if (_author != null) {
       map['author'] = _author;
