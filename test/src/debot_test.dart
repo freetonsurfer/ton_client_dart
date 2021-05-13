@@ -1,22 +1,6 @@
 part of '../test.dart';
 
 void debot_test(TonClient client) {
-  final CLIENT_SETUP = {
-    'network': {
-      'server_address': 'http://main.ton.dev',
-      'message_retries_count': 5,
-      'message_processing_timeout': 40000,
-      'wait_for_timeout': 40000,
-      'out_of_sync_threshold': 15000,
-      'access_key': ''
-    },
-    'crypto': {'fish_param': ''},
-    'abi': {
-      'message_expiration_timeout': 40000,
-      'message_expiration_timeout_grow_factor': 1.5
-    }
-  };
-
   group('debot', () {
     test('fetch', () async {
       final res = await client.debot.fetch(ParamsOfFetch(
