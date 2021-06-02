@@ -141,33 +141,44 @@ List<String> get endpoints => _endpoints;
 ///You must use `network.max_reconnect_timeout` that allows to specify maximum network resolving timeout.
 int _network_retries_count;
 int get network_retries_count => _network_retries_count;
-///Default value is 120000 (2 min)
+///Must be specified in milliseconds. Default is 120000 (2 min).
 int _max_reconnect_timeout;
 int get max_reconnect_timeout => _max_reconnect_timeout;
 ///Deprecated
 int _reconnect_timeout;
 int get reconnect_timeout => _reconnect_timeout;
-///The number of automatic message processing retries that SDK performs in case of `Message Expired (507)` error - but only for those messages which local emulation was successful or failed with replay protection error. The default value is 5.
+///Default is 5.
 int _message_retries_count;
 int get message_retries_count => _message_retries_count;
-///Timeout that is used to process message delivery for the contracts which ABI does not include "expire" header. If the message is not delivered within the specified timeout the appropriate error occurs.
+///Must be specified in milliseconds. Default is 40000 (40 sec).
 int _message_processing_timeout;
 int get message_processing_timeout => _message_processing_timeout;
-///Maximum timeout that is used for query response. The default value is 40 sec.
+///Must be specified in milliseconds. Default is 40000 (40 sec).
 int _wait_for_timeout;
 int get wait_for_timeout => _wait_for_timeout;
 ///If client's device time is out of sync and difference is more than the threshold then error will occur. Also an error will occur if the specified threshold is more than
 ///`message_processing_timeout/2`.
-///The default value is 15 sec.
+///
+///Must be specified in milliseconds. Default is 15000 (15 sec).
 int _out_of_sync_threshold;
 int get out_of_sync_threshold => _out_of_sync_threshold;
-///Maximum number of randomly chosen endpoints the library uses to send message. The default value is 2 endpoints.
+///Default is 2.
 int _sending_endpoint_count;
 int get sending_endpoint_count => _sending_endpoint_count;
-///At the moment is not used in production
+///Library periodically checks the current endpoint for blockchain data syncronization latency.
+///If the latency (time-lag) is less then `NetworkConfig.max_latency`
+///then library selects another endpoint.
+///
+///Must be specified in milliseconds. Default is 60000 (1 min).
+int _latency_detection_interval;
+int get latency_detection_interval => _latency_detection_interval;
+///Must be specified in milliseconds. Default is 60000 (1 min).
+int _max_latency;
+int get max_latency => _max_latency;
+///At the moment is not used in production.
 String _access_key;
 String get access_key => _access_key;
-NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int max_reconnect_timeout, int reconnect_timeout, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, int sending_endpoint_count, String access_key,}){
+NetworkConfig({ String server_address, List<String> endpoints, int network_retries_count, int max_reconnect_timeout, int reconnect_timeout, int message_retries_count, int message_processing_timeout, int wait_for_timeout, int out_of_sync_threshold, int sending_endpoint_count, int latency_detection_interval, int max_latency, String access_key,}){
 
 _server_address = server_address;
 _endpoints = endpoints;
@@ -179,6 +190,8 @@ _message_processing_timeout = message_processing_timeout;
 _wait_for_timeout = wait_for_timeout;
 _out_of_sync_threshold = out_of_sync_threshold;
 _sending_endpoint_count = sending_endpoint_count;
+_latency_detection_interval = latency_detection_interval;
+_max_latency = max_latency;
 _access_key = access_key;
 }
 NetworkConfig.fromMap(Map<String,dynamic> map){if (map.containsKey('server_address')&&(map['server_address']!=null)) {_server_address = map['server_address'];}
@@ -193,6 +206,8 @@ if (map.containsKey('message_processing_timeout')&&(map['message_processing_time
 if (map.containsKey('wait_for_timeout')&&(map['wait_for_timeout']!=null)) {_wait_for_timeout = map['wait_for_timeout'];}
 if (map.containsKey('out_of_sync_threshold')&&(map['out_of_sync_threshold']!=null)) {_out_of_sync_threshold = map['out_of_sync_threshold'];}
 if (map.containsKey('sending_endpoint_count')&&(map['sending_endpoint_count']!=null)) {_sending_endpoint_count = map['sending_endpoint_count'];}
+if (map.containsKey('latency_detection_interval')&&(map['latency_detection_interval']!=null)) {_latency_detection_interval = map['latency_detection_interval'];}
+if (map.containsKey('max_latency')&&(map['max_latency']!=null)) {_max_latency = map['max_latency'];}
 if (map.containsKey('access_key')&&(map['access_key']!=null)) {_access_key = map['access_key'];}
 }
 
@@ -208,6 +223,8 @@ if (_message_processing_timeout!=null) {map['message_processing_timeout'] = _mes
 if (_wait_for_timeout!=null) {map['wait_for_timeout'] = _wait_for_timeout;}
 if (_out_of_sync_threshold!=null) {map['out_of_sync_threshold'] = _out_of_sync_threshold;}
 if (_sending_endpoint_count!=null) {map['sending_endpoint_count'] = _sending_endpoint_count;}
+if (_latency_detection_interval!=null) {map['latency_detection_interval'] = _latency_detection_interval;}
+if (_max_latency!=null) {map['max_latency'] = _max_latency;}
 if (_access_key!=null) {map['access_key'] = _access_key;}
 return map;
 }

@@ -524,6 +524,239 @@ class AggregationFn {
   }
 }
 
+class TransactionNode extends TonSdkStructure {
+  ///Transaction id.
+  String _id;
+  String get id => _id;
+
+  ///In message id.
+  String _in_msg;
+  String get in_msg => _in_msg;
+
+  ///Out message ids.
+  List<String> _out_msgs;
+  List<String> get out_msgs => _out_msgs;
+
+  ///Account address.
+  String _account_addr;
+  String get account_addr => _account_addr;
+
+  ///Transactions total fees.
+  String _total_fees;
+  String get total_fees => _total_fees;
+
+  ///Aborted flag.
+  bool _aborted;
+  bool get aborted => _aborted;
+
+  ///Compute phase exit code.
+  int _exit_code;
+  int get exit_code => _exit_code;
+  TransactionNode({
+    @required String id,
+    @required String in_msg,
+    @required List<String> out_msgs,
+    @required String account_addr,
+    @required String total_fees,
+    @required bool aborted,
+    int exit_code,
+  }) {
+    _id = ArgumentError.checkNotNull(id, 'TransactionNode id');
+    _in_msg = ArgumentError.checkNotNull(in_msg, 'TransactionNode in_msg');
+    _out_msgs =
+        ArgumentError.checkNotNull(out_msgs, 'TransactionNode out_msgs');
+    _account_addr = ArgumentError.checkNotNull(
+        account_addr, 'TransactionNode account_addr');
+    _total_fees =
+        ArgumentError.checkNotNull(total_fees, 'TransactionNode total_fees');
+    _aborted = ArgumentError.checkNotNull(aborted, 'TransactionNode aborted');
+    _exit_code = exit_code;
+  }
+  TransactionNode.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('id') && (map['id'] != null)) {
+      _id = map['id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('in_msg') && (map['in_msg'] != null)) {
+      _in_msg = map['in_msg'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('out_msgs') && (map['out_msgs'] != null)) {
+      _out_msgs = [];
+      for (var el in map['out_msgs']) {
+        if (el != null) {
+          _out_msgs.add(el);
+        } else {
+          _out_msgs.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('account_addr') && (map['account_addr'] != null)) {
+      _account_addr = map['account_addr'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('total_fees') && (map['total_fees'] != null)) {
+      _total_fees = map['total_fees'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('aborted') && (map['aborted'] != null)) {
+      _aborted = map['aborted'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('exit_code') && (map['exit_code'] != null)) {
+      _exit_code = map['exit_code'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    if (_in_msg != null) {
+      map['in_msg'] = _in_msg;
+    }
+    if (_out_msgs != null) {
+      map['out_msgs'] = _out_msgs;
+    }
+    if (_account_addr != null) {
+      map['account_addr'] = _account_addr;
+    }
+    if (_total_fees != null) {
+      map['total_fees'] = _total_fees;
+    }
+    if (_aborted != null) {
+      map['aborted'] = _aborted;
+    }
+    if (_exit_code != null) {
+      map['exit_code'] = _exit_code;
+    }
+    return map;
+  }
+}
+
+class MessageNode extends TonSdkStructure {
+  ///Message id.
+  String _id;
+  String get id => _id;
+
+  ///This field is missing for an external inbound messages.
+  String _src_transaction_id;
+  String get src_transaction_id => _src_transaction_id;
+
+  ///This field is missing for an external outbound messages.
+  String _dst_transaction_id;
+  String get dst_transaction_id => _dst_transaction_id;
+
+  ///Source address.
+  String _src;
+  String get src => _src;
+
+  ///Destination address.
+  String _dst;
+  String get dst => _dst;
+
+  ///Transferred tokens value.
+  String _value;
+  String get value => _value;
+
+  ///Bounce flag.
+  bool _bounce;
+  bool get bounce => _bounce;
+
+  ///Library tries to decode message body using provided `params.abi_registry`.
+  ///This field will be missing if none of the provided abi can be used to decode.
+  DecodedMessageBody _decoded_body;
+  DecodedMessageBody get decoded_body => _decoded_body;
+  MessageNode({
+    @required String id,
+    String src_transaction_id,
+    String dst_transaction_id,
+    String src,
+    String dst,
+    String value,
+    @required bool bounce,
+    DecodedMessageBody decoded_body,
+  }) {
+    _id = ArgumentError.checkNotNull(id, 'MessageNode id');
+    _src_transaction_id = src_transaction_id;
+    _dst_transaction_id = dst_transaction_id;
+    _src = src;
+    _dst = dst;
+    _value = value;
+    _bounce = ArgumentError.checkNotNull(bounce, 'MessageNode bounce');
+    _decoded_body = decoded_body;
+  }
+  MessageNode.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('id') && (map['id'] != null)) {
+      _id = map['id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('src_transaction_id') &&
+        (map['src_transaction_id'] != null)) {
+      _src_transaction_id = map['src_transaction_id'];
+    }
+    if (map.containsKey('dst_transaction_id') &&
+        (map['dst_transaction_id'] != null)) {
+      _dst_transaction_id = map['dst_transaction_id'];
+    }
+    if (map.containsKey('src') && (map['src'] != null)) {
+      _src = map['src'];
+    }
+    if (map.containsKey('dst') && (map['dst'] != null)) {
+      _dst = map['dst'];
+    }
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = map['value'];
+    }
+    if (map.containsKey('bounce') && (map['bounce'] != null)) {
+      _bounce = map['bounce'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('decoded_body') && (map['decoded_body'] != null)) {
+      _decoded_body = DecodedMessageBody.fromMap(map['decoded_body']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_id != null) {
+      map['id'] = _id;
+    }
+    if (_src_transaction_id != null) {
+      map['src_transaction_id'] = _src_transaction_id;
+    }
+    if (_dst_transaction_id != null) {
+      map['dst_transaction_id'] = _dst_transaction_id;
+    }
+    if (_src != null) {
+      map['src'] = _src;
+    }
+    if (_dst != null) {
+      map['dst'] = _dst;
+    }
+    if (_value != null) {
+      map['value'] = _value;
+    }
+    if (_bounce != null) {
+      map['bounce'] = _bounce;
+    }
+    if (_decoded_body != null) {
+      map['decoded_body'] = _decoded_body;
+    }
+    return map;
+  }
+}
+
 class ParamsOfQuery extends TonSdkStructure {
   ///GraphQL query text.
   String _query;
@@ -1123,6 +1356,54 @@ class EndpointsSet extends TonSdkStructure {
   }
 }
 
+class ResultOfGetEndpoints extends TonSdkStructure {
+  ///Current query endpoint
+  String _query;
+  String get query => _query;
+
+  ///List of all endpoints used by client
+  List<String> _endpoints;
+  List<String> get endpoints => _endpoints;
+  ResultOfGetEndpoints({
+    @required String query,
+    @required List<String> endpoints,
+  }) {
+    _query = ArgumentError.checkNotNull(query, 'ResultOfGetEndpoints query');
+    _endpoints =
+        ArgumentError.checkNotNull(endpoints, 'ResultOfGetEndpoints endpoints');
+  }
+  ResultOfGetEndpoints.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('query') && (map['query'] != null)) {
+      _query = map['query'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('endpoints') && (map['endpoints'] != null)) {
+      _endpoints = [];
+      for (var el in map['endpoints']) {
+        if (el != null) {
+          _endpoints.add(el);
+        } else {
+          _endpoints.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_query != null) {
+      map['query'] = _query;
+    }
+    if (_endpoints != null) {
+      map['endpoints'] = _endpoints;
+    }
+    return map;
+  }
+}
+
 class ParamsOfQueryCounterparties extends TonSdkStructure {
   ///Account address
   String _account;
@@ -1184,6 +1465,108 @@ class ParamsOfQueryCounterparties extends TonSdkStructure {
     }
     if (_after != null) {
       map['after'] = _after;
+    }
+    return map;
+  }
+}
+
+class ParamsOfQueryTransactionTree extends TonSdkStructure {
+  ///Input message id.
+  String _in_msg;
+  String get in_msg => _in_msg;
+
+  ///List of contract ABIs that will be used to decode message bodies. Library will try to decode each returned message body using any ABI from the registry.
+  List<Abi> _abi_registry;
+  List<Abi> get abi_registry => _abi_registry;
+  ParamsOfQueryTransactionTree({
+    @required String in_msg,
+    List<Abi> abi_registry,
+  }) {
+    _in_msg = ArgumentError.checkNotNull(
+        in_msg, 'ParamsOfQueryTransactionTree in_msg');
+    _abi_registry = abi_registry;
+  }
+  ParamsOfQueryTransactionTree.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('in_msg') && (map['in_msg'] != null)) {
+      _in_msg = map['in_msg'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('abi_registry') && (map['abi_registry'] != null)) {
+      _abi_registry = [];
+      for (var el in map['abi_registry']) {
+        if (el != null) {
+          _abi_registry.add(Abi.fromMap(el));
+        } else {
+          _abi_registry.add(null);
+        }
+      }
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_in_msg != null) {
+      map['in_msg'] = _in_msg;
+    }
+    if (_abi_registry != null) {
+      map['abi_registry'] = _abi_registry;
+    }
+    return map;
+  }
+}
+
+class ResultOfQueryTransactionTree extends TonSdkStructure {
+  ///Messages.
+  List<MessageNode> _messages;
+  List<MessageNode> get messages => _messages;
+
+  ///Transactions.
+  List<TransactionNode> _transactions;
+  List<TransactionNode> get transactions => _transactions;
+  ResultOfQueryTransactionTree({
+    @required List<MessageNode> messages,
+    @required List<TransactionNode> transactions,
+  }) {
+    _messages = ArgumentError.checkNotNull(
+        messages, 'ResultOfQueryTransactionTree messages');
+    _transactions = ArgumentError.checkNotNull(
+        transactions, 'ResultOfQueryTransactionTree transactions');
+  }
+  ResultOfQueryTransactionTree.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('messages') && (map['messages'] != null)) {
+      _messages = [];
+      for (var el in map['messages']) {
+        if (el != null) {
+          _messages.add(MessageNode.fromMap(el));
+        } else {
+          _messages.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('transactions') && (map['transactions'] != null)) {
+      _transactions = [];
+      for (var el in map['transactions']) {
+        if (el != null) {
+          _transactions.add(TransactionNode.fromMap(el));
+        } else {
+          _transactions.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_messages != null) {
+      map['messages'] = _messages;
+    }
+    if (_transactions != null) {
+      map['transactions'] = _transactions;
     }
     return map;
   }

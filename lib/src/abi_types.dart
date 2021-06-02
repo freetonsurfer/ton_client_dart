@@ -931,10 +931,6 @@ class MessageSource_EncodingParams extends MessageSource {
   }
 }
 
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-
 class AbiParam extends TonSdkStructure {
   String _name;
   String get name => _name;
@@ -1044,8 +1040,8 @@ class AbiEvent extends TonSdkStructure {
 }
 
 class AbiData extends TonSdkStructure {
-  BigInt _key;
-  BigInt get key => _key;
+  int _key;
+  int get key => _key;
   String _name;
   String get name => _name;
   String _type;
@@ -1053,7 +1049,7 @@ class AbiData extends TonSdkStructure {
   List<AbiParam> _components;
   List<AbiParam> get components => _components;
   AbiData({
-    @required BigInt key,
+    @required int key,
     @required String name,
     @required String type,
     List<AbiParam> components,
@@ -1065,7 +1061,7 @@ class AbiData extends TonSdkStructure {
   }
   AbiData.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('key') && (map['key'] != null)) {
-      _key = BigInt.from(map['key']);
+      _key = map['key'];
     } else {
       throw ('Wrong map data');
     }

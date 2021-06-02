@@ -133,6 +133,12 @@ class NetModule extends _TonSdkModule {
     return;
   }
 
+  ///Requests the list of alternative endpoints from server
+  Future<ResultOfGetEndpoints> get_endpoints() async {
+    final res = await _tonCore.request('net.get_endpoints');
+    return ResultOfGetEndpoints.fromMap(res);
+  }
+
   ///*Attention* this query retrieves data from 'Counterparties' service which is not supported in
   ///the opensource version of DApp Server (and will not be supported) as well as in TON OS SE (will be supported in SE in future),
   ///but is always accessible via [TON OS Devnet/Mainnet Clouds](https://docs.ton.dev/86757ecb2/p/85c869-networks)
@@ -141,5 +147,26 @@ class NetModule extends _TonSdkModule {
     final res =
         await _tonCore.request('net.query_counterparties', params.toString());
     return ResultOfQueryCollection.fromMap(res);
+  }
+
+  ///Performs recursive retrieval of the transactions tree produced by the specific message:
+  ///in_msg -> dst_transaction -> out_messages -> dst_transaction -> ...
+  ///
+  ///All retrieved messages and transactions will be included
+  ///into `result.messages` and `result.transactions` respectively.
+  ///
+  ///The retrieval process will stop when the retrieved transaction count is more than 50.
+  ///
+  ///It is guaranteed that each message in `result.messages` has the corresponding transaction
+  ///in the `result.transactions`.
+  ///
+  ///But there are no guaranties that all messages from transactions `out_msgs` are
+  ///presented in `result.messages`.
+  ///So the application have to continue retrieval for missing messages if it requires.
+  Future<ResultOfQueryTransactionTree> query_transaction_tree(
+      ParamsOfQueryTransactionTree params) async {
+    final res =
+        await _tonCore.request('net.query_transaction_tree', params.toString());
+    return ResultOfQueryTransactionTree.fromMap(res);
   }
 }

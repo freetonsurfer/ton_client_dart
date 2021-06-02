@@ -344,6 +344,10 @@ class DebotActivity_Transaction extends DebotActivity {
   ///Public key from keypair that was used to sign external message.
   String _signkey;
   String get signkey => _signkey;
+
+  ///Signing box handle used to sign external message.
+  int _signing_box_handle;
+  int get signing_box_handle => _signing_box_handle;
   DebotActivity_Transaction({
     @required String msg,
     @required String dst,
@@ -351,6 +355,7 @@ class DebotActivity_Transaction extends DebotActivity {
     @required BigInt fee,
     @required bool setcode,
     @required String signkey,
+    @required int signing_box_handle,
   }) {
     _type = 'Transaction';
     _msg = ArgumentError.checkNotNull(msg, 'DebotActivity_Transaction msg');
@@ -361,6 +366,8 @@ class DebotActivity_Transaction extends DebotActivity {
         setcode, 'DebotActivity_Transaction setcode');
     _signkey = ArgumentError.checkNotNull(
         signkey, 'DebotActivity_Transaction signkey');
+    _signing_box_handle = ArgumentError.checkNotNull(
+        signing_box_handle, 'DebotActivity_Transaction signing_box_handle');
   }
   DebotActivity_Transaction.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'Transaction') {
@@ -405,6 +412,12 @@ class DebotActivity_Transaction extends DebotActivity {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('signing_box_handle') &&
+        (map['signing_box_handle'] != null)) {
+      _signing_box_handle = map['signing_box_handle'];
+    } else {
+      throw ('Wrong map data');
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -426,6 +439,9 @@ class DebotActivity_Transaction extends DebotActivity {
     }
     if (_signkey != null) {
       map['signkey'] = _signkey;
+    }
+    if (_signing_box_handle != null) {
+      map['signing_box_handle'] = _signing_box_handle;
     }
     map['type'] = _type;
     return map;

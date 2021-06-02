@@ -72,7 +72,6 @@ class BocModule extends _TonSdkModule {
   ///BOCs which don't have another pins will be removed from cache
   Future<void> cache_unpin(ParamsOfBocCacheUnpin params) async {
     await _tonCore.request('boc.cache_unpin', params.toString());
-    return;
   }
 
   ///Encodes BOC from builder operations.
