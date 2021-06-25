@@ -302,7 +302,6 @@ void createEnumOfTypeRef_PasteClass(
   throw ("createEnumOfTypeRef_FindClass go wrong. Class for paste not found");
 }
 
-//TODO fix it
 void createEnumOfTypeRef(file, type, parentname, module) {
   createComment(type, file);
   if (type['struct_fields'] != null)
