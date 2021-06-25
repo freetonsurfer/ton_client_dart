@@ -16,6 +16,7 @@ void createComment(map, file) {
   }
 }
 
+var likeIntTypes = <String>{};
 //==============================================================================
 //==============================================================================
 //==============================================================================
@@ -150,7 +151,8 @@ String fromMap_jsonFieldToDart(Map<String, dynamic> varinfo, [String varName]) {
     return res;
   }
   if (varinfo['type'] == 'Ref') {
-    return varinfo['ref_name'].indexOf('.') != -1
+    return ((varinfo['ref_name'].indexOf('.') != -1) &&
+            (!likeIntTypes.contains(varinfo['ref_name'].split('.').last)))
         ? "_${varName} = ${varinfo['ref_name'].split('.').last}.fromMap(map['${varName}']);"
         : "_${varName} = map['${varName}'];";
   }
@@ -184,9 +186,10 @@ String jsonFieldTypeToDartType(Map<String, dynamic> typeinfo) {
         : 'List<dynamic>';
   }
   if (typeinfo['type'] == 'Ref') {
-    return typeinfo['ref_name'].indexOf('.') != -1
+    var name = typeinfo['ref_name'].indexOf('.') != -1
         ? '${typeinfo['ref_name'].split('.').last}'
         : 'dynamic';
+    return likeIntTypes.contains(name) ? 'int' : name;
   }
   if (typeinfo['type'] == 'Optional') {
     assert(typeinfo['optional_inner'] != null);
@@ -282,18 +285,36 @@ void createClass(File file, Map<String, dynamic> type, [String parentClass]) {
   appendFile(file, '}\n\n');
 }
 
-//TODO fix it
-void createEnumOfTypeRef(file, type, parentname) {
-  createComment(type, file);
-  final tn = parentname + '_' + type['name'];
-  appendFile(file, 'class ${tn} extends ${parentname}{\n');
-  appendFile(file, "String _type = '${type['name']}';\n");
-  appendFile(file, 'String get type => _type;\n');
-  appendFile(file, 'Pasete here ${type['ref_name']} \n');
-  appendFile(file, '}\n');
+void createEnumOfTypeRef_PasteClass(
+    file, typeName, module, parentname, pasteFromClass) {
+  for (final el in module['types']) {
+    if (el['name'] == pasteFromClass) {
+      if (el['type'] == 'Struct') {
+        var paste = new Map<String, dynamic>.from(el);
+        paste['name'] = typeName;
+        createClass(file, paste, parentname);
+      } else {
+        throw ("createEnumOfTypeRef_FindClass go wrong. Paste class is not a Struct");
+      }
+      return;
+    }
+  }
+  throw ("createEnumOfTypeRef_FindClass go wrong. Class for paste not found");
 }
 
-void createEnumsOfType(file, type) {
+//TODO fix it
+void createEnumOfTypeRef(file, type, parentname, module) {
+  createComment(type, file);
+  if (type['struct_fields'] != null)
+    throw ("createEnumOfTypeRef go wrong. ${type['name']} has struct_fields value");
+  if (type['ref_name'].indexOf('.') != -1)
+    createEnumOfTypeRef_PasteClass(file, type['name'], module, parentname,
+        type['ref_name'].split('.').last);
+  else
+    throw ("createEnumOfTypeRef go wrong");
+}
+
+void createEnumsOfType(file, type, module) {
   createComment(type, file);
   appendFile(file, 'abstract class ${type['name']} extends TonSdkStructure{\n');
   appendFile(
@@ -311,7 +332,7 @@ void createEnumsOfType(file, type) {
     if (subtype['type'] == 'Struct') {
       createClass(file, subtype, type['name']);
     } else if (subtype['type'] == 'Ref') {
-      createEnumOfTypeRef(file, subtype, type['name']);
+      createEnumOfTypeRef(file, subtype, type['name'], module);
     } else {
       print(subtype);
       throw ('createEnumsOfType> unknown type name');
@@ -335,9 +356,8 @@ void createEnumOfConsts(file, type) {
   appendFile(file, '}\n');
 }
 
-void createNumberType(file, type) {
-  createComment(type, file);
-  appendFile(file, '//typedef ${type['name']} int;\n');
+void saveNumberType(type) {
+  likeIntTypes.add(type['name']);
 }
 
 void createNoneType(file, type) {
@@ -346,6 +366,10 @@ void createNoneType(file, type) {
 }
 
 void createTypeFile(final module) {
+  //create list of int types first
+  for (final type in module['types']) {
+    if (type['type'] == 'Number') saveNumberType(type);
+  }
   var fModuleType = File('output/${module['name']}_types.dart');
   fModuleType.createSync();
   fModuleType.writeAsStringSync("part of 'tonsdktypes.dart';\n\n");
@@ -353,13 +377,12 @@ void createTypeFile(final module) {
     if (type['type'] == 'Struct') {
       createClass(fModuleType, type);
     } else if (type['type'] == 'EnumOfTypes') {
-      createEnumsOfType(fModuleType, type);
+      createEnumsOfType(fModuleType, type, module);
     } else if (type['type'] == 'EnumOfConsts') {
       createEnumOfConsts(fModuleType, type);
-    } else if (type['type'] == 'Number') {
-      createNumberType(fModuleType, type);
     } else if (type['type'] == 'None') {
       createNoneType(fModuleType, type);
+    } else if (type['type'] == 'Number') {
     } else {
       print(type);
       throw ('createTypeFile> Unknown type!');
