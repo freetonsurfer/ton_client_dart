@@ -203,7 +203,6 @@ class Abi_Serialized extends Abi {
   }
 }
 
-//typedef AbiHandle int;
 ///Includes several hidden function parameters that contract
 ///uses for security, message delivery monitoring and replay protection reasons.
 ///
@@ -819,7 +818,7 @@ class MessageSource_Encoded extends MessageSource {
 }
 
 class MessageSource_EncodingParams extends MessageSource {
-  String _type = 'EncodingParams';
+  String _type;
   String get type => _type;
 
   ///Contract ABI.
@@ -876,10 +875,10 @@ class MessageSource_EncodingParams extends MessageSource {
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('type') && (map['type'] != 'EncodingParams')) {
-      _type = 'EncodingParams';
-    } else {
+    if (!map.containsKey('type') || map['type'] != 'EncodingParams') {
       throw ('Wrong map data');
+    } else {
+      _type = 'EncodingParams';
     }
     if (map.containsKey('abi') && (map['abi'] != null)) {
       _abi = Abi.fromMap(map['abi']);
@@ -908,7 +907,6 @@ class MessageSource_EncodingParams extends MessageSource {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = 'EncodingParams';
     if (_abi != null) {
       map['abi'] = _abi;
     }
@@ -927,6 +925,7 @@ class MessageSource_EncodingParams extends MessageSource {
     if (_processing_try_index != null) {
       map['processing_try_index'] = _processing_try_index;
     }
+    map['type'] = _type;
     return map;
   }
 }

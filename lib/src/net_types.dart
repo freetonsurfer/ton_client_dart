@@ -130,7 +130,7 @@ abstract class ParamsOfQueryOperation extends TonSdkStructure {
 }
 
 class ParamsOfQueryOperation_QueryCollection extends ParamsOfQueryOperation {
-  String _type = 'QueryCollection';
+  String _type;
   String get type => _type;
 
   ///Collection name (accounts, blocks, transactions, messages, block_signatures)
@@ -169,13 +169,13 @@ class ParamsOfQueryOperation_QueryCollection extends ParamsOfQueryOperation {
     _limit = limit;
   }
   ParamsOfQueryOperation_QueryCollection.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'QueryCollection') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'QueryCollection';
+    }
     if (map.containsKey('collection') && (map['collection'] != null)) {
       _collection = map['collection'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('type') && (map['type'] == 'QueryCollection')) {
-      _type = 'QueryCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -204,7 +204,6 @@ class ParamsOfQueryOperation_QueryCollection extends ParamsOfQueryOperation {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = 'QueryCollection';
     if (_collection != null) {
       map['collection'] = _collection;
     }
@@ -220,12 +219,13 @@ class ParamsOfQueryOperation_QueryCollection extends ParamsOfQueryOperation {
     if (_limit != null) {
       map['limit'] = _limit;
     }
+    map['type'] = _type;
     return map;
   }
 }
 
 class ParamsOfQueryOperation_WaitForCollection extends ParamsOfQueryOperation {
-  String _type = 'WaitForCollection';
+  String _type;
   String get type => _type;
 
   ///Collection name (accounts, blocks, transactions, messages, block_signatures)
@@ -258,13 +258,13 @@ class ParamsOfQueryOperation_WaitForCollection extends ParamsOfQueryOperation {
     _timeout = timeout;
   }
   ParamsOfQueryOperation_WaitForCollection.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'WaitForCollection') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'WaitForCollection';
+    }
     if (map.containsKey('collection') && (map['collection'] != null)) {
       _collection = map['collection'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('type') && (map['type'] == 'WaitForCollection')) {
-      _type = 'WaitForCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -283,7 +283,6 @@ class ParamsOfQueryOperation_WaitForCollection extends ParamsOfQueryOperation {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = 'WaitForCollection';
     if (_collection != null) {
       map['collection'] = _collection;
     }
@@ -296,20 +295,21 @@ class ParamsOfQueryOperation_WaitForCollection extends ParamsOfQueryOperation {
     if (_timeout != null) {
       map['timeout'] = _timeout;
     }
+    map['type'] = _type;
     return map;
   }
 }
 
 class ParamsOfQueryOperation_AggregateCollection
     extends ParamsOfQueryOperation {
-  String _type = 'AggregateCollection';
+  String _type;
   String get type => _type;
 
   ///Collection name (accounts, blocks, transactions, messages, block_signatures)
   String _collection;
   String get collection => _collection;
 
-  ///Collection filter.
+  ///Collection filter
   dynamic _filter;
   dynamic get filter => _filter;
 
@@ -328,13 +328,13 @@ class ParamsOfQueryOperation_AggregateCollection
     _fields = fields;
   }
   ParamsOfQueryOperation_AggregateCollection.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'AggregateCollection') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'AggregateCollection';
+    }
     if (map.containsKey('collection') && (map['collection'] != null)) {
       _collection = map['collection'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('type') && (map['type'] == 'AggregateCollection')) {
-      _type = 'AggregateCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -355,7 +355,6 @@ class ParamsOfQueryOperation_AggregateCollection
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = 'AggregateCollection';
     if (_collection != null) {
       map['collection'] = _collection;
     }
@@ -365,13 +364,14 @@ class ParamsOfQueryOperation_AggregateCollection
     if (_fields != null) {
       map['fields'] = _fields;
     }
+    map['type'] = _type;
     return map;
   }
 }
 
 class ParamsOfQueryOperation_QueryCounterparties
     extends ParamsOfQueryOperation {
-  String _type = 'QueryCounterparties';
+  String _type;
   String get type => _type;
 
   ///Account address
@@ -404,13 +404,13 @@ class ParamsOfQueryOperation_QueryCounterparties
     _after = after;
   }
   ParamsOfQueryOperation_QueryCounterparties.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'QueryCounterparties') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'QueryCounterparties';
+    }
     if (map.containsKey('account') && (map['account'] != null)) {
       _account = map['account'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('type') && (map['type'] == 'QueryCounterparties')) {
-      _type = 'AggregateCollection';
     } else {
       throw ('Wrong map data');
     }
@@ -429,7 +429,6 @@ class ParamsOfQueryOperation_QueryCounterparties
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    map['type'] = 'QueryCounterparties';
     if (_account != null) {
       map['account'] = _account;
     }
@@ -442,6 +441,7 @@ class ParamsOfQueryOperation_QueryCounterparties
     if (_after != null) {
       map['after'] = _after;
     }
+    map['type'] = _type;
     return map;
   }
 }

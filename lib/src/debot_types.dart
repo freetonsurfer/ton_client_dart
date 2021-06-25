@@ -49,8 +49,6 @@ class DebotErrorCode {
   }
 }
 
-///[UNSTABLE](UNSTABLE.md) Handle of registered in SDK debot
-//typedef DebotHandle int;
 ///[UNSTABLE](UNSTABLE.md) Describes a debot action in a Debot Context.
 class DebotAction extends TonSdkStructure {
   ///Should be used by Debot Browser as name of menu item.

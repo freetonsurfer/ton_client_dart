@@ -76,8 +76,6 @@ class CryptoErrorCode {
   }
 }
 
-//typedef SigningBoxHandle int;
-//typedef EncryptionBoxHandle int;
 ///Encryption box information
 class EncryptionBoxInfo extends TonSdkStructure {
   ///Derivation path, for instance "m/44'/396'/0'/0/0"
