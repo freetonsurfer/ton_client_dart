@@ -27,7 +27,6 @@ class DebotModule extends _TonSdkModule {
   ///with `finish`=`true` which indicates that it will never be used again.
   Future<void> start(ParamsOfStart params) async {
     await _tonCore.request('debot.start', params.toString());
-    return;
   }
 
   ///Downloads DeBot from blockchain and creates and fetches its metadata.
@@ -43,18 +42,15 @@ class DebotModule extends _TonSdkModule {
   ///Chain of actions can be executed if input action generates a list of subactions.
   Future<void> execute(ParamsOfExecute params) async {
     await _tonCore.request('debot.execute', params.toString());
-    return;
   }
 
   ///Used by Debot Browser to send response on Dinterface call or from other Debots.
   Future<void> send(ParamsOfSend params) async {
     await _tonCore.request('debot.send', params.toString());
-    return;
   }
 
   ///Removes handle from Client Context and drops debot engine referenced by that handle.
   Future<void> remove(ParamsOfRemove params) async {
     await _tonCore.request('debot.remove', params.toString());
-    return;
   }
 }

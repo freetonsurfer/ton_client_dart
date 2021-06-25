@@ -50,7 +50,6 @@ class NetModule extends _TonSdkModule {
   ///Cancels a subscription specified by its handle.
   Future<void> unsubscribe(ResultOfSubscribeCollection params) async {
     await _tonCore.request('net.unsubscribe', params.toString());
-    return;
   }
 
   ///Triggers for each insert/update of data that satisfies
@@ -104,13 +103,11 @@ class NetModule extends _TonSdkModule {
   ///Suspends network module to stop any network activity
   Future<void> suspend() async {
     await _tonCore.request('net.suspend');
-    return;
   }
 
   ///Resumes network module to enable network activity
   Future<void> resume() async {
     await _tonCore.request('net.resume');
-    return;
   }
 
   ///Returns ID of the last block in a specified account shard
@@ -130,7 +127,6 @@ class NetModule extends _TonSdkModule {
   ///Sets the list of endpoints to use on reinit
   Future<void> set_endpoints(EndpointsSet params) async {
     await _tonCore.request('net.set_endpoints', params.toString());
-    return;
   }
 
   ///Requests the list of alternative endpoints from server

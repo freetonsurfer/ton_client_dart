@@ -25,7 +25,7 @@ String getFunctionResultType(Map<String, dynamic> result) {
     String str = result['generic_args'][0]['ref_name'];
     return '${str.substring(str.indexOf('.') + 1)}';
   } else if (result['generic_args'][0]['type'] == 'None') {
-    return 'void ';
+    return 'void';
   } else {
     throw ('getFunctionResultType> no result type\n${result.toString()}');
   }
@@ -52,14 +52,23 @@ void createFunctionParams(List<dynamic> params, File file) {
 }
 
 String getFunctionBody(int pCount, String funcname, String restype) {
+  String body;
   if (pCount == 0) {
-    return "final res = await _tonCore.request('$funcname');\n return $restype.fromMap(res);";
+    body = "await _tonCore.request('$funcname');";
   } else if (pCount == 1) {
-    return "final res = await _tonCore.request('$funcname',params.toString());\n return $restype.fromMap(res);";
+    body = "await _tonCore.request('$funcname',params.toString());";
   } else if (pCount == 2) {
-    return "final res = await _tonCore.request('$funcname',params.toString(),responseHandler);\n return $restype.fromMap(res);";
+    body =
+        "await _tonCore.request('$funcname',params.toString(),responseHandler);";
+  } else {
+    throw ('getFunctionBody> unknown pCount');
   }
-  throw ('getFunctionBody> unknown pCount');
+
+  if (restype == "void") {
+    return body;
+  } else {
+    return "final res = $body\n return $restype.fromMap(res);";
+  }
 }
 
 void createModuleFile(final module) {

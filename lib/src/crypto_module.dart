@@ -3,13 +3,16 @@ part of 'tonsdkmodule.dart';
 class CryptoModule extends _TonSdkModule {
   CryptoModule(TonSdkCore core) : super(core);
 
-  ///Performs prime factorization – decomposition of a composite number into a product of smaller prime integers (factors). See [https://en.wikipedia.org/wiki/Integer_factorization]
+  ///Performs prime factorization – decomposition of a composite number
+  ///into a product of smaller prime integers (factors).
+  ///See [https://en.wikipedia.org/wiki/Integer_factorization]
   Future<ResultOfFactorize> factorize(ParamsOfFactorize params) async {
     final res = await _tonCore.request('crypto.factorize', params.toString());
     return ResultOfFactorize.fromMap(res);
   }
 
-  ///Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`). See [https://en.wikipedia.org/wiki/Modular_exponentiation]
+  ///Performs modular exponentiation for big integers (`base`^`exponent` mod `modulus`).
+  ///See [https://en.wikipedia.org/wiki/Modular_exponentiation]
   Future<ResultOfModularPower> modular_power(
       ParamsOfModularPower params) async {
     final res =
@@ -72,6 +75,9 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfHash.fromMap(res);
   }
 
+  ///Derives key from `password` and `key` using `scrypt` algorithm.
+  ///See [https://en.wikipedia.org/wiki/Scrypt].
+  ///
   ///# Arguments
   ///- `log_n` - The log2 of the Scrypt parameter `N`
   ///- `r` - The Scrypt parameter `r`
@@ -198,7 +204,8 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfMnemonicFromEntropy.fromMap(res);
   }
 
-  ///The phrase supplied will be checked for word length and validated according to the checksum specified in BIP0039.
+  ///The phrase supplied will be checked for word length and validated according to the checksum
+  ///specified in BIP0039.
   Future<ResultOfMnemonicVerify> mnemonic_verify(
       ParamsOfMnemonicVerify params) async {
     final res =
@@ -206,7 +213,8 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfMnemonicVerify.fromMap(res);
   }
 
-  ///Validates the seed phrase, generates master key and then derives the key pair from the master key and the specified path
+  ///Validates the seed phrase, generates master key and then derives
+  ///the key pair from the master key and the specified path
   Future<KeyPair> mnemonic_derive_sign_keys(
       ParamsOfMnemonicDeriveSignKeys params) async {
     final res = await _tonCore.request(
@@ -293,6 +301,42 @@ class CryptoModule extends _TonSdkModule {
   ///Removes signing box from SDK.
   Future<void> remove_signing_box(RegisteredSigningBox params) async {
     await _tonCore.request('crypto.remove_signing_box', params.toString());
-    return;
+  }
+
+  ///Register an application implemented encryption box.
+  Future<RegisteredEncryptionBox> register_encryption_box(
+      Function params) async {
+    final res = await _tonCore.request(
+        'crypto.register_encryption_box', params.toString());
+    return RegisteredEncryptionBox.fromMap(res);
+  }
+
+  ///Removes encryption box from SDK
+  Future<void> remove_encryption_box(RegisteredEncryptionBox params) async {
+    await _tonCore.request('crypto.remove_encryption_box', params.toString());
+  }
+
+  ///Queries info from the given encryption box
+  Future<ResultOfEncryptionBoxGetInfo> encryption_box_get_info(
+      ParamsOfEncryptionBoxGetInfo params) async {
+    final res = await _tonCore.request(
+        'crypto.encryption_box_get_info', params.toString());
+    return ResultOfEncryptionBoxGetInfo.fromMap(res);
+  }
+
+  ///Encrypts data using given encryption box
+  Future<ResultOfEncryptionBoxEncrypt> encryption_box_encrypt(
+      ParamsOfEncryptionBoxEncrypt params) async {
+    final res = await _tonCore.request(
+        'crypto.encryption_box_encrypt', params.toString());
+    return ResultOfEncryptionBoxEncrypt.fromMap(res);
+  }
+
+  ///Decrypts data using given encryption box
+  Future<ResultOfEncryptionBoxDecrypt> encryption_box_decrypt(
+      ParamsOfEncryptionBoxDecrypt params) async {
+    final res = await _tonCore.request(
+        'crypto.encryption_box_decrypt', params.toString());
+    return ResultOfEncryptionBoxDecrypt.fromMap(res);
   }
 }
