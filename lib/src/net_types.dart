@@ -1478,13 +1478,22 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
   ///List of contract ABIs that will be used to decode message bodies. Library will try to decode each returned message body using any ABI from the registry.
   List<Abi> _abi_registry;
   List<Abi> get abi_registry => _abi_registry;
+
+  ///If some of the following messages and transactions are missing yet
+  ///The maximum waiting time is regulated by this option.
+  ///
+  ///Default value is 60000 (1 min).
+  int _timeout;
+  int get timeout => _timeout;
   ParamsOfQueryTransactionTree({
     @required String in_msg,
     List<Abi> abi_registry,
+    int timeout,
   }) {
     _in_msg = ArgumentError.checkNotNull(
         in_msg, 'ParamsOfQueryTransactionTree in_msg');
     _abi_registry = abi_registry;
+    _timeout = timeout;
   }
   ParamsOfQueryTransactionTree.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('in_msg') && (map['in_msg'] != null)) {
@@ -1502,6 +1511,9 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
         }
       }
     }
+    if (map.containsKey('timeout') && (map['timeout'] != null)) {
+      _timeout = map['timeout'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -1511,6 +1523,9 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
     }
     if (_abi_registry != null) {
       map['abi_registry'] = _abi_registry;
+    }
+    if (_timeout != null) {
+      map['timeout'] = _timeout;
     }
     return map;
   }

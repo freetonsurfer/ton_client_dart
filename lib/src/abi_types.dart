@@ -876,7 +876,7 @@ class MessageSource_EncodingParams extends MessageSource {
     _processing_try_index = processing_try_index;
   }
   MessageSource_EncodingParams.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('type') && (map['type'] == 'EncodingParams')) {
+    if (map.containsKey('type') && (map['type'] != 'EncodingParams')) {
       _type = 'EncodingParams';
     } else {
       throw ('Wrong map data');
@@ -1179,8 +1179,8 @@ class AbiFunction extends TonSdkStructure {
 }
 
 class AbiContract extends TonSdkStructure {
-  int _abi_version_spaced;
-  int get abi_version_spaced => _abi_version_spaced;
+  int _abi_spaced_version;
+  int get abi_spaced_version => _abi_spaced_version;
   int _abi_version;
   int get abi_version => _abi_version;
   List<String> _header;
@@ -1192,14 +1192,14 @@ class AbiContract extends TonSdkStructure {
   List<AbiData> _data;
   List<AbiData> get data => _data;
   AbiContract({
-    int abi_version_spaced,
+    int abi_spaced_version,
     int abi_version,
     List<String> header,
     List<AbiFunction> functions,
     List<AbiEvent> events,
     List<AbiData> data,
   }) {
-    _abi_version_spaced = abi_version_spaced;
+    _abi_spaced_version = abi_spaced_version;
     _abi_version = abi_version;
     _header = header;
     _functions = functions;
@@ -1208,7 +1208,7 @@ class AbiContract extends TonSdkStructure {
   }
   AbiContract.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('ABI version') && (map['ABI version'] != null)) {
-      _abi_version_spaced = map['ABI version'];
+      _abi_spaced_version = map['ABI version'];
     }
     if (map.containsKey('abi_version') && (map['abi_version'] != null)) {
       _abi_version = map['abi_version'];
@@ -1257,8 +1257,8 @@ class AbiContract extends TonSdkStructure {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_abi_version_spaced != null) {
-      map['ABI version'] = _abi_version_spaced;
+    if (_abi_spaced_version != null) {
+      map['ABI version'] = _abi_spaced_version;
     }
     if (_abi_version != null) {
       map['abi_version'] = _abi_version;

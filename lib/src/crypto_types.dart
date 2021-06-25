@@ -63,6 +63,9 @@ class CryptoErrorCode {
   CryptoErrorCode.InvalidSignature() {
     _value = 'InvalidSignature';
   }
+  CryptoErrorCode.EncryptionBoxNotRegistered() {
+    _value = 'EncryptionBoxNotRegistered';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -74,6 +77,68 @@ class CryptoErrorCode {
 }
 
 //typedef SigningBoxHandle int;
+//typedef EncryptionBoxHandle int;
+///Encryption box information
+class EncryptionBoxInfo extends TonSdkStructure {
+  ///Derivation path, for instance "m/44'/396'/0'/0/0"
+  String _hdpath;
+  String get hdpath => _hdpath;
+
+  ///Cryptographic algorithm, used by this encryption box
+  String _algorithm;
+  String get algorithm => _algorithm;
+
+  ///Options, depends on algorithm and specific encryption box implementation
+  dynamic _options;
+  dynamic get options => _options;
+
+  ///Public information, depends on algorithm
+  dynamic _public;
+  dynamic get public => _public;
+  EncryptionBoxInfo({
+    String hdpath,
+    String algorithm,
+    dynamic options,
+    dynamic public,
+  }) {
+    _hdpath = hdpath;
+    _algorithm = algorithm;
+    _options = options;
+    _public = public;
+  }
+  EncryptionBoxInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('hdpath') && (map['hdpath'] != null)) {
+      _hdpath = map['hdpath'];
+    }
+    if (map.containsKey('algorithm') && (map['algorithm'] != null)) {
+      _algorithm = map['algorithm'];
+    }
+    if (map.containsKey('options') && (map['options'] != null)) {
+      _options = map['options'];
+    }
+    if (map.containsKey('public') && (map['public'] != null)) {
+      _public = map['public'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_hdpath != null) {
+      map['hdpath'] = _hdpath;
+    }
+    if (_algorithm != null) {
+      map['algorithm'] = _algorithm;
+    }
+    if (_options != null) {
+      map['options'] = _options;
+    }
+    if (_public != null) {
+      map['public'] = _public;
+    }
+    return map;
+  }
+}
+
 class ParamsOfFactorize extends TonSdkStructure {
   ///Hexadecimal representation of u64 composite number.
   String _composite;
@@ -2372,6 +2437,467 @@ class ResultOfSigningBoxSign extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_signature != null) {
       map['signature'] = _signature;
+    }
+    return map;
+  }
+}
+
+class RegisteredEncryptionBox extends TonSdkStructure {
+  ///Handle of the encryption box
+  int _handle;
+  int get handle => _handle;
+  RegisteredEncryptionBox({
+    @required int handle,
+  }) {
+    _handle =
+        ArgumentError.checkNotNull(handle, 'RegisteredEncryptionBox handle');
+  }
+  RegisteredEncryptionBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    return map;
+  }
+}
+
+///Encryption box callbacks.
+abstract class ParamsOfAppEncryptionBox extends TonSdkStructure {
+  static ParamsOfAppEncryptionBox fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetInfo') {
+      return ParamsOfAppEncryptionBox_GetInfo.fromMap(map);
+    }
+    if (map['type'] == 'Encrypt') {
+      return ParamsOfAppEncryptionBox_Encrypt.fromMap(map);
+    }
+    if (map['type'] == 'Decrypt') {
+      return ParamsOfAppEncryptionBox_Decrypt.fromMap(map);
+    }
+    throw ('ParamsOfAppEncryptionBox unknown from map type');
+  }
+}
+
+///Get encryption box info
+class ParamsOfAppEncryptionBox_GetInfo extends ParamsOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+  ParamsOfAppEncryptionBox_GetInfo() {
+    _type = 'GetInfo';
+  }
+  ParamsOfAppEncryptionBox_GetInfo.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetInfo') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetInfo';
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Encrypt data
+class ParamsOfAppEncryptionBox_Encrypt extends ParamsOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+
+  ///Data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ParamsOfAppEncryptionBox_Encrypt({
+    @required String data,
+  }) {
+    _type = 'Encrypt';
+    _data = ArgumentError.checkNotNull(
+        data, 'ParamsOfAppEncryptionBox_Encrypt data');
+  }
+  ParamsOfAppEncryptionBox_Encrypt.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Encrypt') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Encrypt';
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Decrypt data
+class ParamsOfAppEncryptionBox_Decrypt extends ParamsOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+
+  ///Data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ParamsOfAppEncryptionBox_Decrypt({
+    @required String data,
+  }) {
+    _type = 'Decrypt';
+    _data = ArgumentError.checkNotNull(
+        data, 'ParamsOfAppEncryptionBox_Decrypt data');
+  }
+  ParamsOfAppEncryptionBox_Decrypt.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Decrypt') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Decrypt';
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Returning values from signing box callbacks.
+abstract class ResultOfAppEncryptionBox extends TonSdkStructure {
+  static ResultOfAppEncryptionBox fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetInfo') {
+      return ResultOfAppEncryptionBox_GetInfo.fromMap(map);
+    }
+    if (map['type'] == 'Encrypt') {
+      return ResultOfAppEncryptionBox_Encrypt.fromMap(map);
+    }
+    if (map['type'] == 'Decrypt') {
+      return ResultOfAppEncryptionBox_Decrypt.fromMap(map);
+    }
+    throw ('ResultOfAppEncryptionBox unknown from map type');
+  }
+}
+
+///Result of getting encryption box info
+class ResultOfAppEncryptionBox_GetInfo extends ResultOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+  EncryptionBoxInfo _info;
+  EncryptionBoxInfo get info => _info;
+  ResultOfAppEncryptionBox_GetInfo({
+    @required EncryptionBoxInfo info,
+  }) {
+    _type = 'GetInfo';
+    _info = ArgumentError.checkNotNull(
+        info, 'ResultOfAppEncryptionBox_GetInfo info');
+  }
+  ResultOfAppEncryptionBox_GetInfo.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetInfo') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetInfo';
+    }
+    if (map.containsKey('info') && (map['info'] != null)) {
+      _info = EncryptionBoxInfo.fromMap(map['info']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_info != null) {
+      map['info'] = _info;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Result of encrypting data
+class ResultOfAppEncryptionBox_Encrypt extends ResultOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+
+  ///Encrypted data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ResultOfAppEncryptionBox_Encrypt({
+    @required String data,
+  }) {
+    _type = 'Encrypt';
+    _data = ArgumentError.checkNotNull(
+        data, 'ResultOfAppEncryptionBox_Encrypt data');
+  }
+  ResultOfAppEncryptionBox_Encrypt.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Encrypt') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Encrypt';
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Result of decrypting data
+class ResultOfAppEncryptionBox_Decrypt extends ResultOfAppEncryptionBox {
+  String _type;
+  String get type => _type;
+
+  ///Decrypted data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ResultOfAppEncryptionBox_Decrypt({
+    @required String data,
+  }) {
+    _type = 'Decrypt';
+    _data = ArgumentError.checkNotNull(
+        data, 'ResultOfAppEncryptionBox_Decrypt data');
+  }
+  ResultOfAppEncryptionBox_Decrypt.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Decrypt') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Decrypt';
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class ParamsOfEncryptionBoxGetInfo extends TonSdkStructure {
+  ///Encryption box handle
+  int _encryption_box;
+  int get encryption_box => _encryption_box;
+  ParamsOfEncryptionBoxGetInfo({
+    @required int encryption_box,
+  }) {
+    _encryption_box = ArgumentError.checkNotNull(
+        encryption_box, 'ParamsOfEncryptionBoxGetInfo encryption_box');
+  }
+  ParamsOfEncryptionBoxGetInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encryption_box') && (map['encryption_box'] != null)) {
+      _encryption_box = map['encryption_box'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encryption_box != null) {
+      map['encryption_box'] = _encryption_box;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncryptionBoxGetInfo extends TonSdkStructure {
+  ///Encryption box information
+  EncryptionBoxInfo _info;
+  EncryptionBoxInfo get info => _info;
+  ResultOfEncryptionBoxGetInfo({
+    @required EncryptionBoxInfo info,
+  }) {
+    _info =
+        ArgumentError.checkNotNull(info, 'ResultOfEncryptionBoxGetInfo info');
+  }
+  ResultOfEncryptionBoxGetInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('info') && (map['info'] != null)) {
+      _info = EncryptionBoxInfo.fromMap(map['info']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_info != null) {
+      map['info'] = _info;
+    }
+    return map;
+  }
+}
+
+class ParamsOfEncryptionBoxEncrypt extends TonSdkStructure {
+  ///Encryption box handle
+  int _encryption_box;
+  int get encryption_box => _encryption_box;
+
+  ///Data to be encrypted, encoded in Base64
+  String _data;
+  String get data => _data;
+  ParamsOfEncryptionBoxEncrypt({
+    @required int encryption_box,
+    @required String data,
+  }) {
+    _encryption_box = ArgumentError.checkNotNull(
+        encryption_box, 'ParamsOfEncryptionBoxEncrypt encryption_box');
+    _data =
+        ArgumentError.checkNotNull(data, 'ParamsOfEncryptionBoxEncrypt data');
+  }
+  ParamsOfEncryptionBoxEncrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encryption_box') && (map['encryption_box'] != null)) {
+      _encryption_box = map['encryption_box'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encryption_box != null) {
+      map['encryption_box'] = _encryption_box;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncryptionBoxEncrypt extends TonSdkStructure {
+  ///Encrypted data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ResultOfEncryptionBoxEncrypt({
+    @required String data,
+  }) {
+    _data =
+        ArgumentError.checkNotNull(data, 'ResultOfEncryptionBoxEncrypt data');
+  }
+  ResultOfEncryptionBoxEncrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ParamsOfEncryptionBoxDecrypt extends TonSdkStructure {
+  ///Encryption box handle
+  int _encryption_box;
+  int get encryption_box => _encryption_box;
+
+  ///Data to be decrypted, encoded in Base64
+  String _data;
+  String get data => _data;
+  ParamsOfEncryptionBoxDecrypt({
+    @required int encryption_box,
+    @required String data,
+  }) {
+    _encryption_box = ArgumentError.checkNotNull(
+        encryption_box, 'ParamsOfEncryptionBoxDecrypt encryption_box');
+    _data =
+        ArgumentError.checkNotNull(data, 'ParamsOfEncryptionBoxDecrypt data');
+  }
+  ParamsOfEncryptionBoxDecrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encryption_box') && (map['encryption_box'] != null)) {
+      _encryption_box = map['encryption_box'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encryption_box != null) {
+      map['encryption_box'] = _encryption_box;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncryptionBoxDecrypt extends TonSdkStructure {
+  ///Decrypted data, encoded in Base64
+  String _data;
+  String get data => _data;
+  ResultOfEncryptionBoxDecrypt({
+    @required String data,
+  }) {
+    _data =
+        ArgumentError.checkNotNull(data, 'ResultOfEncryptionBoxDecrypt data');
+  }
+  ResultOfEncryptionBoxDecrypt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
     }
     return map;
   }

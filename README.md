@@ -125,4 +125,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
   - query module
   - contract auto deploy and runing module
   - connect functoin with object from map param
+
+### Android compile notes
+cargo ndk --platform 21 --target x86_64-linux-android build --release
   
