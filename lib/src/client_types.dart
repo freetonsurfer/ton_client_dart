@@ -102,6 +102,9 @@ class ClientErrorCode {
   ClientErrorCode.InternalError() {
     _value = 'InternalError';
   }
+  ClientErrorCode.InvalidHandle() {
+    _value = 'InvalidHandle';
+  }
   @override
   String toString() {
     return '"$_value"';
