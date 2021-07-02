@@ -1586,3 +1586,446 @@ class ResultOfQueryTransactionTree extends TonSdkStructure {
     return map;
   }
 }
+
+class ParamsOfCreateBlockIterator extends TonSdkStructure {
+  ///If the application specifies this parameter then the iteration
+  ///includes blocks with `gen_utime` >= `start_time`.
+  ///Otherwise the iteration starts from zero state.
+  ///
+  ///Must be specified in seconds.
+  int _start_time;
+  int get start_time => _start_time;
+
+  ///If the application specifies this parameter then the iteration
+  ///includes blocks with `gen_utime` < `end_time`.
+  ///Otherwise the iteration never stops.
+  ///
+  ///Must be specified in seconds.
+  int _end_time;
+  int get end_time => _end_time;
+
+  ///If the application specifies this parameter and it is not the empty array
+  ///then the iteration will include items related to accounts that belongs to
+  ///the specified shard prefixes.
+  ///Shard prefix must be represented as a string "workchain:prefix".
+  ///Where `workchain` is a signed integer and the `prefix` if a hexadecimal
+  ///representation if the 64-bit unsigned integer with tagged shard prefix.
+  ///For example: "0:3800000000000000".
+  List<String> _shard_filter;
+  List<String> get shard_filter => _shard_filter;
+
+  ///List of the fields that must be returned for iterated items.
+  ///This field is the same as the `result` parameter of
+  ///the `query_collection` function.
+  ///Note that iterated items can contains additional fields that are
+  ///not requested in the `result`.
+  String _result;
+  String get result => _result;
+  ParamsOfCreateBlockIterator({
+    int start_time,
+    int end_time,
+    List<String> shard_filter,
+    String result,
+  }) {
+    _start_time = start_time;
+    _end_time = end_time;
+    _shard_filter = shard_filter;
+    _result = result;
+  }
+  ParamsOfCreateBlockIterator.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('start_time') && (map['start_time'] != null)) {
+      _start_time = map['start_time'];
+    }
+    if (map.containsKey('end_time') && (map['end_time'] != null)) {
+      _end_time = map['end_time'];
+    }
+    if (map.containsKey('shard_filter') && (map['shard_filter'] != null)) {
+      _shard_filter = [];
+      for (var el in map['shard_filter']) {
+        if (el != null) {
+          _shard_filter.add(el);
+        } else {
+          _shard_filter.add(null);
+        }
+      }
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_start_time != null) {
+      map['start_time'] = _start_time;
+    }
+    if (_end_time != null) {
+      map['end_time'] = _end_time;
+    }
+    if (_shard_filter != null) {
+      map['shard_filter'] = _shard_filter;
+    }
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    return map;
+  }
+}
+
+class RegisteredIterator extends TonSdkStructure {
+  ///Must be removed using `remove_iterator`
+  ///when it is no more needed for the application.
+  int _handle;
+  int get handle => _handle;
+  RegisteredIterator({
+    @required int handle,
+  }) {
+    _handle = ArgumentError.checkNotNull(handle, 'RegisteredIterator handle');
+  }
+  RegisteredIterator.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    return map;
+  }
+}
+
+class ParamsOfResumeBlockIterator extends TonSdkStructure {
+  ///Same as value returned from `iterator_next`.
+  dynamic _resume_state;
+  dynamic get resume_state => _resume_state;
+  ParamsOfResumeBlockIterator({
+    @required dynamic resume_state,
+  }) {
+    _resume_state = ArgumentError.checkNotNull(
+        resume_state, 'ParamsOfResumeBlockIterator resume_state');
+  }
+  ParamsOfResumeBlockIterator.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('resume_state') && (map['resume_state'] != null)) {
+      _resume_state = map['resume_state'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_resume_state != null) {
+      map['resume_state'] = _resume_state;
+    }
+    return map;
+  }
+}
+
+class ParamsOfCreateTransactionIterator extends TonSdkStructure {
+  ///If the application specifies this parameter then the iteration
+  ///includes blocks with `gen_utime` >= `start_time`.
+  ///Otherwise the iteration starts from zero state.
+  ///
+  ///Must be specified in seconds.
+  int _start_time;
+  int get start_time => _start_time;
+
+  ///If the application specifies this parameter then the iteration
+  ///includes blocks with `gen_utime` < `end_time`.
+  ///Otherwise the iteration never stops.
+  ///
+  ///Must be specified in seconds.
+  int _end_time;
+  int get end_time => _end_time;
+
+  ///If the application specifies this parameter and it is not an empty array
+  ///then the iteration will include items related to accounts that belongs to
+  ///the specified shard prefixes.
+  ///Shard prefix must be represented as a string "workchain:prefix".
+  ///Where `workchain` is a signed integer and the `prefix` if a hexadecimal
+  ///representation if the 64-bit unsigned integer with tagged shard prefix.
+  ///For example: "0:3800000000000000".
+  ///Account address conforms to the shard filter if
+  ///it belongs to the filter workchain and the first bits of address match to
+  ///the shard prefix. Only transactions with suitable account addresses are iterated.
+  List<String> _shard_filter;
+  List<String> get shard_filter => _shard_filter;
+
+  ///Application can specify the list of accounts for which
+  ///it wants to iterate transactions.
+  ///
+  ///If this parameter is missing or an empty list then the library iterates
+  ///transactions for all accounts that pass the shard filter.
+  ///
+  ///Note that the library doesn't detect conflicts between the account filter and the shard filter
+  ///if both are specified.
+  ///So it is an application responsibility to specify the correct filter combination.
+  List<String> _accounts_filter;
+  List<String> get accounts_filter => _accounts_filter;
+
+  ///List of the fields that must be returned for iterated items.
+  ///This field is the same as the `result` parameter of
+  ///the `query_collection` function.
+  ///Note that iterated items can contain additional fields that are
+  ///not requested in the `result`.
+  String _result;
+  String get result => _result;
+
+  ///If this parameter is `true` then each transaction contains field
+  ///`transfers` with list of transfer. See more about this structure in function description.
+  bool _include_transfers;
+  bool get include_transfers => _include_transfers;
+  ParamsOfCreateTransactionIterator({
+    int start_time,
+    int end_time,
+    List<String> shard_filter,
+    List<String> accounts_filter,
+    String result,
+    bool include_transfers,
+  }) {
+    _start_time = start_time;
+    _end_time = end_time;
+    _shard_filter = shard_filter;
+    _accounts_filter = accounts_filter;
+    _result = result;
+    _include_transfers = include_transfers;
+  }
+  ParamsOfCreateTransactionIterator.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('start_time') && (map['start_time'] != null)) {
+      _start_time = map['start_time'];
+    }
+    if (map.containsKey('end_time') && (map['end_time'] != null)) {
+      _end_time = map['end_time'];
+    }
+    if (map.containsKey('shard_filter') && (map['shard_filter'] != null)) {
+      _shard_filter = [];
+      for (var el in map['shard_filter']) {
+        if (el != null) {
+          _shard_filter.add(el);
+        } else {
+          _shard_filter.add(null);
+        }
+      }
+    }
+    if (map.containsKey('accounts_filter') &&
+        (map['accounts_filter'] != null)) {
+      _accounts_filter = [];
+      for (var el in map['accounts_filter']) {
+        if (el != null) {
+          _accounts_filter.add(el);
+        } else {
+          _accounts_filter.add(null);
+        }
+      }
+    }
+    if (map.containsKey('result') && (map['result'] != null)) {
+      _result = map['result'];
+    }
+    if (map.containsKey('include_transfers') &&
+        (map['include_transfers'] != null)) {
+      _include_transfers = map['include_transfers'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_start_time != null) {
+      map['start_time'] = _start_time;
+    }
+    if (_end_time != null) {
+      map['end_time'] = _end_time;
+    }
+    if (_shard_filter != null) {
+      map['shard_filter'] = _shard_filter;
+    }
+    if (_accounts_filter != null) {
+      map['accounts_filter'] = _accounts_filter;
+    }
+    if (_result != null) {
+      map['result'] = _result;
+    }
+    if (_include_transfers != null) {
+      map['include_transfers'] = _include_transfers;
+    }
+    return map;
+  }
+}
+
+class ParamsOfResumeTransactionIterator extends TonSdkStructure {
+  ///Same as value returned from `iterator_next`.
+  dynamic _resume_state;
+  dynamic get resume_state => _resume_state;
+
+  ///Application can specify the list of accounts for which
+  ///it wants to iterate transactions.
+  ///
+  ///If this parameter is missing or an empty list then the library iterates
+  ///transactions for all accounts that passes the shard filter.
+  ///
+  ///Note that the library doesn't detect conflicts between the account filter and the shard filter
+  ///if both are specified.
+  ///So it is the application's responsibility to specify the correct filter combination.
+  List<String> _accounts_filter;
+  List<String> get accounts_filter => _accounts_filter;
+  ParamsOfResumeTransactionIterator({
+    @required dynamic resume_state,
+    List<String> accounts_filter,
+  }) {
+    _resume_state = ArgumentError.checkNotNull(
+        resume_state, 'ParamsOfResumeTransactionIterator resume_state');
+    _accounts_filter = accounts_filter;
+  }
+  ParamsOfResumeTransactionIterator.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('resume_state') && (map['resume_state'] != null)) {
+      _resume_state = map['resume_state'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('accounts_filter') &&
+        (map['accounts_filter'] != null)) {
+      _accounts_filter = [];
+      for (var el in map['accounts_filter']) {
+        if (el != null) {
+          _accounts_filter.add(el);
+        } else {
+          _accounts_filter.add(null);
+        }
+      }
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_resume_state != null) {
+      map['resume_state'] = _resume_state;
+    }
+    if (_accounts_filter != null) {
+      map['accounts_filter'] = _accounts_filter;
+    }
+    return map;
+  }
+}
+
+class ParamsOfIteratorNext extends TonSdkStructure {
+  ///Iterator handle
+  int _iterator;
+  int get iterator => _iterator;
+
+  ///If value is missing or is less than 1 the library uses 1.
+  int _limit;
+  int get limit => _limit;
+
+  ///Indicates that function must return the iterator state that can be used for resuming iteration.
+  bool _return_resume_state;
+  bool get return_resume_state => _return_resume_state;
+  ParamsOfIteratorNext({
+    @required int iterator,
+    int limit,
+    bool return_resume_state,
+  }) {
+    _iterator =
+        ArgumentError.checkNotNull(iterator, 'ParamsOfIteratorNext iterator');
+    _limit = limit;
+    _return_resume_state = return_resume_state;
+  }
+  ParamsOfIteratorNext.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('iterator') && (map['iterator'] != null)) {
+      _iterator = map['iterator'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('limit') && (map['limit'] != null)) {
+      _limit = map['limit'];
+    }
+    if (map.containsKey('return_resume_state') &&
+        (map['return_resume_state'] != null)) {
+      _return_resume_state = map['return_resume_state'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_iterator != null) {
+      map['iterator'] = _iterator;
+    }
+    if (_limit != null) {
+      map['limit'] = _limit;
+    }
+    if (_return_resume_state != null) {
+      map['return_resume_state'] = _return_resume_state;
+    }
+    return map;
+  }
+}
+
+class ResultOfIteratorNext extends TonSdkStructure {
+  ///Note that `iterator_next` can return an empty items and `has_more` equals to `true`.
+  ///In this case the application have to continue iteration.
+  ///Such situation can take place when there is no data yet but
+  ///the requested `end_time` is not reached.
+  List<dynamic> _items;
+  List<dynamic> get items => _items;
+
+  ///Indicates that there are more available items in iterated range.
+  bool _has_more;
+  bool get has_more => _has_more;
+
+  ///This field is returned only if the `return_resume_state` parameter
+  ///is specified.
+  ///
+  ///Note that `resume_state` corresponds to the iteration position
+  ///after the returned items.
+  dynamic _resume_state;
+  dynamic get resume_state => _resume_state;
+  ResultOfIteratorNext({
+    @required List<dynamic> items,
+    @required bool has_more,
+    dynamic resume_state,
+  }) {
+    _items = ArgumentError.checkNotNull(items, 'ResultOfIteratorNext items');
+    _has_more =
+        ArgumentError.checkNotNull(has_more, 'ResultOfIteratorNext has_more');
+    _resume_state = resume_state;
+  }
+  ResultOfIteratorNext.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('items') && (map['items'] != null)) {
+      _items = [];
+      for (var el in map['items']) {
+        if (el != null) {
+          _items.add(el);
+        } else {
+          _items.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('has_more') && (map['has_more'] != null)) {
+      _has_more = map['has_more'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('resume_state') && (map['resume_state'] != null)) {
+      _resume_state = map['resume_state'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_items != null) {
+      map['items'] = _items;
+    }
+    if (_has_more != null) {
+      map['has_more'] = _has_more;
+    }
+    if (_resume_state != null) {
+      map['resume_state'] = _resume_state;
+    }
+    return map;
+  }
+}
