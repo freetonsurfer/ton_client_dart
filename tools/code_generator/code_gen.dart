@@ -389,6 +389,14 @@ void createTypeFile(final module) {
   }
 }
 
+void replaceABI_VERSION() {
+  var fModule = File('output/abi_types.dart');
+  var fileString = fModule.readAsStringSync();
+  fileString = fileString.replaceAll('ABI version', 'abi_spaced_version');
+  fileString = fileString.replaceAll("'abi_spaced_version'", "'ABI version'");
+  fModule.writeAsStringSync(fileString);
+}
+
 //==============================================================================
 //==============================================================================
 //==============================================================================
@@ -401,4 +409,6 @@ void main(List<String> arguments) {
     createModuleFile(module);
     createTypeFile(module);
   }
+
+  replaceABI_VERSION();
 }
