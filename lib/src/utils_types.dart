@@ -116,6 +116,28 @@ class AddressStringFormat_Base64 extends AddressStringFormat {
   }
 }
 
+class AccountAddressType {
+  String _value;
+  String get value => _value;
+  AccountAddressType.AccountId() {
+    _value = 'AccountId';
+  }
+  AccountAddressType.Hex() {
+    _value = 'Hex';
+  }
+  AccountAddressType.Base64() {
+    _value = 'Base64';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  AccountAddressType.fromMap(str) {
+    _value = str;
+  }
+}
+
 class ParamsOfConvertAddress extends TonSdkStructure {
   ///Account address in any TON format.
   String _address;
@@ -180,6 +202,60 @@ class ResultOfConvertAddress extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_address != null) {
       map['address'] = _address;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetAddressType extends TonSdkStructure {
+  ///Account address in any TON format.
+  String _address;
+  String get address => _address;
+  ParamsOfGetAddressType({
+    @required String address,
+  }) {
+    _address =
+        ArgumentError.checkNotNull(address, 'ParamsOfGetAddressType address');
+  }
+  ParamsOfGetAddressType.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_address != null) {
+      map['address'] = _address;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetAddressType extends TonSdkStructure {
+  ///Account address type.
+  AccountAddressType _address_type;
+  AccountAddressType get address_type => _address_type;
+  ResultOfGetAddressType({
+    @required AccountAddressType address_type,
+  }) {
+    _address_type = ArgumentError.checkNotNull(
+        address_type, 'ResultOfGetAddressType address_type');
+  }
+  ResultOfGetAddressType.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('address_type') && (map['address_type'] != null)) {
+      _address_type = AccountAddressType.fromMap(map['address_type']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_address_type != null) {
+      map['address_type'] = _address_type;
     }
     return map;
   }
