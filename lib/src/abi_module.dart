@@ -106,4 +106,12 @@ class AbiModule extends _TonSdkModule {
     final res = await _tonCore.request('abi.encode_account', params.toString());
     return ResultOfEncodeAccount.fromMap(res);
   }
+
+  ///Note: this feature requires ABI 2.1 or higher.
+  Future<ResultOfDecodeData> decode_account_data(
+      ParamsOfDecodeAccountData params) async {
+    final res =
+        await _tonCore.request('abi.decode_account_data', params.toString());
+    return ResultOfDecodeData.fromMap(res);
+  }
 }

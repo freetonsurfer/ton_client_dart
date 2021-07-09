@@ -39,6 +39,9 @@ class AbiErrorCode {
   AbiErrorCode.InvalidFunctionId() {
     _value = 'InvalidFunctionId';
   }
+  AbiErrorCode.InvalidData() {
+    _value = 'InvalidData';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -1190,6 +1193,8 @@ class AbiContract extends TonSdkStructure {
   List<AbiEvent> get events => _events;
   List<AbiData> _data;
   List<AbiData> get data => _data;
+  List<AbiParam> _fields;
+  List<AbiParam> get fields => _fields;
   AbiContract({
     int abi_spaced_version,
     int abi_version,
@@ -1197,6 +1202,7 @@ class AbiContract extends TonSdkStructure {
     List<AbiFunction> functions,
     List<AbiEvent> events,
     List<AbiData> data,
+    List<AbiParam> fields,
   }) {
     _abi_spaced_version = abi_spaced_version;
     _abi_version = abi_version;
@@ -1204,6 +1210,7 @@ class AbiContract extends TonSdkStructure {
     _functions = functions;
     _events = events;
     _data = data;
+    _fields = fields;
   }
   AbiContract.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('ABI version') && (map['ABI version'] != null)) {
@@ -1252,6 +1259,16 @@ class AbiContract extends TonSdkStructure {
         }
       }
     }
+    if (map.containsKey('fields') && (map['fields'] != null)) {
+      _fields = [];
+      for (var el in map['fields']) {
+        if (el != null) {
+          _fields.add(AbiParam.fromMap(el));
+        } else {
+          _fields.add(null);
+        }
+      }
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -1273,6 +1290,9 @@ class AbiContract extends TonSdkStructure {
     }
     if (_data != null) {
       map['data'] = _data;
+    }
+    if (_fields != null) {
+      map['fields'] = _fields;
     }
     return map;
   }
@@ -2240,6 +2260,72 @@ class ResultOfEncodeAccount extends TonSdkStructure {
     }
     if (_id != null) {
       map['id'] = _id;
+    }
+    return map;
+  }
+}
+
+class ParamsOfDecodeAccountData extends TonSdkStructure {
+  ///Contract ABI
+  Abi _abi;
+  Abi get abi => _abi;
+
+  ///Must be encoded with base64
+  String _data;
+  String get data => _data;
+  ParamsOfDecodeAccountData({
+    @required Abi abi,
+    @required String data,
+  }) {
+    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeAccountData abi');
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfDecodeAccountData data');
+  }
+  ParamsOfDecodeAccountData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_abi != null) {
+      map['abi'] = _abi;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfDecodeData extends TonSdkStructure {
+  ///Decoded data as a JSON structure.
+  dynamic _data;
+  dynamic get data => _data;
+  ResultOfDecodeData({
+    @required dynamic data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ResultOfDecodeData data');
+  }
+  ResultOfDecodeData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
     }
     return map;
   }

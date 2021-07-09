@@ -11,6 +11,21 @@ class UtilsModule extends _TonSdkModule {
     return ResultOfConvertAddress.fromMap(res);
   }
 
+  ///Address types are the following
+  ///
+  ///`0:919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - standart TON address most
+  ///commonly used in all cases. Also called as hex addres
+  ///`919db8e740d50bf349df2eea03fa30c385d846b991ff5542e67098ee833fc7f7` - account ID. A part of full
+  ///address. Identifies account inside particular workchain
+  ///`EQCRnbjnQNUL80nfLuoD+jDDhdhGuZH/VULmcJjugz/H9wam` - base64 address. Also called "user-friendly".
+  ///Was used at the beginning of TON. Now it is supported for compatibility
+  Future<ResultOfGetAddressType> get_address_type(
+      ParamsOfGetAddressType params) async {
+    final res =
+        await _tonCore.request('utils.get_address_type', params.toString());
+    return ResultOfGetAddressType.fromMap(res);
+  }
+
   ///Calculates storage fee for an account over a specified time period
   Future<ResultOfCalcStorageFee> calc_storage_fee(
       ParamsOfCalcStorageFee params) async {
