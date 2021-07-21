@@ -273,6 +273,13 @@ class NetworkConfig extends TonSdkStructure {
   int _max_latency;
   int get max_latency => _max_latency;
 
+  ///Is is used when no timeout specified for the request to limit the answer waiting time. If no answer received during the timeout requests ends with
+  ///error.
+  ///
+  ///Must be specified in milliseconds. Default is 60000 (1 min).
+  int _query_timeout;
+  int get query_timeout => _query_timeout;
+
   ///At the moment is not used in production.
   String _access_key;
   String get access_key => _access_key;
@@ -289,6 +296,7 @@ class NetworkConfig extends TonSdkStructure {
     int sending_endpoint_count,
     int latency_detection_interval,
     int max_latency,
+    int query_timeout,
     String access_key,
   }) {
     _server_address = server_address;
@@ -303,6 +311,7 @@ class NetworkConfig extends TonSdkStructure {
     _sending_endpoint_count = sending_endpoint_count;
     _latency_detection_interval = latency_detection_interval;
     _max_latency = max_latency;
+    _query_timeout = query_timeout;
     _access_key = access_key;
   }
   NetworkConfig.fromMap(Map<String, dynamic> map) {
@@ -358,6 +367,9 @@ class NetworkConfig extends TonSdkStructure {
     if (map.containsKey('max_latency') && (map['max_latency'] != null)) {
       _max_latency = map['max_latency'];
     }
+    if (map.containsKey('query_timeout') && (map['query_timeout'] != null)) {
+      _query_timeout = map['query_timeout'];
+    }
     if (map.containsKey('access_key') && (map['access_key'] != null)) {
       _access_key = map['access_key'];
     }
@@ -400,6 +412,9 @@ class NetworkConfig extends TonSdkStructure {
     }
     if (_max_latency != null) {
       map['max_latency'] = _max_latency;
+    }
+    if (_query_timeout != null) {
+      map['query_timeout'] = _query_timeout;
     }
     if (_access_key != null) {
       map['access_key'] = _access_key;

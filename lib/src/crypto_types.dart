@@ -836,7 +836,7 @@ class ParamsOfNaclSign extends TonSdkStructure {
   String _unsigned;
   String get unsigned => _unsigned;
 
-  ///Signer's secret key - unprefixed 0-padded to 64 symbols hex string
+  ///Signer's secret key - unprefixed 0-padded to 128 symbols hex string (concatenation of 64 symbols secret and 64 symbols public keys). See `nacl_sign_keypair_from_secret_key`.
   String _secret;
   String get secret => _secret;
   ParamsOfNaclSign({

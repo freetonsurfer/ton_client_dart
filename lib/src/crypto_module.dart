@@ -95,7 +95,9 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfScrypt.fromMap(res);
   }
 
-  ///Generates a key pair for signing from the secret key
+  ///**NOTE:** In the result the secret key is actually the concatenation
+  ///of secret and public keys (128 symbols hex string) by design of [NaCL](http://nacl.cr.yp.to/sign.html).
+  ///See also [the stackexchange question](https://crypto.stackexchange.com/questions/54353/).
   Future<KeyPair> nacl_sign_keypair_from_secret_key(
       ParamsOfNaclSignKeyPairFromSecret params) async {
     final res = await _tonCore.request(
