@@ -1185,6 +1185,8 @@ class AbiContract extends TonSdkStructure {
   int get abi_spaced_version => _abi_spaced_version;
   int _abi_version;
   int get abi_version => _abi_version;
+  String _version;
+  String get version => _version;
   List<String> _header;
   List<String> get header => _header;
   List<AbiFunction> _functions;
@@ -1198,6 +1200,7 @@ class AbiContract extends TonSdkStructure {
   AbiContract({
     int abi_spaced_version,
     int abi_version,
+    String version,
     List<String> header,
     List<AbiFunction> functions,
     List<AbiEvent> events,
@@ -1206,6 +1209,7 @@ class AbiContract extends TonSdkStructure {
   }) {
     _abi_spaced_version = abi_spaced_version;
     _abi_version = abi_version;
+    _version = version;
     _header = header;
     _functions = functions;
     _events = events;
@@ -1218,6 +1222,9 @@ class AbiContract extends TonSdkStructure {
     }
     if (map.containsKey('abi_version') && (map['abi_version'] != null)) {
       _abi_version = map['abi_version'];
+    }
+    if (map.containsKey('version') && (map['version'] != null)) {
+      _version = map['version'];
     }
     if (map.containsKey('header') && (map['header'] != null)) {
       _header = [];
@@ -1278,6 +1285,9 @@ class AbiContract extends TonSdkStructure {
     }
     if (_abi_version != null) {
       map['abi_version'] = _abi_version;
+    }
+    if (_version != null) {
+      map['version'] = _version;
     }
     if (_header != null) {
       map['header'] = _header;
@@ -2270,7 +2280,7 @@ class ParamsOfDecodeAccountData extends TonSdkStructure {
   Abi _abi;
   Abi get abi => _abi;
 
-  ///Must be encoded with base64
+  ///Data BOC or BOC handle
   String _data;
   String get data => _data;
   ParamsOfDecodeAccountData({
