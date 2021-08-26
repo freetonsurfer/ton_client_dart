@@ -326,7 +326,8 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfEncryptionBoxGetInfo.fromMap(res);
   }
 
-  ///Encrypts data using given encryption box
+  ///Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
+  ///decryption to retrieve the original data from decrypted data.
   Future<ResultOfEncryptionBoxEncrypt> encryption_box_encrypt(
       ParamsOfEncryptionBoxEncrypt params) async {
     final res = await _tonCore.request(
@@ -334,11 +335,20 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfEncryptionBoxEncrypt.fromMap(res);
   }
 
-  ///Decrypts data using given encryption box
+  ///Block cipher algorithms pad data to cipher block size so encrypted data can be longer then original data. Client should store the original data size after encryption and use it after
+  ///decryption to retrieve the original data from decrypted data.
   Future<ResultOfEncryptionBoxDecrypt> encryption_box_decrypt(
       ParamsOfEncryptionBoxDecrypt params) async {
     final res = await _tonCore.request(
         'crypto.encryption_box_decrypt', params.toString());
     return ResultOfEncryptionBoxDecrypt.fromMap(res);
+  }
+
+  ///Creates encryption box with specified algorithm
+  Future<RegisteredEncryptionBox> create_encryption_box(
+      ParamsOfCreateEncryptionBox params) async {
+    final res = await _tonCore.request(
+        'crypto.create_encryption_box', params.toString());
+    return RegisteredEncryptionBox.fromMap(res);
   }
 }
