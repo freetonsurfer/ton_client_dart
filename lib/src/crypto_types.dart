@@ -66,6 +66,24 @@ class CryptoErrorCode {
   CryptoErrorCode.EncryptionBoxNotRegistered() {
     _value = 'EncryptionBoxNotRegistered';
   }
+  CryptoErrorCode.InvalidIvSize() {
+    _value = 'InvalidIvSize';
+  }
+  CryptoErrorCode.UnsupportedCipherMode() {
+    _value = 'UnsupportedCipherMode';
+  }
+  CryptoErrorCode.CannotCreateCipher() {
+    _value = 'CannotCreateCipher';
+  }
+  CryptoErrorCode.EncryptDataError() {
+    _value = 'EncryptDataError';
+  }
+  CryptoErrorCode.DecryptDataError() {
+    _value = 'DecryptDataError';
+  }
+  CryptoErrorCode.IvRequired() {
+    _value = 'IvRequired';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -132,6 +150,181 @@ class EncryptionBoxInfo extends TonSdkStructure {
     }
     if (_public != null) {
       map['public'] = _public;
+    }
+    return map;
+  }
+}
+
+abstract class EncryptionAlgorithm extends TonSdkStructure {
+  static EncryptionAlgorithm fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'AES') {
+      return EncryptionAlgorithm_AES.fromMap(map);
+    }
+    throw ('EncryptionAlgorithm unknown from map type');
+  }
+}
+
+class EncryptionAlgorithm_AES extends EncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+  CipherMode _mode;
+  CipherMode get mode => _mode;
+  String _key;
+  String get key => _key;
+  String _iv;
+  String get iv => _iv;
+  EncryptionAlgorithm_AES({
+    @required CipherMode mode,
+    @required String key,
+    String iv,
+  }) {
+    _type = 'AES';
+    _mode = ArgumentError.checkNotNull(mode, 'EncryptionAlgorithm_AES mode');
+    _key = ArgumentError.checkNotNull(key, 'EncryptionAlgorithm_AES key');
+    _iv = iv;
+  }
+  EncryptionAlgorithm_AES.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'AES') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'AES';
+    }
+    if (map.containsKey('mode') && (map['mode'] != null)) {
+      _mode = CipherMode.fromMap(map['mode']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('iv') && (map['iv'] != null)) {
+      _iv = map['iv'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_mode != null) {
+      map['mode'] = _mode;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_iv != null) {
+      map['iv'] = _iv;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class CipherMode {
+  String _value;
+  String get value => _value;
+  CipherMode.CBC() {
+    _value = 'CBC';
+  }
+  CipherMode.CFB() {
+    _value = 'CFB';
+  }
+  CipherMode.CTR() {
+    _value = 'CTR';
+  }
+  CipherMode.ECB() {
+    _value = 'ECB';
+  }
+  CipherMode.OFB() {
+    _value = 'OFB';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  CipherMode.fromMap(str) {
+    _value = str;
+  }
+}
+
+class AesParams extends TonSdkStructure {
+  CipherMode _mode;
+  CipherMode get mode => _mode;
+  String _key;
+  String get key => _key;
+  String _iv;
+  String get iv => _iv;
+  AesParams({
+    @required CipherMode mode,
+    @required String key,
+    String iv,
+  }) {
+    _mode = ArgumentError.checkNotNull(mode, 'AesParams mode');
+    _key = ArgumentError.checkNotNull(key, 'AesParams key');
+    _iv = iv;
+  }
+  AesParams.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('mode') && (map['mode'] != null)) {
+      _mode = CipherMode.fromMap(map['mode']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('iv') && (map['iv'] != null)) {
+      _iv = map['iv'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_mode != null) {
+      map['mode'] = _mode;
+    }
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_iv != null) {
+      map['iv'] = _iv;
+    }
+    return map;
+  }
+}
+
+class AesInfo extends TonSdkStructure {
+  CipherMode _mode;
+  CipherMode get mode => _mode;
+  String _iv;
+  String get iv => _iv;
+  AesInfo({
+    @required CipherMode mode,
+    String iv,
+  }) {
+    _mode = ArgumentError.checkNotNull(mode, 'AesInfo mode');
+    _iv = iv;
+  }
+  AesInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('mode') && (map['mode'] != null)) {
+      _mode = CipherMode.fromMap(map['mode']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('iv') && (map['iv'] != null)) {
+      _iv = map['iv'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_mode != null) {
+      map['mode'] = _mode;
+    }
+    if (_iv != null) {
+      map['iv'] = _iv;
     }
     return map;
   }
@@ -2806,7 +2999,7 @@ class ParamsOfEncryptionBoxEncrypt extends TonSdkStructure {
 }
 
 class ResultOfEncryptionBoxEncrypt extends TonSdkStructure {
-  ///Encrypted data, encoded in Base64
+  ///Padded to cipher block size
   String _data;
   String get data => _data;
   ResultOfEncryptionBoxEncrypt({
@@ -2875,7 +3068,7 @@ class ParamsOfEncryptionBoxDecrypt extends TonSdkStructure {
 }
 
 class ResultOfEncryptionBoxDecrypt extends TonSdkStructure {
-  ///Decrypted data, encoded in Base64
+  ///Decrypted data, encoded in Base64.
   String _data;
   String get data => _data;
   ResultOfEncryptionBoxDecrypt({
@@ -2896,6 +3089,33 @@ class ResultOfEncryptionBoxDecrypt extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_data != null) {
       map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ParamsOfCreateEncryptionBox extends TonSdkStructure {
+  ///Encryption algorithm specifier including cipher parameters (key, IV, etc)
+  EncryptionAlgorithm _algorithm;
+  EncryptionAlgorithm get algorithm => _algorithm;
+  ParamsOfCreateEncryptionBox({
+    @required EncryptionAlgorithm algorithm,
+  }) {
+    _algorithm = ArgumentError.checkNotNull(
+        algorithm, 'ParamsOfCreateEncryptionBox algorithm');
+  }
+  ParamsOfCreateEncryptionBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('algorithm') && (map['algorithm'] != null)) {
+      _algorithm = EncryptionAlgorithm.fromMap(map['algorithm']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_algorithm != null) {
+      map['algorithm'] = _algorithm;
     }
     return map;
   }
