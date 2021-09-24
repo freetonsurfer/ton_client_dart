@@ -74,7 +74,7 @@ class BocModule extends _TonSdkModule {
     await _tonCore.request('boc.cache_unpin', params.toString());
   }
 
-  ///Encodes BOC from builder operations.
+  ///Encodes bag of cells (BOC) with builder operations. This method provides the same functionality as Solidity TvmBuilder. Resulting BOC of this method can be passed into Solidity and C++ contracts as TvmCell type
   Future<ResultOfEncodeBoc> encode_boc(ParamsOfEncodeBoc params) async {
     final res = await _tonCore.request('boc.encode_boc', params.toString());
     return ResultOfEncodeBoc.fromMap(res);

@@ -14,7 +14,7 @@ part './src/debot_test.dart';
 
 var CLIENT_DEFAULT_SETUP = {
   'network': {
-    'server_address': 'http://localhost',
+    'endpoints': ['http://localhost'],
     'message_retries_count': 5,
     'message_processing_timeout': 40000,
     'wait_for_timeout': 40000,
