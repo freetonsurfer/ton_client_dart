@@ -95,7 +95,7 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 
    final adr = await client.utils.convert_address(ParamsOfConvertAddress(
     address: res.id, output_format: AddressStringFormat_Hex()));
-   
+
    var res_run_get = await client.tvm.run_get(ParamsOfRunGet(
     account: res.account, function_name: 'participant_list'));
    String result = res_run_get.output.toString();
@@ -110,11 +110,10 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 - Windows - supported :heavy_check_mark:
 - Android - supported :heavy_check_mark: [here](https://github.com/freetonsurfer/ton_client_flutter)
 - iOS - supported :heavy_check_mark: [here](https://github.com/freetonsurfer/ton_client_flutter)
-- macOS support will be implemented in Q2 2021 or on user demand.
+- macOS support will be implemented in future or on user demand.
 - Web support will be implemented in future or on user demand.
 
 ## TODO
-- iMac support
 - improve tests
 - improve debot tests
 - improve help documents and comments
@@ -128,4 +127,3 @@ To initialize the client, you need to call the `TonClient.connect` function and 
 
 ### Android compile notes
 cargo ndk --platform 21 --target x86_64-linux-android build --release
-  
