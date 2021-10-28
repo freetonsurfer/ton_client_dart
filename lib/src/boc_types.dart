@@ -265,7 +265,7 @@ class ResultOfGetBlockchainConfig extends TonSdkStructure {
 }
 
 class ParamsOfGetBocHash extends TonSdkStructure {
-  ///BOC encoded as base64
+  ///BOC encoded as base64 or BOC handle
   String _boc;
   String get boc => _boc;
   ParamsOfGetBocHash({
@@ -316,8 +316,60 @@ class ResultOfGetBocHash extends TonSdkStructure {
   }
 }
 
+class ParamsOfGetBocDepth extends TonSdkStructure {
+  ///BOC encoded as base64 or BOC handle
+  String _boc;
+  String get boc => _boc;
+  ParamsOfGetBocDepth({
+    @required String boc,
+  }) {
+    _boc = ArgumentError.checkNotNull(boc, 'ParamsOfGetBocDepth boc');
+  }
+  ParamsOfGetBocDepth.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('boc') && (map['boc'] != null)) {
+      _boc = map['boc'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_boc != null) {
+      map['boc'] = _boc;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetBocDepth extends TonSdkStructure {
+  ///BOC root cell depth
+  int _depth;
+  int get depth => _depth;
+  ResultOfGetBocDepth({
+    @required int depth,
+  }) {
+    _depth = ArgumentError.checkNotNull(depth, 'ResultOfGetBocDepth depth');
+  }
+  ResultOfGetBocDepth.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('depth') && (map['depth'] != null)) {
+      _depth = map['depth'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_depth != null) {
+      map['depth'] = _depth;
+    }
+    return map;
+  }
+}
+
 class ParamsOfGetCodeFromTvc extends TonSdkStructure {
-  ///Contract TVC image encoded as base64
+  ///Contract TVC image or image BOC handle
   String _tvc;
   String get tvc => _tvc;
   ParamsOfGetCodeFromTvc({
@@ -792,6 +844,501 @@ class ResultOfEncodeBoc extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_boc != null) {
       map['boc'] = _boc;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetCodeSalt extends TonSdkStructure {
+  ///Contract code BOC encoded as base64 or code BOC handle
+  String _code;
+  String get code => _code;
+
+  ///Cache type to put the result. The BOC itself returned if no cache type provided.
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfGetCodeSalt({
+    @required String code,
+    BocCacheType boc_cache,
+  }) {
+    _code = ArgumentError.checkNotNull(code, 'ParamsOfGetCodeSalt code');
+    _boc_cache = boc_cache;
+  }
+  ParamsOfGetCodeSalt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetCodeSalt extends TonSdkStructure {
+  ///BOC encoded as base64 or BOC handle
+  String _salt;
+  String get salt => _salt;
+  ResultOfGetCodeSalt({
+    String salt,
+  }) {
+    _salt = salt;
+  }
+  ResultOfGetCodeSalt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('salt') && (map['salt'] != null)) {
+      _salt = map['salt'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_salt != null) {
+      map['salt'] = _salt;
+    }
+    return map;
+  }
+}
+
+class ParamsOfSetCodeSalt extends TonSdkStructure {
+  ///Contract code BOC encoded as base64 or code BOC handle
+  String _code;
+  String get code => _code;
+
+  ///BOC encoded as base64 or BOC handle
+  String _salt;
+  String get salt => _salt;
+
+  ///Cache type to put the result. The BOC itself returned if no cache type provided.
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfSetCodeSalt({
+    @required String code,
+    @required String salt,
+    BocCacheType boc_cache,
+  }) {
+    _code = ArgumentError.checkNotNull(code, 'ParamsOfSetCodeSalt code');
+    _salt = ArgumentError.checkNotNull(salt, 'ParamsOfSetCodeSalt salt');
+    _boc_cache = boc_cache;
+  }
+  ParamsOfSetCodeSalt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('salt') && (map['salt'] != null)) {
+      _salt = map['salt'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    if (_salt != null) {
+      map['salt'] = _salt;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfSetCodeSalt extends TonSdkStructure {
+  ///BOC encoded as base64 or BOC handle
+  String _code;
+  String get code => _code;
+  ResultOfSetCodeSalt({
+    @required String code,
+  }) {
+    _code = ArgumentError.checkNotNull(code, 'ResultOfSetCodeSalt code');
+  }
+  ResultOfSetCodeSalt.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    return map;
+  }
+}
+
+class ParamsOfDecodeTvc extends TonSdkStructure {
+  ///Contract TVC image BOC encoded as base64 or BOC handle
+  String _tvc;
+  String get tvc => _tvc;
+
+  ///Cache type to put the result. The BOC itself returned if no cache type provided.
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfDecodeTvc({
+    @required String tvc,
+    BocCacheType boc_cache,
+  }) {
+    _tvc = ArgumentError.checkNotNull(tvc, 'ParamsOfDecodeTvc tvc');
+    _boc_cache = boc_cache;
+  }
+  ParamsOfDecodeTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('tvc') && (map['tvc'] != null)) {
+      _tvc = map['tvc'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_tvc != null) {
+      map['tvc'] = _tvc;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfDecodeTvc extends TonSdkStructure {
+  ///Contract code BOC encoded as base64 or BOC handle
+  String _code;
+  String get code => _code;
+
+  ///Contract code hash
+  String _code_hash;
+  String get code_hash => _code_hash;
+
+  ///Contract code depth
+  int _code_depth;
+  int get code_depth => _code_depth;
+
+  ///Contract data BOC encoded as base64 or BOC handle
+  String _data;
+  String get data => _data;
+
+  ///Contract data hash
+  String _data_hash;
+  String get data_hash => _data_hash;
+
+  ///Contract data depth
+  int _data_depth;
+  int get data_depth => _data_depth;
+
+  ///Contract library BOC encoded as base64 or BOC handle
+  String _library;
+  String get library => _library;
+
+  ///Specifies the contract ability to handle tick transactions
+  bool _tick;
+  bool get tick => _tick;
+
+  ///Specifies the contract ability to handle tock transactions
+  bool _tock;
+  bool get tock => _tock;
+
+  ///Is present and non-zero only in instances of large smart contracts
+  int _split_depth;
+  int get split_depth => _split_depth;
+
+  ///Compiler version, for example 'sol 0.49.0'
+  String _compiler_version;
+  String get compiler_version => _compiler_version;
+  ResultOfDecodeTvc({
+    String code,
+    String code_hash,
+    int code_depth,
+    String data,
+    String data_hash,
+    int data_depth,
+    String library,
+    bool tick,
+    bool tock,
+    int split_depth,
+    String compiler_version,
+  }) {
+    _code = code;
+    _code_hash = code_hash;
+    _code_depth = code_depth;
+    _data = data;
+    _data_hash = data_hash;
+    _data_depth = data_depth;
+    _library = library;
+    _tick = tick;
+    _tock = tock;
+    _split_depth = split_depth;
+    _compiler_version = compiler_version;
+  }
+  ResultOfDecodeTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    }
+    if (map.containsKey('code_hash') && (map['code_hash'] != null)) {
+      _code_hash = map['code_hash'];
+    }
+    if (map.containsKey('code_depth') && (map['code_depth'] != null)) {
+      _code_depth = map['code_depth'];
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    }
+    if (map.containsKey('data_hash') && (map['data_hash'] != null)) {
+      _data_hash = map['data_hash'];
+    }
+    if (map.containsKey('data_depth') && (map['data_depth'] != null)) {
+      _data_depth = map['data_depth'];
+    }
+    if (map.containsKey('library') && (map['library'] != null)) {
+      _library = map['library'];
+    }
+    if (map.containsKey('tick') && (map['tick'] != null)) {
+      _tick = map['tick'];
+    }
+    if (map.containsKey('tock') && (map['tock'] != null)) {
+      _tock = map['tock'];
+    }
+    if (map.containsKey('split_depth') && (map['split_depth'] != null)) {
+      _split_depth = map['split_depth'];
+    }
+    if (map.containsKey('compiler_version') &&
+        (map['compiler_version'] != null)) {
+      _compiler_version = map['compiler_version'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    if (_code_hash != null) {
+      map['code_hash'] = _code_hash;
+    }
+    if (_code_depth != null) {
+      map['code_depth'] = _code_depth;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    if (_data_hash != null) {
+      map['data_hash'] = _data_hash;
+    }
+    if (_data_depth != null) {
+      map['data_depth'] = _data_depth;
+    }
+    if (_library != null) {
+      map['library'] = _library;
+    }
+    if (_tick != null) {
+      map['tick'] = _tick;
+    }
+    if (_tock != null) {
+      map['tock'] = _tock;
+    }
+    if (_split_depth != null) {
+      map['split_depth'] = _split_depth;
+    }
+    if (_compiler_version != null) {
+      map['compiler_version'] = _compiler_version;
+    }
+    return map;
+  }
+}
+
+class ParamsOfEncodeTvc extends TonSdkStructure {
+  ///Contract code BOC encoded as base64 or BOC handle
+  String _code;
+  String get code => _code;
+
+  ///Contract data BOC encoded as base64 or BOC handle
+  String _data;
+  String get data => _data;
+
+  ///Contract library BOC encoded as base64 or BOC handle
+  String _library;
+  String get library => _library;
+
+  ///Specifies the contract ability to handle tick transactions
+  bool _tick;
+  bool get tick => _tick;
+
+  ///Specifies the contract ability to handle tock transactions
+  bool _tock;
+  bool get tock => _tock;
+
+  ///Is present and non-zero only in instances of large smart contracts
+  int _split_depth;
+  int get split_depth => _split_depth;
+
+  ///Cache type to put the result. The BOC itself returned if no cache type provided.
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfEncodeTvc({
+    String code,
+    String data,
+    String library,
+    bool tick,
+    bool tock,
+    int split_depth,
+    BocCacheType boc_cache,
+  }) {
+    _code = code;
+    _data = data;
+    _library = library;
+    _tick = tick;
+    _tock = tock;
+    _split_depth = split_depth;
+    _boc_cache = boc_cache;
+  }
+  ParamsOfEncodeTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    }
+    if (map.containsKey('library') && (map['library'] != null)) {
+      _library = map['library'];
+    }
+    if (map.containsKey('tick') && (map['tick'] != null)) {
+      _tick = map['tick'];
+    }
+    if (map.containsKey('tock') && (map['tock'] != null)) {
+      _tock = map['tock'];
+    }
+    if (map.containsKey('split_depth') && (map['split_depth'] != null)) {
+      _split_depth = map['split_depth'];
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    if (_library != null) {
+      map['library'] = _library;
+    }
+    if (_tick != null) {
+      map['tick'] = _tick;
+    }
+    if (_tock != null) {
+      map['tock'] = _tock;
+    }
+    if (_split_depth != null) {
+      map['split_depth'] = _split_depth;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncodeTvc extends TonSdkStructure {
+  ///Contract TVC image BOC encoded as base64 or BOC handle of boc_cache parameter was specified
+  String _tvc;
+  String get tvc => _tvc;
+  ResultOfEncodeTvc({
+    @required String tvc,
+  }) {
+    _tvc = ArgumentError.checkNotNull(tvc, 'ResultOfEncodeTvc tvc');
+  }
+  ResultOfEncodeTvc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('tvc') && (map['tvc'] != null)) {
+      _tvc = map['tvc'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_tvc != null) {
+      map['tvc'] = _tvc;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetCompilerVersion extends TonSdkStructure {
+  ///Contract code BOC encoded as base64 or code BOC handle
+  String _code;
+  String get code => _code;
+  ParamsOfGetCompilerVersion({
+    @required String code,
+  }) {
+    _code = ArgumentError.checkNotNull(code, 'ParamsOfGetCompilerVersion code');
+  }
+  ParamsOfGetCompilerVersion.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('code') && (map['code'] != null)) {
+      _code = map['code'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_code != null) {
+      map['code'] = _code;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetCompilerVersion extends TonSdkStructure {
+  ///Compiler version, for example 'sol 0.49.0'
+  String _version;
+  String get version => _version;
+  ResultOfGetCompilerVersion({
+    String version,
+  }) {
+    _version = version;
+  }
+  ResultOfGetCompilerVersion.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('version') && (map['version'] != null)) {
+      _version = map['version'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_version != null) {
+      map['version'] = _version;
     }
     return map;
   }

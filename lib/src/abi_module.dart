@@ -114,4 +114,20 @@ class AbiModule extends _TonSdkModule {
         await _tonCore.request('abi.decode_account_data', params.toString());
     return ResultOfDecodeData.fromMap(res);
   }
+
+  ///Updates initial account data with initial values for the contract's static variables and owner's public key. This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+  Future<ResultOfUpdateInitialData> update_initial_data(
+      ParamsOfUpdateInitialData params) async {
+    final res =
+        await _tonCore.request('abi.update_initial_data', params.toString());
+    return ResultOfUpdateInitialData.fromMap(res);
+  }
+
+  ///Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
+  Future<ResultOfDecodeInitialData> decode_initial_data(
+      ParamsOfDecodeInitialData params) async {
+    final res =
+        await _tonCore.request('abi.decode_initial_data', params.toString());
+    return ResultOfDecodeInitialData.fromMap(res);
+  }
 }
