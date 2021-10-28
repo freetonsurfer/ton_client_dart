@@ -49,6 +49,12 @@ class BocModule extends _TonSdkModule {
     return ResultOfGetBocHash.fromMap(res);
   }
 
+  ///Calculates BOC depth
+  Future<ResultOfGetBocDepth> get_boc_depth(ParamsOfGetBocDepth params) async {
+    final res = await _tonCore.request('boc.get_boc_depth', params.toString());
+    return ResultOfGetBocDepth.fromMap(res);
+  }
+
   ///Extracts code from TVC contract image
   Future<ResultOfGetCodeFromTvc> get_code_from_tvc(
       ParamsOfGetCodeFromTvc params) async {
@@ -78,5 +84,37 @@ class BocModule extends _TonSdkModule {
   Future<ResultOfEncodeBoc> encode_boc(ParamsOfEncodeBoc params) async {
     final res = await _tonCore.request('boc.encode_boc', params.toString());
     return ResultOfEncodeBoc.fromMap(res);
+  }
+
+  ///Returns the contract code's salt if it is present.
+  Future<ResultOfGetCodeSalt> get_code_salt(ParamsOfGetCodeSalt params) async {
+    final res = await _tonCore.request('boc.get_code_salt', params.toString());
+    return ResultOfGetCodeSalt.fromMap(res);
+  }
+
+  ///Returns the new contract code with salt.
+  Future<ResultOfSetCodeSalt> set_code_salt(ParamsOfSetCodeSalt params) async {
+    final res = await _tonCore.request('boc.set_code_salt', params.toString());
+    return ResultOfSetCodeSalt.fromMap(res);
+  }
+
+  ///Decodes tvc into code, data, libraries and special options.
+  Future<ResultOfDecodeTvc> decode_tvc(ParamsOfDecodeTvc params) async {
+    final res = await _tonCore.request('boc.decode_tvc', params.toString());
+    return ResultOfDecodeTvc.fromMap(res);
+  }
+
+  ///Encodes tvc from code, data, libraries ans special options (see input params)
+  Future<ResultOfEncodeTvc> encode_tvc(ParamsOfEncodeTvc params) async {
+    final res = await _tonCore.request('boc.encode_tvc', params.toString());
+    return ResultOfEncodeTvc.fromMap(res);
+  }
+
+  ///Returns the compiler version used to compile the code.
+  Future<ResultOfGetCompilerVersion> get_compiler_version(
+      ParamsOfGetCompilerVersion params) async {
+    final res =
+        await _tonCore.request('boc.get_compiler_version', params.toString());
+    return ResultOfGetCompilerVersion.fromMap(res);
   }
 }

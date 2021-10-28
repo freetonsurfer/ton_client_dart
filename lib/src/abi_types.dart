@@ -42,6 +42,9 @@ class AbiErrorCode {
   AbiErrorCode.InvalidData() {
     _value = 'InvalidData';
   }
+  AbiErrorCode.EncodeInitialDataFailed() {
+    _value = 'EncodeInitialDataFailed';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -2336,6 +2339,183 @@ class ResultOfDecodeData extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_data != null) {
       map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ParamsOfUpdateInitialData extends TonSdkStructure {
+  ///Contract ABI
+  Abi _abi;
+  Abi get abi => _abi;
+
+  ///Data BOC or BOC handle
+  String _data;
+  String get data => _data;
+
+  ///`abi` parameter should be provided to set initial data
+  dynamic _initial_data;
+  dynamic get initial_data => _initial_data;
+
+  ///Initial account owner's public key to set into account data
+  String _initial_pubkey;
+  String get initial_pubkey => _initial_pubkey;
+
+  ///Cache type to put the result. The BOC itself returned if no cache type provided.
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfUpdateInitialData({
+    Abi abi,
+    @required String data,
+    dynamic initial_data,
+    String initial_pubkey,
+    BocCacheType boc_cache,
+  }) {
+    _abi = abi;
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfUpdateInitialData data');
+    _initial_data = initial_data;
+    _initial_pubkey = initial_pubkey;
+    _boc_cache = boc_cache;
+  }
+  ParamsOfUpdateInitialData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('initial_data') && (map['initial_data'] != null)) {
+      _initial_data = map['initial_data'];
+    }
+    if (map.containsKey('initial_pubkey') && (map['initial_pubkey'] != null)) {
+      _initial_pubkey = map['initial_pubkey'];
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_abi != null) {
+      map['abi'] = _abi;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    if (_initial_data != null) {
+      map['initial_data'] = _initial_data;
+    }
+    if (_initial_pubkey != null) {
+      map['initial_pubkey'] = _initial_pubkey;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfUpdateInitialData extends TonSdkStructure {
+  ///Updated data BOC or BOC handle
+  String _data;
+  String get data => _data;
+  ResultOfUpdateInitialData({
+    @required String data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ResultOfUpdateInitialData data');
+  }
+  ResultOfUpdateInitialData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ParamsOfDecodeInitialData extends TonSdkStructure {
+  ///Initial data is decoded if this parameter is provided
+  Abi _abi;
+  Abi get abi => _abi;
+
+  ///Data BOC or BOC handle
+  String _data;
+  String get data => _data;
+  ParamsOfDecodeInitialData({
+    Abi abi,
+    @required String data,
+  }) {
+    _abi = abi;
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfDecodeInitialData data');
+  }
+  ParamsOfDecodeInitialData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_abi != null) {
+      map['abi'] = _abi;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    return map;
+  }
+}
+
+class ResultOfDecodeInitialData extends TonSdkStructure {
+  ///Initial data is decoded if `abi` input parameter is provided
+  dynamic _initial_data;
+  dynamic get initial_data => _initial_data;
+
+  ///Initial account owner's public key
+  String _initial_pubkey;
+  String get initial_pubkey => _initial_pubkey;
+  ResultOfDecodeInitialData({
+    dynamic initial_data,
+    @required String initial_pubkey,
+  }) {
+    _initial_data = initial_data;
+    _initial_pubkey = ArgumentError.checkNotNull(
+        initial_pubkey, 'ResultOfDecodeInitialData initial_pubkey');
+  }
+  ResultOfDecodeInitialData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('initial_data') && (map['initial_data'] != null)) {
+      _initial_data = map['initial_data'];
+    }
+    if (map.containsKey('initial_pubkey') && (map['initial_pubkey'] != null)) {
+      _initial_pubkey = map['initial_pubkey'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_initial_data != null) {
+      map['initial_data'] = _initial_data;
+    }
+    if (_initial_pubkey != null) {
+      map['initial_pubkey'] = _initial_pubkey;
     }
     return map;
   }
