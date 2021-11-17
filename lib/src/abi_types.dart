@@ -2318,16 +2318,16 @@ class ParamsOfDecodeAccountData extends TonSdkStructure {
   }
 }
 
-class ResultOfDecodeData extends TonSdkStructure {
+class ResultOfDecodeAccountData extends TonSdkStructure {
   ///Decoded data as a JSON structure.
   dynamic _data;
   dynamic get data => _data;
-  ResultOfDecodeData({
+  ResultOfDecodeAccountData({
     @required dynamic data,
   }) {
-    _data = ArgumentError.checkNotNull(data, 'ResultOfDecodeData data');
+    _data = ArgumentError.checkNotNull(data, 'ResultOfDecodeAccountData data');
   }
-  ResultOfDecodeData.fromMap(Map<String, dynamic> map) {
+  ResultOfDecodeAccountData.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('data') && (map['data'] != null)) {
       _data = map['data'];
     } else {
@@ -2516,6 +2516,92 @@ class ResultOfDecodeInitialData extends TonSdkStructure {
     }
     if (_initial_pubkey != null) {
       map['initial_pubkey'] = _initial_pubkey;
+    }
+    return map;
+  }
+}
+
+class ParamsOfDecodeBoc extends TonSdkStructure {
+  ///Parameters to decode from BOC
+  List<AbiParam> _params;
+  List<AbiParam> get params => _params;
+
+  ///Data BOC or BOC handle
+  String _boc;
+  String get boc => _boc;
+  bool _allow_partial;
+  bool get allow_partial => _allow_partial;
+  ParamsOfDecodeBoc({
+    @required List<AbiParam> params,
+    @required String boc,
+    @required bool allow_partial,
+  }) {
+    _params = ArgumentError.checkNotNull(params, 'ParamsOfDecodeBoc params');
+    _boc = ArgumentError.checkNotNull(boc, 'ParamsOfDecodeBoc boc');
+    _allow_partial = ArgumentError.checkNotNull(
+        allow_partial, 'ParamsOfDecodeBoc allow_partial');
+  }
+  ParamsOfDecodeBoc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('params') && (map['params'] != null)) {
+      _params = [];
+      for (var el in map['params']) {
+        if (el != null) {
+          _params.add(AbiParam.fromMap(el));
+        } else {
+          _params.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('boc') && (map['boc'] != null)) {
+      _boc = map['boc'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
+      _allow_partial = map['allow_partial'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_params != null) {
+      map['params'] = _params;
+    }
+    if (_boc != null) {
+      map['boc'] = _boc;
+    }
+    if (_allow_partial != null) {
+      map['allow_partial'] = _allow_partial;
+    }
+    return map;
+  }
+}
+
+class ResultOfDecodeBoc extends TonSdkStructure {
+  ///Decoded data as a JSON structure.
+  dynamic _data;
+  dynamic get data => _data;
+  ResultOfDecodeBoc({
+    @required dynamic data,
+  }) {
+    _data = ArgumentError.checkNotNull(data, 'ResultOfDecodeBoc data');
+  }
+  ResultOfDecodeBoc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_data != null) {
+      map['data'] = _data;
     }
     return map;
   }

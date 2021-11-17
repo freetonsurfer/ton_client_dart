@@ -78,6 +78,14 @@ class TonClient {
     return _debot;
   }
 
+  ProofsModule _proofs;
+  ProofsModule get proofs {
+    if (_net == null) {
+      throw ('Client core not connected! Use TonClient.connect to open connection!');
+    }
+    return _proofs;
+  }
+
   ClientModule _client;
 
   DynamicLibrary getLibrary(String libPath) {
@@ -113,6 +121,7 @@ class TonClient {
     _tvm = TvmModule(_tonCore);
     _net = NetModule(_tonCore);
     _debot = DebotModule(_tonCore);
+    _proofs = ProofsModule(_tonCore);
     _client = ClientModule(_tonCore);
   }
 
@@ -130,6 +139,8 @@ class TonClient {
     _processing = null;
     _tvm = null;
     _net = null;
+    _debot = null;
+    _proofs = null;
     _client = null;
   }
 

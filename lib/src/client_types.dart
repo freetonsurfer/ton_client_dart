@@ -105,6 +105,9 @@ class ClientErrorCode {
   ClientErrorCode.InvalidHandle() {
     _value = 'InvalidHandle';
   }
+  ClientErrorCode.LocalStorageError() {
+    _value = 'LocalStorageError';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -173,16 +176,26 @@ class ClientConfig extends TonSdkStructure {
   AbiConfig get abi => _abi;
   BocConfig _boc;
   BocConfig get boc => _boc;
+  ProofsConfig _proofs;
+  ProofsConfig get proofs => _proofs;
+
+  ///For file based storage is a folder name where SDK will store its data. For browser based is a browser async storage key prefix. Default (recommended) value is "~/.tonclient" for native environments and ".tonclient" for web-browser.
+  String _local_storage_path;
+  String get local_storage_path => _local_storage_path;
   ClientConfig({
     NetworkConfig network,
     CryptoConfig crypto,
     AbiConfig abi,
     BocConfig boc,
+    ProofsConfig proofs,
+    String local_storage_path,
   }) {
     _network = network;
     _crypto = crypto;
     _abi = abi;
     _boc = boc;
+    _proofs = proofs;
+    _local_storage_path = local_storage_path;
   }
   ClientConfig.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('network') && (map['network'] != null)) {
@@ -196,6 +209,13 @@ class ClientConfig extends TonSdkStructure {
     }
     if (map.containsKey('boc') && (map['boc'] != null)) {
       _boc = BocConfig.fromMap(map['boc']);
+    }
+    if (map.containsKey('proofs') && (map['proofs'] != null)) {
+      _proofs = ProofsConfig.fromMap(map['proofs']);
+    }
+    if (map.containsKey('local_storage_path') &&
+        (map['local_storage_path'] != null)) {
+      _local_storage_path = map['local_storage_path'];
     }
   }
 
@@ -212,6 +232,12 @@ class ClientConfig extends TonSdkStructure {
     }
     if (_boc != null) {
       map['boc'] = _boc;
+    }
+    if (_proofs != null) {
+      map['proofs'] = _proofs;
+    }
+    if (_local_storage_path != null) {
+      map['local_storage_path'] = _local_storage_path;
     }
     return map;
   }
@@ -548,6 +574,34 @@ class BocConfig extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_cache_max_size != null) {
       map['cache_max_size'] = _cache_max_size;
+    }
+    return map;
+  }
+}
+
+class ProofsConfig extends TonSdkStructure {
+  ///Default is `true`. If this value is set to `true`, downloaded proofs and master-chain BOCs are saved into the
+  ///persistent local storage (e.g. file system for native environments or browser's IndexedDB
+  ///for the web); otherwise all the data is cached only in memory in current client's context
+  ///and will be lost after destruction of the client.
+  bool _cache_in_local_storage;
+  bool get cache_in_local_storage => _cache_in_local_storage;
+  ProofsConfig({
+    bool cache_in_local_storage,
+  }) {
+    _cache_in_local_storage = cache_in_local_storage;
+  }
+  ProofsConfig.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('cache_in_local_storage') &&
+        (map['cache_in_local_storage'] != null)) {
+      _cache_in_local_storage = map['cache_in_local_storage'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_cache_in_local_storage != null) {
+      map['cache_in_local_storage'] = _cache_in_local_storage;
     }
     return map;
   }
