@@ -123,6 +123,14 @@ class AbiModule extends _TonSdkModule {
     return ResultOfUpdateInitialData.fromMap(res);
   }
 
+  ///This function is analogue of `tvm.buildDataInit` function in Solidity.
+  Future<ResultOfEncodeInitialData> encode_initial_data(
+      ParamsOfEncodeInitialData params) async {
+    final res =
+        await _tonCore.request('abi.encode_initial_data', params.toString());
+    return ResultOfEncodeInitialData.fromMap(res);
+  }
+
   ///Decodes initial values of a contract's static variables and owner's public key from account initial data This operation is applicable only for initial account data (before deploy). If the contract is already deployed, its data doesn't contain this data section any more.
   Future<ResultOfDecodeInitialData> decode_initial_data(
       ParamsOfDecodeInitialData params) async {

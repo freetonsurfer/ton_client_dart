@@ -77,3 +77,30 @@ class ParamsOfProofTransactionData extends TonSdkStructure {
     return map;
   }
 }
+
+class ParamsOfProofMessageData extends TonSdkStructure {
+  ///Single message's data as queried from DApp server, without modifications. The required fields are `id` and/or top-level `boc`, others are optional. In order to reduce network requests count, it is recommended to provide at least `boc` of message and non-null `src_transaction.id` or `dst_transaction.id`.
+  dynamic _message;
+  dynamic get message => _message;
+  ParamsOfProofMessageData({
+    @required dynamic message,
+  }) {
+    _message =
+        ArgumentError.checkNotNull(message, 'ParamsOfProofMessageData message');
+  }
+  ParamsOfProofMessageData.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('message') && (map['message'] != null)) {
+      _message = map['message'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message != null) {
+      map['message'] = _message;
+    }
+    return map;
+  }
+}
