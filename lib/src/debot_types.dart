@@ -39,6 +39,9 @@ class DebotErrorCode {
   DebotErrorCode.DebotOperationRejected() {
     _value = 'DebotOperationRejected';
   }
+  DebotErrorCode.DebotNoCode() {
+    _value = 'DebotNoCode';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -194,6 +197,10 @@ class DebotInfo extends TonSdkStructure {
   ///Vector with IDs of DInterfaces used by DeBot.
   List<String> _interfaces;
   List<String> get interfaces => _interfaces;
+
+  ///ABI version ("x.y") supported by DeBot
+  String _dabiVersion;
+  String get dabiVersion => _dabiVersion;
   DebotInfo({
     String name,
     String version,
@@ -206,6 +213,7 @@ class DebotInfo extends TonSdkStructure {
     String dabi,
     String icon,
     @required List<String> interfaces,
+    @required String dabiVersion,
   }) {
     _name = name;
     _version = version;
@@ -219,6 +227,8 @@ class DebotInfo extends TonSdkStructure {
     _icon = icon;
     _interfaces =
         ArgumentError.checkNotNull(interfaces, 'DebotInfo interfaces');
+    _dabiVersion =
+        ArgumentError.checkNotNull(dabiVersion, 'DebotInfo dabiVersion');
   }
   DebotInfo.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('name') && (map['name'] != null)) {
@@ -263,6 +273,11 @@ class DebotInfo extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('dabiVersion') && (map['dabiVersion'] != null)) {
+      _dabiVersion = map['dabiVersion'];
+    } else {
+      throw ('Wrong map data');
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -299,6 +314,9 @@ class DebotInfo extends TonSdkStructure {
     }
     if (_interfaces != null) {
       map['interfaces'] = _interfaces;
+    }
+    if (_dabiVersion != null) {
+      map['dabiVersion'] = _dabiVersion;
     }
     return map;
   }
