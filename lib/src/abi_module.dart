@@ -158,4 +158,10 @@ class AbiModule extends _TonSdkModule {
     final res = await _tonCore.request('abi.decode_boc', params.toString());
     return ResultOfDecodeBoc.fromMap(res);
   }
+
+  ///Encodes given parameters in JSON into a BOC using param types from ABI.
+  Future<ResultOfAbiEncodeBoc> encode_boc(ParamsOfAbiEncodeBoc params) async {
+    final res = await _tonCore.request('abi.encode_boc', params.toString());
+    return ResultOfAbiEncodeBoc.fromMap(res);
+  }
 }

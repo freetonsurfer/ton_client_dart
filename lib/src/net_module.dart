@@ -100,6 +100,47 @@ class NetModule extends _TonSdkModule {
     return ResultOfSubscribeCollection.fromMap(res);
   }
 
+  ///The subscription is a persistent communication channel between
+  ///client and Everscale Network.
+  ///
+  ///### Important Notes on Subscriptions
+  ///
+  ///Unfortunately sometimes the connection with the network brakes down.
+  ///In this situation the library attempts to reconnect to the network.
+  ///This reconnection sequence can take significant time.
+  ///All of this time the client is disconnected from the network.
+  ///
+  ///Bad news is that all changes that happened while
+  ///the client was disconnected are lost.
+  ///
+  ///Good news is that the client report errors to the callback when
+  ///it loses and resumes connection.
+  ///
+  ///So, if the lost changes are important to the application then
+  ///the application must handle these error reports.
+  ///
+  ///Library reports errors with `responseType` == 101
+  ///and the error object passed via `params`.
+  ///
+  ///When the library has successfully reconnected
+  ///the application receives callback with
+  ///`responseType` == 101 and `params.code` == 614 (NetworkModuleResumed).
+  ///
+  ///Application can use several ways to handle this situation:
+  ///- If application monitors changes for the single
+  ///object (for example specific account):  application
+  ///can perform a query for this object and handle actual data as a
+  ///regular data from the subscription.
+  ///- If application monitors sequence of some objects
+  ///(for example transactions of the specific account): application must
+  ///refresh all cached (or visible to user) lists where this sequences presents.
+  Future<ResultOfSubscribeCollection> subscribe(ParamsOfSubscribe params,
+      [Function responseHandler]) async {
+    final res = await _tonCore.request(
+        'net.subscribe', params.toString(), responseHandler);
+    return ResultOfSubscribeCollection.fromMap(res);
+  }
+
   ///Suspends network module to stop any network activity
   Future<void> suspend() async {
     await _tonCore.request('net.suspend');
