@@ -2692,3 +2692,88 @@ class ResultOfDecodeBoc extends TonSdkStructure {
     return map;
   }
 }
+
+class ParamsOfAbiEncodeBoc extends TonSdkStructure {
+  ///Parameters to encode into BOC
+  List<AbiParam> _params;
+  List<AbiParam> get params => _params;
+
+  ///Parameters and values as a JSON structure
+  dynamic _data;
+  dynamic get data => _data;
+
+  ///The BOC itself returned if no cache type provided
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfAbiEncodeBoc({
+    @required List<AbiParam> params,
+    @required dynamic data,
+    BocCacheType boc_cache,
+  }) {
+    _params = ArgumentError.checkNotNull(params, 'ParamsOfAbiEncodeBoc params');
+    _data = ArgumentError.checkNotNull(data, 'ParamsOfAbiEncodeBoc data');
+    _boc_cache = boc_cache;
+  }
+  ParamsOfAbiEncodeBoc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('params') && (map['params'] != null)) {
+      _params = [];
+      for (var el in map['params']) {
+        if (el != null) {
+          _params.add(AbiParam.fromMap(el));
+        } else {
+          _params.add(null);
+        }
+      }
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('data') && (map['data'] != null)) {
+      _data = map['data'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_params != null) {
+      map['params'] = _params;
+    }
+    if (_data != null) {
+      map['data'] = _data;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfAbiEncodeBoc extends TonSdkStructure {
+  ///BOC encoded as base64
+  String _boc;
+  String get boc => _boc;
+  ResultOfAbiEncodeBoc({
+    @required String boc,
+  }) {
+    _boc = ArgumentError.checkNotNull(boc, 'ResultOfAbiEncodeBoc boc');
+  }
+  ResultOfAbiEncodeBoc.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('boc') && (map['boc'] != null)) {
+      _boc = map['boc'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_boc != null) {
+      map['boc'] = _boc;
+    }
+    return map;
+  }
+}

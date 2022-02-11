@@ -592,6 +592,9 @@ abstract class BuilderOp extends TonSdkStructure {
     if (map['type'] == 'CellBoc') {
       return BuilderOp_CellBoc.fromMap(map);
     }
+    if (map['type'] == 'Address') {
+      return BuilderOp_Address.fromMap(map);
+    }
     throw ('BuilderOp unknown from map type');
   }
 }
@@ -697,12 +700,12 @@ class BuilderOp_BitString extends BuilderOp {
   }
 }
 
-///Append ref to nested cells
+///Append ref to nested cells.
 class BuilderOp_Cell extends BuilderOp {
   String _type;
   String get type => _type;
 
-  ///Nested cell builder
+  ///Nested cell builder.
   List<BuilderOp> _builder;
   List<BuilderOp> get builder => _builder;
   BuilderOp_Cell({
@@ -741,7 +744,7 @@ class BuilderOp_Cell extends BuilderOp {
   }
 }
 
-///Append ref to nested cell
+///Append ref to nested cell.
 class BuilderOp_CellBoc extends BuilderOp {
   String _type;
   String get type => _type;
@@ -772,6 +775,43 @@ class BuilderOp_CellBoc extends BuilderOp {
     Map<String, dynamic> map = {};
     if (_boc != null) {
       map['boc'] = _boc;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Address.
+class BuilderOp_Address extends BuilderOp {
+  String _type;
+  String get type => _type;
+
+  ///Address in a common `workchain:account` or base64 format.
+  String _address;
+  String get address => _address;
+  BuilderOp_Address({
+    @required String address,
+  }) {
+    _type = 'Address';
+    _address = ArgumentError.checkNotNull(address, 'BuilderOp_Address address');
+  }
+  BuilderOp_Address.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'Address') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'Address';
+    }
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_address != null) {
+      map['address'] = _address;
     }
     map['type'] = _type;
     return map;
@@ -1289,6 +1329,123 @@ class ResultOfEncodeTvc extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_tvc != null) {
       map['tvc'] = _tvc;
+    }
+    return map;
+  }
+}
+
+class ParamsOfEncodeExternalInMessage extends TonSdkStructure {
+  ///Source address.
+  String _src;
+  String get src => _src;
+
+  ///Destination address.
+  String _dst;
+  String get dst => _dst;
+
+  ///Bag of cells with state init (used in deploy messages).
+  String _init;
+  String get init => _init;
+
+  ///Bag of cells with the message body encoded as base64.
+  String _body;
+  String get body => _body;
+
+  ///The BOC itself returned if no cache type provided
+  BocCacheType _boc_cache;
+  BocCacheType get boc_cache => _boc_cache;
+  ParamsOfEncodeExternalInMessage({
+    String src,
+    @required String dst,
+    String init,
+    String body,
+    BocCacheType boc_cache,
+  }) {
+    _src = src;
+    _dst =
+        ArgumentError.checkNotNull(dst, 'ParamsOfEncodeExternalInMessage dst');
+    _init = init;
+    _body = body;
+    _boc_cache = boc_cache;
+  }
+  ParamsOfEncodeExternalInMessage.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('src') && (map['src'] != null)) {
+      _src = map['src'];
+    }
+    if (map.containsKey('dst') && (map['dst'] != null)) {
+      _dst = map['dst'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('init') && (map['init'] != null)) {
+      _init = map['init'];
+    }
+    if (map.containsKey('body') && (map['body'] != null)) {
+      _body = map['body'];
+    }
+    if (map.containsKey('boc_cache') && (map['boc_cache'] != null)) {
+      _boc_cache = BocCacheType.fromMap(map['boc_cache']);
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_src != null) {
+      map['src'] = _src;
+    }
+    if (_dst != null) {
+      map['dst'] = _dst;
+    }
+    if (_init != null) {
+      map['init'] = _init;
+    }
+    if (_body != null) {
+      map['body'] = _body;
+    }
+    if (_boc_cache != null) {
+      map['boc_cache'] = _boc_cache;
+    }
+    return map;
+  }
+}
+
+class ResultOfEncodeExternalInMessage extends TonSdkStructure {
+  ///Message BOC encoded with `base64`.
+  String _message;
+  String get message => _message;
+
+  ///Message id.
+  String _message_id;
+  String get message_id => _message_id;
+  ResultOfEncodeExternalInMessage({
+    @required String message,
+    @required String message_id,
+  }) {
+    _message = ArgumentError.checkNotNull(
+        message, 'ResultOfEncodeExternalInMessage message');
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ResultOfEncodeExternalInMessage message_id');
+  }
+  ResultOfEncodeExternalInMessage.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('message') && (map['message'] != null)) {
+      _message = map['message'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message != null) {
+      map['message'] = _message;
+    }
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
     }
     return map;
   }

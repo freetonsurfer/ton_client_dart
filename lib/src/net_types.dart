@@ -1268,6 +1268,45 @@ class ParamsOfSubscribeCollection extends TonSdkStructure {
   }
 }
 
+class ParamsOfSubscribe extends TonSdkStructure {
+  ///GraphQL subscription text.
+  String _subscription;
+  String get subscription => _subscription;
+
+  ///Must be a map with named values that can be used in query.
+  dynamic _variables;
+  dynamic get variables => _variables;
+  ParamsOfSubscribe({
+    @required String subscription,
+    dynamic variables,
+  }) {
+    _subscription = ArgumentError.checkNotNull(
+        subscription, 'ParamsOfSubscribe subscription');
+    _variables = variables;
+  }
+  ParamsOfSubscribe.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('subscription') && (map['subscription'] != null)) {
+      _subscription = map['subscription'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('variables') && (map['variables'] != null)) {
+      _variables = map['variables'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_subscription != null) {
+      map['subscription'] = _subscription;
+    }
+    if (_variables != null) {
+      map['variables'] = _variables;
+    }
+    return map;
+  }
+}
+
 class ParamsOfFindLastShardBlock extends TonSdkStructure {
   ///Account address
   String _address;
