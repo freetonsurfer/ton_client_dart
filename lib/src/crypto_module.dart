@@ -270,6 +270,69 @@ class CryptoModule extends _TonSdkModule {
     return ResultOfChaCha20.fromMap(res);
   }
 
+  ///Crypto Box is a root crypto object, that encapsulates some secret (seed phrase usually)
+  ///in encrypted form and acts as a factory for all crypto primitives used in SDK:
+  ///keys for signing and encryption, derived from this secret.
+  ///
+  ///Crypto Box encrypts original Seed Phrase with salt and password that is retrieved
+  ///from `password_provider` callback, implemented on Application side.
+  ///
+  ///When used, decrypted secret shows up in core library's memory for a very short period
+  ///of time and then is immediately overwritten with zeroes.
+  Future<RegisteredCryptoBox> create_crypto_box(ParamsOfCreateCryptoBox params,
+      [Function responseHandler]) async {
+    final res = await _tonCore.request(
+        'crypto.create_crypto_box', params.toString(), responseHandler);
+    return RegisteredCryptoBox.fromMap(res);
+  }
+
+  ///Removes Crypto Box. Clears all secret data.
+  Future<void> remove_crypto_box(RegisteredCryptoBox params) async {
+    await _tonCore.request('crypto.remove_crypto_box', params.toString());
+  }
+
+  ///Get Crypto Box Info. Used to get `encrypted_secret` that should be used for all the cryptobox initializations except the first one.
+  Future<ResultOfGetCryptoBoxInfo> get_crypto_box_info(
+      RegisteredCryptoBox params) async {
+    final res =
+        await _tonCore.request('crypto.get_crypto_box_info', params.toString());
+    return ResultOfGetCryptoBoxInfo.fromMap(res);
+  }
+
+  ///Attention! Store this data in your application for a very short period of time and overwrite it with zeroes ASAP.
+  Future<ResultOfGetCryptoBoxSeedPhrase> get_crypto_box_seed_phrase(
+      RegisteredCryptoBox params) async {
+    final res = await _tonCore.request(
+        'crypto.get_crypto_box_seed_phrase', params.toString());
+    return ResultOfGetCryptoBoxSeedPhrase.fromMap(res);
+  }
+
+  ///Get handle of Signing Box derived from Crypto Box.
+  Future<RegisteredSigningBox> get_signing_box_from_crypto_box(
+      ParamsOfGetSigningBoxFromCryptoBox params) async {
+    final res = await _tonCore.request(
+        'crypto.get_signing_box_from_crypto_box', params.toString());
+    return RegisteredSigningBox.fromMap(res);
+  }
+
+  ///Derives encryption keypair from cryptobox secret and hdpath and
+  ///stores it in cache for `secret_lifetime`
+  ///or until explicitly cleared by `clear_crypto_box_secret_cache` method.
+  ///If `secret_lifetime` is not specified - overwrites encryption secret with zeroes immediately after
+  ///encryption operation.
+  Future<RegisteredEncryptionBox> get_encryption_box_from_crypto_box(
+      ParamsOfGetEncryptionBoxFromCryptoBox params) async {
+    final res = await _tonCore.request(
+        'crypto.get_encryption_box_from_crypto_box', params.toString());
+    return RegisteredEncryptionBox.fromMap(res);
+  }
+
+  ///Removes cached secrets (overwrites with zeroes) from all signing and encryption boxes, derived from crypto box.
+  Future<void> clear_crypto_box_secret_cache(RegisteredCryptoBox params) async {
+    await _tonCore.request(
+        'crypto.clear_crypto_box_secret_cache', params.toString());
+  }
+
   ///Register an application implemented signing box.
   Future<RegisteredSigningBox> register_signing_box(Function params) async {
     final res = await _tonCore.request(
