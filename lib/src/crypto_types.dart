@@ -84,6 +84,18 @@ class CryptoErrorCode {
   CryptoErrorCode.IvRequired() {
     _value = 'IvRequired';
   }
+  CryptoErrorCode.CryptoBoxNotRegistered() {
+    _value = 'CryptoBoxNotRegistered';
+  }
+  CryptoErrorCode.InvalidCryptoBoxType() {
+    _value = 'InvalidCryptoBoxType';
+  }
+  CryptoErrorCode.CryptoBoxSecretSerializationError() {
+    _value = 'CryptoBoxSecretSerializationError';
+  }
+  CryptoErrorCode.CryptoBoxSecretDeserializationError() {
+    _value = 'CryptoBoxSecretDeserializationError';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -94,7 +106,7 @@ class CryptoErrorCode {
   }
 }
 
-///Encryption box information
+///Encryption box information.
 class EncryptionBoxInfo extends TonSdkStructure {
   ///Derivation path, for instance "m/44'/396'/0'/0/0"
   String _hdpath;
@@ -160,6 +172,15 @@ abstract class EncryptionAlgorithm extends TonSdkStructure {
     if (map['type'] == 'AES') {
       return EncryptionAlgorithm_AES.fromMap(map);
     }
+    if (map['type'] == 'ChaCha20') {
+      return EncryptionAlgorithm_ChaCha20.fromMap(map);
+    }
+    if (map['type'] == 'NaclBox') {
+      return EncryptionAlgorithm_NaclBox.fromMap(map);
+    }
+    if (map['type'] == 'NaclSecretBox') {
+      return EncryptionAlgorithm_NaclSecretBox.fromMap(map);
+    }
     throw ('EncryptionAlgorithm unknown from map type');
   }
 }
@@ -220,6 +241,176 @@ class EncryptionAlgorithm_AES extends EncryptionAlgorithm {
   }
 }
 
+class EncryptionAlgorithm_ChaCha20 extends EncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Must be encoded with `hex`.
+  String _key;
+  String get key => _key;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  EncryptionAlgorithm_ChaCha20({
+    @required String key,
+    @required String nonce,
+  }) {
+    _type = 'ChaCha20';
+    _key = ArgumentError.checkNotNull(key, 'EncryptionAlgorithm_ChaCha20 key');
+    _nonce =
+        ArgumentError.checkNotNull(nonce, 'EncryptionAlgorithm_ChaCha20 nonce');
+  }
+  EncryptionAlgorithm_ChaCha20.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'ChaCha20') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'ChaCha20';
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class EncryptionAlgorithm_NaclBox extends EncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Must be encoded with `hex`.
+  String _their_public;
+  String get their_public => _their_public;
+
+  ///Must be encoded with `hex`.
+  String _secret;
+  String get secret => _secret;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  EncryptionAlgorithm_NaclBox({
+    @required String their_public,
+    @required String secret,
+    @required String nonce,
+  }) {
+    _type = 'NaclBox';
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'EncryptionAlgorithm_NaclBox their_public');
+    _secret = ArgumentError.checkNotNull(
+        secret, 'EncryptionAlgorithm_NaclBox secret');
+    _nonce =
+        ArgumentError.checkNotNull(nonce, 'EncryptionAlgorithm_NaclBox nonce');
+  }
+  EncryptionAlgorithm_NaclBox.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'NaclBox') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'NaclBox';
+    }
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class EncryptionAlgorithm_NaclSecretBox extends EncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Secret key - unprefixed 0-padded to 64 symbols hex string
+  String _key;
+  String get key => _key;
+
+  ///Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+  EncryptionAlgorithm_NaclSecretBox({
+    @required String key,
+    @required String nonce,
+  }) {
+    _type = 'NaclSecretBox';
+    _key = ArgumentError.checkNotNull(
+        key, 'EncryptionAlgorithm_NaclSecretBox key');
+    _nonce = ArgumentError.checkNotNull(
+        nonce, 'EncryptionAlgorithm_NaclSecretBox nonce');
+  }
+  EncryptionAlgorithm_NaclSecretBox.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'NaclSecretBox') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'NaclSecretBox';
+    }
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
 class CipherMode {
   String _value;
   String get value => _value;
@@ -248,23 +439,23 @@ class CipherMode {
   }
 }
 
-class AesParams extends TonSdkStructure {
+class AesParamsEB extends TonSdkStructure {
   CipherMode _mode;
   CipherMode get mode => _mode;
   String _key;
   String get key => _key;
   String _iv;
   String get iv => _iv;
-  AesParams({
+  AesParamsEB({
     @required CipherMode mode,
     @required String key,
     String iv,
   }) {
-    _mode = ArgumentError.checkNotNull(mode, 'AesParams mode');
-    _key = ArgumentError.checkNotNull(key, 'AesParams key');
+    _mode = ArgumentError.checkNotNull(mode, 'AesParamsEB mode');
+    _key = ArgumentError.checkNotNull(key, 'AesParamsEB key');
     _iv = iv;
   }
-  AesParams.fromMap(Map<String, dynamic> map) {
+  AesParamsEB.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('mode') && (map['mode'] != null)) {
       _mode = CipherMode.fromMap(map['mode']);
     } else {
@@ -325,6 +516,552 @@ class AesInfo extends TonSdkStructure {
     }
     if (_iv != null) {
       map['iv'] = _iv;
+    }
+    return map;
+  }
+}
+
+class ChaCha20ParamsEB extends TonSdkStructure {
+  ///Must be encoded with `hex`.
+  String _key;
+  String get key => _key;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  ChaCha20ParamsEB({
+    @required String key,
+    @required String nonce,
+  }) {
+    _key = ArgumentError.checkNotNull(key, 'ChaCha20ParamsEB key');
+    _nonce = ArgumentError.checkNotNull(nonce, 'ChaCha20ParamsEB nonce');
+  }
+  ChaCha20ParamsEB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+class NaclBoxParamsEB extends TonSdkStructure {
+  ///Must be encoded with `hex`.
+  String _their_public;
+  String get their_public => _their_public;
+
+  ///Must be encoded with `hex`.
+  String _secret;
+  String get secret => _secret;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  NaclBoxParamsEB({
+    @required String their_public,
+    @required String secret,
+    @required String nonce,
+  }) {
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'NaclBoxParamsEB their_public');
+    _secret = ArgumentError.checkNotNull(secret, 'NaclBoxParamsEB secret');
+    _nonce = ArgumentError.checkNotNull(nonce, 'NaclBoxParamsEB nonce');
+  }
+  NaclBoxParamsEB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = map['secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+class NaclSecretBoxParamsEB extends TonSdkStructure {
+  ///Secret key - unprefixed 0-padded to 64 symbols hex string
+  String _key;
+  String get key => _key;
+
+  ///Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+  NaclSecretBoxParamsEB({
+    @required String key,
+    @required String nonce,
+  }) {
+    _key = ArgumentError.checkNotNull(key, 'NaclSecretBoxParamsEB key');
+    _nonce = ArgumentError.checkNotNull(nonce, 'NaclSecretBoxParamsEB nonce');
+  }
+  NaclSecretBoxParamsEB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('key') && (map['key'] != null)) {
+      _key = map['key'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_key != null) {
+      map['key'] = _key;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+///Crypto Box Secret.
+abstract class CryptoBoxSecret extends TonSdkStructure {
+  static CryptoBoxSecret fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'RandomSeedPhrase') {
+      return CryptoBoxSecret_RandomSeedPhrase.fromMap(map);
+    }
+    if (map['type'] == 'PredefinedSeedPhrase') {
+      return CryptoBoxSecret_PredefinedSeedPhrase.fromMap(map);
+    }
+    if (map['type'] == 'EncryptedSecret') {
+      return CryptoBoxSecret_EncryptedSecret.fromMap(map);
+    }
+    throw ('CryptoBoxSecret unknown from map type');
+  }
+}
+
+///This type should be used upon the first wallet initialization, all further initializations
+///should use `EncryptedSecret` type instead.
+///
+///Get `encrypted_secret` with `get_crypto_box_info` function and store it on your side.
+class CryptoBoxSecret_RandomSeedPhrase extends CryptoBoxSecret {
+  String _type;
+  String get type => _type;
+  int _dictionary;
+  int get dictionary => _dictionary;
+  int _wordcount;
+  int get wordcount => _wordcount;
+  CryptoBoxSecret_RandomSeedPhrase({
+    @required int dictionary,
+    @required int wordcount,
+  }) {
+    _type = 'RandomSeedPhrase';
+    _dictionary = ArgumentError.checkNotNull(
+        dictionary, 'CryptoBoxSecret_RandomSeedPhrase dictionary');
+    _wordcount = ArgumentError.checkNotNull(
+        wordcount, 'CryptoBoxSecret_RandomSeedPhrase wordcount');
+  }
+  CryptoBoxSecret_RandomSeedPhrase.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'RandomSeedPhrase') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RandomSeedPhrase';
+    }
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
+      _dictionary = map['dictionary'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('wordcount') && (map['wordcount'] != null)) {
+      _wordcount = map['wordcount'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_wordcount != null) {
+      map['wordcount'] = _wordcount;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///This type should be used only upon the first wallet initialization, all further
+///initializations should use `EncryptedSecret` type instead.
+///
+///Get `encrypted_secret` with `get_crypto_box_info` function and store it on your side.
+class CryptoBoxSecret_PredefinedSeedPhrase extends CryptoBoxSecret {
+  String _type;
+  String get type => _type;
+  String _phrase;
+  String get phrase => _phrase;
+  int _dictionary;
+  int get dictionary => _dictionary;
+  int _wordcount;
+  int get wordcount => _wordcount;
+  CryptoBoxSecret_PredefinedSeedPhrase({
+    @required String phrase,
+    @required int dictionary,
+    @required int wordcount,
+  }) {
+    _type = 'PredefinedSeedPhrase';
+    _phrase = ArgumentError.checkNotNull(
+        phrase, 'CryptoBoxSecret_PredefinedSeedPhrase phrase');
+    _dictionary = ArgumentError.checkNotNull(
+        dictionary, 'CryptoBoxSecret_PredefinedSeedPhrase dictionary');
+    _wordcount = ArgumentError.checkNotNull(
+        wordcount, 'CryptoBoxSecret_PredefinedSeedPhrase wordcount');
+  }
+  CryptoBoxSecret_PredefinedSeedPhrase.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'PredefinedSeedPhrase') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'PredefinedSeedPhrase';
+    }
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
+      _dictionary = map['dictionary'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('wordcount') && (map['wordcount'] != null)) {
+      _wordcount = map['wordcount'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_wordcount != null) {
+      map['wordcount'] = _wordcount;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///It is an object, containing seed phrase or private key, encrypted with
+///`secret_encryption_salt` and password from `password_provider`.
+///
+///Note that if you want to change salt or password provider, then you need to reinitialize
+///the wallet with `PredefinedSeedPhrase`, then get `EncryptedSecret` via `get_crypto_box_info`,
+///store it somewhere, and only after that initialize the wallet with `EncryptedSecret` type.
+class CryptoBoxSecret_EncryptedSecret extends CryptoBoxSecret {
+  String _type;
+  String get type => _type;
+
+  ///It is an object, containing encrypted seed phrase or private key (now we support only seed phrase).
+  String _encrypted_secret;
+  String get encrypted_secret => _encrypted_secret;
+  CryptoBoxSecret_EncryptedSecret({
+    @required String encrypted_secret,
+  }) {
+    _type = 'EncryptedSecret';
+    _encrypted_secret = ArgumentError.checkNotNull(
+        encrypted_secret, 'CryptoBoxSecret_EncryptedSecret encrypted_secret');
+  }
+  CryptoBoxSecret_EncryptedSecret.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'EncryptedSecret') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'EncryptedSecret';
+    }
+    if (map.containsKey('encrypted_secret') &&
+        (map['encrypted_secret'] != null)) {
+      _encrypted_secret = map['encrypted_secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted_secret != null) {
+      map['encrypted_secret'] = _encrypted_secret;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+abstract class BoxEncryptionAlgorithm extends TonSdkStructure {
+  static BoxEncryptionAlgorithm fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'ChaCha20') {
+      return BoxEncryptionAlgorithm_ChaCha20.fromMap(map);
+    }
+    if (map['type'] == 'NaclBox') {
+      return BoxEncryptionAlgorithm_NaclBox.fromMap(map);
+    }
+    if (map['type'] == 'NaclSecretBox') {
+      return BoxEncryptionAlgorithm_NaclSecretBox.fromMap(map);
+    }
+    throw ('BoxEncryptionAlgorithm unknown from map type');
+  }
+}
+
+class BoxEncryptionAlgorithm_ChaCha20 extends BoxEncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  BoxEncryptionAlgorithm_ChaCha20({
+    @required String nonce,
+  }) {
+    _type = 'ChaCha20';
+    _nonce = ArgumentError.checkNotNull(
+        nonce, 'BoxEncryptionAlgorithm_ChaCha20 nonce');
+  }
+  BoxEncryptionAlgorithm_ChaCha20.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'ChaCha20') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'ChaCha20';
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class BoxEncryptionAlgorithm_NaclBox extends BoxEncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Must be encoded with `hex`.
+  String _their_public;
+  String get their_public => _their_public;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  BoxEncryptionAlgorithm_NaclBox({
+    @required String their_public,
+    @required String nonce,
+  }) {
+    _type = 'NaclBox';
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'BoxEncryptionAlgorithm_NaclBox their_public');
+    _nonce = ArgumentError.checkNotNull(
+        nonce, 'BoxEncryptionAlgorithm_NaclBox nonce');
+  }
+  BoxEncryptionAlgorithm_NaclBox.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'NaclBox') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'NaclBox';
+    }
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class BoxEncryptionAlgorithm_NaclSecretBox extends BoxEncryptionAlgorithm {
+  String _type;
+  String get type => _type;
+
+  ///Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+  BoxEncryptionAlgorithm_NaclSecretBox({
+    @required String nonce,
+  }) {
+    _type = 'NaclSecretBox';
+    _nonce = ArgumentError.checkNotNull(
+        nonce, 'BoxEncryptionAlgorithm_NaclSecretBox nonce');
+  }
+  BoxEncryptionAlgorithm_NaclSecretBox.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'NaclSecretBox') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'NaclSecretBox';
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class ChaCha20ParamsCB extends TonSdkStructure {
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  ChaCha20ParamsCB({
+    @required String nonce,
+  }) {
+    _nonce = ArgumentError.checkNotNull(nonce, 'ChaCha20ParamsCB nonce');
+  }
+  ChaCha20ParamsCB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+class NaclBoxParamsCB extends TonSdkStructure {
+  ///Must be encoded with `hex`.
+  String _their_public;
+  String get their_public => _their_public;
+
+  ///Must be encoded with `hex`.
+  String _nonce;
+  String get nonce => _nonce;
+  NaclBoxParamsCB({
+    @required String their_public,
+    @required String nonce,
+  }) {
+    _their_public = ArgumentError.checkNotNull(
+        their_public, 'NaclBoxParamsCB their_public');
+    _nonce = ArgumentError.checkNotNull(nonce, 'NaclBoxParamsCB nonce');
+  }
+  NaclBoxParamsCB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('their_public') && (map['their_public'] != null)) {
+      _their_public = map['their_public'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_their_public != null) {
+      map['their_public'] = _their_public;
+    }
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
+    }
+    return map;
+  }
+}
+
+class NaclSecretBoxParamsCB extends TonSdkStructure {
+  ///Nonce in `hex`
+  String _nonce;
+  String get nonce => _nonce;
+  NaclSecretBoxParamsCB({
+    @required String nonce,
+  }) {
+    _nonce = ArgumentError.checkNotNull(nonce, 'NaclSecretBoxParamsCB nonce');
+  }
+  NaclSecretBoxParamsCB.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('nonce') && (map['nonce'] != null)) {
+      _nonce = map['nonce'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_nonce != null) {
+      map['nonce'] = _nonce;
     }
     return map;
   }
@@ -1397,6 +2134,8 @@ class ParamsOfNaclBoxOpen extends TonSdkStructure {
   ///Encoded with `base64`.
   String _encrypted;
   String get encrypted => _encrypted;
+
+  ///Nonce
   String _nonce;
   String get nonce => _nonce;
 
@@ -1552,7 +2291,7 @@ class ParamsOfNaclSecretBoxOpen extends TonSdkStructure {
   String _nonce;
   String get nonce => _nonce;
 
-  ///Public key - unprefixed 0-padded to 64 symbols hex string
+  ///Secret key - unprefixed 0-padded to 64 symbols hex string
   String _key;
   String get key => _key;
   ParamsOfNaclSecretBoxOpen({
@@ -2349,6 +3088,326 @@ class ResultOfChaCha20 extends TonSdkStructure {
   }
 }
 
+class ParamsOfCreateCryptoBox extends TonSdkStructure {
+  ///Salt used for secret encryption. For example, a mobile device can use device ID as salt.
+  String _secret_encryption_salt;
+  String get secret_encryption_salt => _secret_encryption_salt;
+
+  ///Cryptobox secret
+  CryptoBoxSecret _secret;
+  CryptoBoxSecret get secret => _secret;
+  ParamsOfCreateCryptoBox({
+    @required String secret_encryption_salt,
+    @required CryptoBoxSecret secret,
+  }) {
+    _secret_encryption_salt = ArgumentError.checkNotNull(secret_encryption_salt,
+        'ParamsOfCreateCryptoBox secret_encryption_salt');
+    _secret =
+        ArgumentError.checkNotNull(secret, 'ParamsOfCreateCryptoBox secret');
+  }
+  ParamsOfCreateCryptoBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('secret_encryption_salt') &&
+        (map['secret_encryption_salt'] != null)) {
+      _secret_encryption_salt = map['secret_encryption_salt'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret') && (map['secret'] != null)) {
+      _secret = CryptoBoxSecret.fromMap(map['secret']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_secret_encryption_salt != null) {
+      map['secret_encryption_salt'] = _secret_encryption_salt;
+    }
+    if (_secret != null) {
+      map['secret'] = _secret;
+    }
+    return map;
+  }
+}
+
+class RegisteredCryptoBox extends TonSdkStructure {
+  int _handle;
+  int get handle => _handle;
+  RegisteredCryptoBox({
+    @required int handle,
+  }) {
+    _handle = ArgumentError.checkNotNull(handle, 'RegisteredCryptoBox handle');
+  }
+  RegisteredCryptoBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    return map;
+  }
+}
+
+///To secure the password while passing it from application to the library,
+///the library generates a temporary key pair, passes the pubkey
+///to the passwordProvider, decrypts the received password with private key,
+///and deletes the key pair right away.
+///
+///Application should generate a temporary nacl_box_keypair
+///and encrypt the password with naclbox function using nacl_box_keypair.secret
+///and encryption_public_key keys + nonce = 24-byte prefix of encryption_public_key.
+abstract class ParamsOfAppPasswordProvider extends TonSdkStructure {
+  static ParamsOfAppPasswordProvider fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetPassword') {
+      return ParamsOfAppPasswordProvider_GetPassword.fromMap(map);
+    }
+    throw ('ParamsOfAppPasswordProvider unknown from map type');
+  }
+}
+
+class ParamsOfAppPasswordProvider_GetPassword
+    extends ParamsOfAppPasswordProvider {
+  String _type;
+  String get type => _type;
+
+  ///Temporary library pubkey, that is used on application side for password encryption, along with application temporary private key and nonce. Used for password decryption on library side.
+  String _encryption_public_key;
+  String get encryption_public_key => _encryption_public_key;
+  ParamsOfAppPasswordProvider_GetPassword({
+    @required String encryption_public_key,
+  }) {
+    _type = 'GetPassword';
+    _encryption_public_key = ArgumentError.checkNotNull(encryption_public_key,
+        'ParamsOfAppPasswordProvider_GetPassword encryption_public_key');
+  }
+  ParamsOfAppPasswordProvider_GetPassword.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetPassword') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetPassword';
+    }
+    if (map.containsKey('encryption_public_key') &&
+        (map['encryption_public_key'] != null)) {
+      _encryption_public_key = map['encryption_public_key'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encryption_public_key != null) {
+      map['encryption_public_key'] = _encryption_public_key;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+abstract class ResultOfAppPasswordProvider extends TonSdkStructure {
+  static ResultOfAppPasswordProvider fromMap(Map<String, dynamic> map) {
+    if (map['type'] == 'GetPassword') {
+      return ResultOfAppPasswordProvider_GetPassword.fromMap(map);
+    }
+    throw ('ResultOfAppPasswordProvider unknown from map type');
+  }
+}
+
+class ResultOfAppPasswordProvider_GetPassword
+    extends ResultOfAppPasswordProvider {
+  String _type;
+  String get type => _type;
+
+  ///Password, encrypted and encoded to base64. Crypto box uses this password to decrypt its secret (seed phrase).
+  String _encrypted_password;
+  String get encrypted_password => _encrypted_password;
+
+  ///Used together with `encryption_public_key` to decode `encrypted_password`.
+  String _app_encryption_pubkey;
+  String get app_encryption_pubkey => _app_encryption_pubkey;
+  ResultOfAppPasswordProvider_GetPassword({
+    @required String encrypted_password,
+    @required String app_encryption_pubkey,
+  }) {
+    _type = 'GetPassword';
+    _encrypted_password = ArgumentError.checkNotNull(encrypted_password,
+        'ResultOfAppPasswordProvider_GetPassword encrypted_password');
+    _app_encryption_pubkey = ArgumentError.checkNotNull(app_encryption_pubkey,
+        'ResultOfAppPasswordProvider_GetPassword app_encryption_pubkey');
+  }
+  ResultOfAppPasswordProvider_GetPassword.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'GetPassword') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'GetPassword';
+    }
+    if (map.containsKey('encrypted_password') &&
+        (map['encrypted_password'] != null)) {
+      _encrypted_password = map['encrypted_password'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('app_encryption_pubkey') &&
+        (map['app_encryption_pubkey'] != null)) {
+      _app_encryption_pubkey = map['app_encryption_pubkey'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted_password != null) {
+      map['encrypted_password'] = _encrypted_password;
+    }
+    if (_app_encryption_pubkey != null) {
+      map['app_encryption_pubkey'] = _app_encryption_pubkey;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+class ResultOfGetCryptoBoxInfo extends TonSdkStructure {
+  ///Secret (seed phrase) encrypted with salt and password.
+  String _encrypted_secret;
+  String get encrypted_secret => _encrypted_secret;
+  ResultOfGetCryptoBoxInfo({
+    @required String encrypted_secret,
+  }) {
+    _encrypted_secret = ArgumentError.checkNotNull(
+        encrypted_secret, 'ResultOfGetCryptoBoxInfo encrypted_secret');
+  }
+  ResultOfGetCryptoBoxInfo.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('encrypted_secret') &&
+        (map['encrypted_secret'] != null)) {
+      _encrypted_secret = map['encrypted_secret'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_encrypted_secret != null) {
+      map['encrypted_secret'] = _encrypted_secret;
+    }
+    return map;
+  }
+}
+
+class ResultOfGetCryptoBoxSeedPhrase extends TonSdkStructure {
+  String _phrase;
+  String get phrase => _phrase;
+  int _dictionary;
+  int get dictionary => _dictionary;
+  int _wordcount;
+  int get wordcount => _wordcount;
+  ResultOfGetCryptoBoxSeedPhrase({
+    @required String phrase,
+    @required int dictionary,
+    @required int wordcount,
+  }) {
+    _phrase = ArgumentError.checkNotNull(
+        phrase, 'ResultOfGetCryptoBoxSeedPhrase phrase');
+    _dictionary = ArgumentError.checkNotNull(
+        dictionary, 'ResultOfGetCryptoBoxSeedPhrase dictionary');
+    _wordcount = ArgumentError.checkNotNull(
+        wordcount, 'ResultOfGetCryptoBoxSeedPhrase wordcount');
+  }
+  ResultOfGetCryptoBoxSeedPhrase.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('phrase') && (map['phrase'] != null)) {
+      _phrase = map['phrase'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('dictionary') && (map['dictionary'] != null)) {
+      _dictionary = map['dictionary'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('wordcount') && (map['wordcount'] != null)) {
+      _wordcount = map['wordcount'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_phrase != null) {
+      map['phrase'] = _phrase;
+    }
+    if (_dictionary != null) {
+      map['dictionary'] = _dictionary;
+    }
+    if (_wordcount != null) {
+      map['wordcount'] = _wordcount;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetSigningBoxFromCryptoBox extends TonSdkStructure {
+  ///Crypto Box Handle.
+  int _handle;
+  int get handle => _handle;
+
+  ///By default, Everscale HD path is used.
+  String _hdpath;
+  String get hdpath => _hdpath;
+
+  ///Store derived secret for this lifetime (in ms). The timer starts after each signing box operation. Secrets will be deleted immediately after each signing box operation, if this value is not set.
+  int _secret_lifetime;
+  int get secret_lifetime => _secret_lifetime;
+  ParamsOfGetSigningBoxFromCryptoBox({
+    @required int handle,
+    String hdpath,
+    int secret_lifetime,
+  }) {
+    _handle = ArgumentError.checkNotNull(
+        handle, 'ParamsOfGetSigningBoxFromCryptoBox handle');
+    _hdpath = hdpath;
+    _secret_lifetime = secret_lifetime;
+  }
+  ParamsOfGetSigningBoxFromCryptoBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('hdpath') && (map['hdpath'] != null)) {
+      _hdpath = map['hdpath'];
+    }
+    if (map.containsKey('secret_lifetime') &&
+        (map['secret_lifetime'] != null)) {
+      _secret_lifetime = map['secret_lifetime'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    if (_hdpath != null) {
+      map['hdpath'] = _hdpath;
+    }
+    if (_secret_lifetime != null) {
+      map['secret_lifetime'] = _secret_lifetime;
+    }
+    return map;
+  }
+}
+
 class RegisteredSigningBox extends TonSdkStructure {
   ///Handle of the signing box.
   int _handle;
@@ -2359,6 +3418,100 @@ class RegisteredSigningBox extends TonSdkStructure {
     _handle = ArgumentError.checkNotNull(handle, 'RegisteredSigningBox handle');
   }
   RegisteredSigningBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    return map;
+  }
+}
+
+class ParamsOfGetEncryptionBoxFromCryptoBox extends TonSdkStructure {
+  ///Crypto Box Handle.
+  int _handle;
+  int get handle => _handle;
+
+  ///By default, Everscale HD path is used.
+  String _hdpath;
+  String get hdpath => _hdpath;
+
+  ///Encryption algorithm.
+  BoxEncryptionAlgorithm _algorithm;
+  BoxEncryptionAlgorithm get algorithm => _algorithm;
+
+  ///Store derived secret for encryption algorithm for this lifetime (in ms). The timer starts after each encryption box operation. Secrets will be deleted (overwritten with zeroes) after each encryption operation, if this value is not set.
+  int _secret_lifetime;
+  int get secret_lifetime => _secret_lifetime;
+  ParamsOfGetEncryptionBoxFromCryptoBox({
+    @required int handle,
+    String hdpath,
+    @required BoxEncryptionAlgorithm algorithm,
+    int secret_lifetime,
+  }) {
+    _handle = ArgumentError.checkNotNull(
+        handle, 'ParamsOfGetEncryptionBoxFromCryptoBox handle');
+    _hdpath = hdpath;
+    _algorithm = ArgumentError.checkNotNull(
+        algorithm, 'ParamsOfGetEncryptionBoxFromCryptoBox algorithm');
+    _secret_lifetime = secret_lifetime;
+  }
+  ParamsOfGetEncryptionBoxFromCryptoBox.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('handle') && (map['handle'] != null)) {
+      _handle = map['handle'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('hdpath') && (map['hdpath'] != null)) {
+      _hdpath = map['hdpath'];
+    }
+    if (map.containsKey('algorithm') && (map['algorithm'] != null)) {
+      _algorithm = BoxEncryptionAlgorithm.fromMap(map['algorithm']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('secret_lifetime') &&
+        (map['secret_lifetime'] != null)) {
+      _secret_lifetime = map['secret_lifetime'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_handle != null) {
+      map['handle'] = _handle;
+    }
+    if (_hdpath != null) {
+      map['hdpath'] = _hdpath;
+    }
+    if (_algorithm != null) {
+      map['algorithm'] = _algorithm;
+    }
+    if (_secret_lifetime != null) {
+      map['secret_lifetime'] = _secret_lifetime;
+    }
+    return map;
+  }
+}
+
+class RegisteredEncryptionBox extends TonSdkStructure {
+  ///Handle of the encryption box.
+  int _handle;
+  int get handle => _handle;
+  RegisteredEncryptionBox({
+    @required int handle,
+  }) {
+    _handle =
+        ArgumentError.checkNotNull(handle, 'RegisteredEncryptionBox handle');
+  }
+  RegisteredEncryptionBox.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('handle') && (map['handle'] != null)) {
       _handle = map['handle'];
     } else {
@@ -2633,34 +3786,7 @@ class ResultOfSigningBoxSign extends TonSdkStructure {
   }
 }
 
-class RegisteredEncryptionBox extends TonSdkStructure {
-  ///Handle of the encryption box
-  int _handle;
-  int get handle => _handle;
-  RegisteredEncryptionBox({
-    @required int handle,
-  }) {
-    _handle =
-        ArgumentError.checkNotNull(handle, 'RegisteredEncryptionBox handle');
-  }
-  RegisteredEncryptionBox.fromMap(Map<String, dynamic> map) {
-    if (map.containsKey('handle') && (map['handle'] != null)) {
-      _handle = map['handle'];
-    } else {
-      throw ('Wrong map data');
-    }
-  }
-
-  Map<String, dynamic> toMap() {
-    Map<String, dynamic> map = {};
-    if (_handle != null) {
-      map['handle'] = _handle;
-    }
-    return map;
-  }
-}
-
-///Encryption box callbacks.
+///Interface for data encryption/decryption
 abstract class ParamsOfAppEncryptionBox extends TonSdkStructure {
   static ParamsOfAppEncryptionBox fromMap(Map<String, dynamic> map) {
     if (map['type'] == 'GetInfo') {

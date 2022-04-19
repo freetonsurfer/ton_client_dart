@@ -306,6 +306,11 @@ class NetworkConfig extends TonSdkStructure {
   int _query_timeout;
   int get query_timeout => _query_timeout;
 
+  ///`HTTP` or `WS`.
+  ///Default is `HTTP`.
+  NetworkQueriesProtocol _queries_protocol;
+  NetworkQueriesProtocol get queries_protocol => _queries_protocol;
+
   ///At the moment is not used in production.
   String _access_key;
   String get access_key => _access_key;
@@ -323,6 +328,7 @@ class NetworkConfig extends TonSdkStructure {
     int latency_detection_interval,
     int max_latency,
     int query_timeout,
+    NetworkQueriesProtocol queries_protocol,
     String access_key,
   }) {
     _server_address = server_address;
@@ -338,6 +344,7 @@ class NetworkConfig extends TonSdkStructure {
     _latency_detection_interval = latency_detection_interval;
     _max_latency = max_latency;
     _query_timeout = query_timeout;
+    _queries_protocol = queries_protocol;
     _access_key = access_key;
   }
   NetworkConfig.fromMap(Map<String, dynamic> map) {
@@ -396,6 +403,11 @@ class NetworkConfig extends TonSdkStructure {
     if (map.containsKey('query_timeout') && (map['query_timeout'] != null)) {
       _query_timeout = map['query_timeout'];
     }
+    if (map.containsKey('queries_protocol') &&
+        (map['queries_protocol'] != null)) {
+      _queries_protocol =
+          NetworkQueriesProtocol.fromMap(map['queries_protocol']);
+    }
     if (map.containsKey('access_key') && (map['access_key'] != null)) {
       _access_key = map['access_key'];
     }
@@ -442,10 +454,37 @@ class NetworkConfig extends TonSdkStructure {
     if (_query_timeout != null) {
       map['query_timeout'] = _query_timeout;
     }
+    if (_queries_protocol != null) {
+      map['queries_protocol'] = _queries_protocol;
+    }
     if (_access_key != null) {
       map['access_key'] = _access_key;
     }
     return map;
+  }
+}
+
+///Network protocol used to perform GraphQL queries.
+class NetworkQueriesProtocol {
+  String _value;
+  String get value => _value;
+
+  ///Each GraphQL query uses separate HTTP request.
+  NetworkQueriesProtocol.HTTP() {
+    _value = 'HTTP';
+  }
+
+  ///All GraphQL queries will be served using single web socket connection.
+  NetworkQueriesProtocol.WS() {
+    _value = 'WS';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  NetworkQueriesProtocol.fromMap(str) {
+    _value = str;
   }
 }
 
