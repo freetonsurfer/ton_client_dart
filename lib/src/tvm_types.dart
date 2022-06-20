@@ -226,18 +226,46 @@ class AccountForExecutor_Account extends AccountForExecutor {
 }
 
 class TransactionFees extends TonSdkStructure {
+  ///Left for backward compatibility. Does not participate in account transaction fees calculation.
   BigInt _in_msg_fwd_fee;
   BigInt get in_msg_fwd_fee => _in_msg_fwd_fee;
+
+  ///Fee for account storage
   BigInt _storage_fee;
   BigInt get storage_fee => _storage_fee;
+
+  ///Fee for processing
   BigInt _gas_fee;
   BigInt get gas_fee => _gas_fee;
+
+  ///Contains the same data as total_fwd_fees field. Deprecated because of its confusing name, that is not the same with GraphQL API Transaction type's field.
   BigInt _out_msgs_fwd_fee;
   BigInt get out_msgs_fwd_fee => _out_msgs_fwd_fee;
+
+  ///This is the field that is named as `total_fees` in GraphQL API Transaction type. `total_account_fees` name is misleading, because it does not mean account fees, instead it means
+  ///validators total fees received for the transaction execution. It does not include some forward fees that account
+  ///actually pays now, but validators will receive later during value delivery to another account (not even in the receiving
+  ///transaction).
+  ///Because of all of this, this field is not interesting for those who wants to understand
+  ///the real account fees, this is why it is deprecated and left for backward compatibility.
   BigInt _total_account_fees;
   BigInt get total_account_fees => _total_account_fees;
+
+  ///Deprecated because it means total value sent in the transaction, which does not relate to any fees.
   BigInt _total_output;
   BigInt get total_output => _total_output;
+
+  ///Fee for inbound external message import.
+  BigInt _ext_in_msg_fee;
+  BigInt get ext_in_msg_fee => _ext_in_msg_fee;
+
+  ///Total fees the account pays for message forwarding
+  BigInt _total_fwd_fees;
+  BigInt get total_fwd_fees => _total_fwd_fees;
+
+  ///Total account fees for the transaction execution. Compounds of storage_fee + gas_fee + ext_in_msg_fee + total_fwd_fees
+  BigInt _account_fees;
+  BigInt get account_fees => _account_fees;
   TransactionFees({
     @required BigInt in_msg_fwd_fee,
     @required BigInt storage_fee,
@@ -245,6 +273,9 @@ class TransactionFees extends TonSdkStructure {
     @required BigInt out_msgs_fwd_fee,
     @required BigInt total_account_fees,
     @required BigInt total_output,
+    @required BigInt ext_in_msg_fee,
+    @required BigInt total_fwd_fees,
+    @required BigInt account_fees,
   }) {
     _in_msg_fwd_fee = ArgumentError.checkNotNull(
         in_msg_fwd_fee, 'TransactionFees in_msg_fwd_fee');
@@ -257,6 +288,12 @@ class TransactionFees extends TonSdkStructure {
         total_account_fees, 'TransactionFees total_account_fees');
     _total_output = ArgumentError.checkNotNull(
         total_output, 'TransactionFees total_output');
+    _ext_in_msg_fee = ArgumentError.checkNotNull(
+        ext_in_msg_fee, 'TransactionFees ext_in_msg_fee');
+    _total_fwd_fees = ArgumentError.checkNotNull(
+        total_fwd_fees, 'TransactionFees total_fwd_fees');
+    _account_fees = ArgumentError.checkNotNull(
+        account_fees, 'TransactionFees account_fees');
   }
   TransactionFees.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('in_msg_fwd_fee') && (map['in_msg_fwd_fee'] != null)) {
@@ -291,6 +328,21 @@ class TransactionFees extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('ext_in_msg_fee') && (map['ext_in_msg_fee'] != null)) {
+      _ext_in_msg_fee = BigInt.from(map['ext_in_msg_fee']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('total_fwd_fees') && (map['total_fwd_fees'] != null)) {
+      _total_fwd_fees = BigInt.from(map['total_fwd_fees']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('account_fees') && (map['account_fees'] != null)) {
+      _account_fees = BigInt.from(map['account_fees']);
+    } else {
+      throw ('Wrong map data');
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -312,6 +364,15 @@ class TransactionFees extends TonSdkStructure {
     }
     if (_total_output != null) {
       map['total_output'] = _total_output;
+    }
+    if (_ext_in_msg_fee != null) {
+      map['ext_in_msg_fee'] = _ext_in_msg_fee;
+    }
+    if (_total_fwd_fees != null) {
+      map['total_fwd_fees'] = _total_fwd_fees;
+    }
+    if (_account_fees != null) {
+      map['account_fees'] = _account_fees;
     }
     return map;
   }

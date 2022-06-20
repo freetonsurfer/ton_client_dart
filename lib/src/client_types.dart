@@ -244,11 +244,12 @@ class ClientConfig extends TonSdkStructure {
 }
 
 class NetworkConfig extends TonSdkStructure {
-  ///DApp Server public address. For instance, for `net.ton.dev/graphql` GraphQL endpoint the server address will be net.ton.dev
+  ///**This field is deprecated, but left for backward-compatibility.** DApp Server public address.
   String _server_address;
   String get server_address => _server_address;
 
-  ///Any correct URL format can be specified, including IP addresses This parameter is prevailing over `server_address`.
+  ///Any correct URL format can be specified, including IP addresses. This parameter is prevailing over `server_address`.
+  ///Check the full list of [supported network endpoints](../ton-os-api/networks.md).
   List<String> _endpoints;
   List<String> get endpoints => _endpoints;
 
@@ -283,7 +284,7 @@ class NetworkConfig extends TonSdkStructure {
   int _out_of_sync_threshold;
   int get out_of_sync_threshold => _out_of_sync_threshold;
 
-  ///Default is 2.
+  ///Default is 1.
   int _sending_endpoint_count;
   int get sending_endpoint_count => _sending_endpoint_count;
 
@@ -311,6 +312,18 @@ class NetworkConfig extends TonSdkStructure {
   NetworkQueriesProtocol _queries_protocol;
   NetworkQueriesProtocol get queries_protocol => _queries_protocol;
 
+  ///First REMP status awaiting timeout. If no status recieved during the timeout than fallback transaction scenario is activated.
+  ///
+  ///Must be specified in milliseconds. Default is 1000 (1 sec).
+  int _first_remp_status_timeout;
+  int get first_remp_status_timeout => _first_remp_status_timeout;
+
+  ///Subsequent REMP status awaiting timeout. If no status recieved during the timeout than fallback transaction scenario is activated.
+  ///
+  ///Must be specified in milliseconds. Default is 5000 (5 sec).
+  int _next_remp_status_timeout;
+  int get next_remp_status_timeout => _next_remp_status_timeout;
+
   ///At the moment is not used in production.
   String _access_key;
   String get access_key => _access_key;
@@ -329,6 +342,8 @@ class NetworkConfig extends TonSdkStructure {
     int max_latency,
     int query_timeout,
     NetworkQueriesProtocol queries_protocol,
+    int first_remp_status_timeout,
+    int next_remp_status_timeout,
     String access_key,
   }) {
     _server_address = server_address;
@@ -345,6 +360,8 @@ class NetworkConfig extends TonSdkStructure {
     _max_latency = max_latency;
     _query_timeout = query_timeout;
     _queries_protocol = queries_protocol;
+    _first_remp_status_timeout = first_remp_status_timeout;
+    _next_remp_status_timeout = next_remp_status_timeout;
     _access_key = access_key;
   }
   NetworkConfig.fromMap(Map<String, dynamic> map) {
@@ -408,6 +425,14 @@ class NetworkConfig extends TonSdkStructure {
       _queries_protocol =
           NetworkQueriesProtocol.fromMap(map['queries_protocol']);
     }
+    if (map.containsKey('first_remp_status_timeout') &&
+        (map['first_remp_status_timeout'] != null)) {
+      _first_remp_status_timeout = map['first_remp_status_timeout'];
+    }
+    if (map.containsKey('next_remp_status_timeout') &&
+        (map['next_remp_status_timeout'] != null)) {
+      _next_remp_status_timeout = map['next_remp_status_timeout'];
+    }
     if (map.containsKey('access_key') && (map['access_key'] != null)) {
       _access_key = map['access_key'];
     }
@@ -456,6 +481,12 @@ class NetworkConfig extends TonSdkStructure {
     }
     if (_queries_protocol != null) {
       map['queries_protocol'] = _queries_protocol;
+    }
+    if (_first_remp_status_timeout != null) {
+      map['first_remp_status_timeout'] = _first_remp_status_timeout;
+    }
+    if (_next_remp_status_timeout != null) {
+      map['next_remp_status_timeout'] = _next_remp_status_timeout;
     }
     if (_access_key != null) {
       map['access_key'] = _access_key;
