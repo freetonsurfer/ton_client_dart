@@ -15,6 +15,12 @@ class ClientModule extends _TonSdkModule {
     return ResultOfVersion.fromMap(res);
   }
 
+  ///Returns Core Library API reference
+  Future<ClientConfig> config() async {
+    final res = await _tonCore.request('client.config');
+    return ClientConfig.fromMap(res);
+  }
+
   ///Returns detailed information about this build.
   Future<ResultOfBuildInfo> build_info() async {
     final res = await _tonCore.request('client.build_info');

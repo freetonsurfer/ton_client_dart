@@ -96,6 +96,9 @@ class CryptoErrorCode {
   CryptoErrorCode.CryptoBoxSecretDeserializationError() {
     _value = 'CryptoBoxSecretDeserializationError';
   }
+  CryptoErrorCode.InvalidNonceSize() {
+    _value = 'InvalidNonceSize';
+  }
   @override
   String toString() {
     return '"$_value"';

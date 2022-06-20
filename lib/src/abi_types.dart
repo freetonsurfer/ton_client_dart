@@ -2009,13 +2009,19 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
   ///Message BOC
   String _message;
   String get message => _message;
+
+  ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+  bool _allow_partial;
+  bool get allow_partial => _allow_partial;
   ParamsOfDecodeMessage({
     @required Abi abi,
     @required String message,
+    bool allow_partial,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeMessage abi');
     _message =
         ArgumentError.checkNotNull(message, 'ParamsOfDecodeMessage message');
+    _allow_partial = allow_partial;
   }
   ParamsOfDecodeMessage.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2028,6 +2034,9 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
+      _allow_partial = map['allow_partial'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2037,6 +2046,9 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
     }
     if (_message != null) {
       map['message'] = _message;
+    }
+    if (_allow_partial != null) {
+      map['allow_partial'] = _allow_partial;
     }
     return map;
   }
@@ -2119,15 +2131,21 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
   ///True if the body belongs to the internal message.
   bool _is_internal;
   bool get is_internal => _is_internal;
+
+  ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+  bool _allow_partial;
+  bool get allow_partial => _allow_partial;
   ParamsOfDecodeMessageBody({
     @required Abi abi,
     @required String body,
     @required bool is_internal,
+    bool allow_partial,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeMessageBody abi');
     _body = ArgumentError.checkNotNull(body, 'ParamsOfDecodeMessageBody body');
     _is_internal = ArgumentError.checkNotNull(
         is_internal, 'ParamsOfDecodeMessageBody is_internal');
+    _allow_partial = allow_partial;
   }
   ParamsOfDecodeMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2145,6 +2163,9 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
+      _allow_partial = map['allow_partial'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2157,6 +2178,9 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
     }
     if (_is_internal != null) {
       map['is_internal'] = _is_internal;
+    }
+    if (_allow_partial != null) {
+      map['allow_partial'] = _allow_partial;
     }
     return map;
   }
@@ -2286,12 +2310,18 @@ class ParamsOfDecodeAccountData extends TonSdkStructure {
   ///Data BOC or BOC handle
   String _data;
   String get data => _data;
+
+  ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+  bool _allow_partial;
+  bool get allow_partial => _allow_partial;
   ParamsOfDecodeAccountData({
     @required Abi abi,
     @required String data,
+    bool allow_partial,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeAccountData abi');
     _data = ArgumentError.checkNotNull(data, 'ParamsOfDecodeAccountData data');
+    _allow_partial = allow_partial;
   }
   ParamsOfDecodeAccountData.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2304,6 +2334,9 @@ class ParamsOfDecodeAccountData extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
+      _allow_partial = map['allow_partial'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2313,6 +2346,9 @@ class ParamsOfDecodeAccountData extends TonSdkStructure {
     }
     if (_data != null) {
       map['data'] = _data;
+    }
+    if (_allow_partial != null) {
+      map['allow_partial'] = _allow_partial;
     }
     return map;
   }
@@ -2538,12 +2574,18 @@ class ParamsOfDecodeInitialData extends TonSdkStructure {
   ///Data BOC or BOC handle
   String _data;
   String get data => _data;
+
+  ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
+  bool _allow_partial;
+  bool get allow_partial => _allow_partial;
   ParamsOfDecodeInitialData({
     Abi abi,
     @required String data,
+    bool allow_partial,
   }) {
     _abi = abi;
     _data = ArgumentError.checkNotNull(data, 'ParamsOfDecodeInitialData data');
+    _allow_partial = allow_partial;
   }
   ParamsOfDecodeInitialData.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2554,6 +2596,9 @@ class ParamsOfDecodeInitialData extends TonSdkStructure {
     } else {
       throw ('Wrong map data');
     }
+    if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
+      _allow_partial = map['allow_partial'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2563,6 +2608,9 @@ class ParamsOfDecodeInitialData extends TonSdkStructure {
     }
     if (_data != null) {
       map['data'] = _data;
+    }
+    if (_allow_partial != null) {
+      map['allow_partial'] = _allow_partial;
     }
     return map;
   }

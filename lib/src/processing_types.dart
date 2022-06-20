@@ -42,6 +42,15 @@ class ProcessingErrorCode {
   ProcessingErrorCode.ExternalSignerMustNotBeUsed() {
     _value = 'ExternalSignerMustNotBeUsed';
   }
+  ProcessingErrorCode.MessageRejected() {
+    _value = 'MessageRejected';
+  }
+  ProcessingErrorCode.InvalidRempStatus() {
+    _value = 'InvalidRempStatus';
+  }
+  ProcessingErrorCode.NextRempStatusTimeout() {
+    _value = 'NextRempStatusTimeout';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -77,6 +86,21 @@ abstract class ProcessingEvent extends TonSdkStructure {
     }
     if (map['type'] == 'MessageExpired') {
       return ProcessingEvent_MessageExpired.fromMap(map);
+    }
+    if (map['type'] == 'RempSentToValidators') {
+      return ProcessingEvent_RempSentToValidators.fromMap(map);
+    }
+    if (map['type'] == 'RempIncludedIntoBlock') {
+      return ProcessingEvent_RempIncludedIntoBlock.fromMap(map);
+    }
+    if (map['type'] == 'RempIncludedIntoAcceptedBlock') {
+      return ProcessingEvent_RempIncludedIntoAcceptedBlock.fromMap(map);
+    }
+    if (map['type'] == 'RempOther') {
+      return ProcessingEvent_RempOther.fromMap(map);
+    }
+    if (map['type'] == 'RempError') {
+      return ProcessingEvent_RempError.fromMap(map);
     }
     throw ('ProcessingEvent unknown from map type');
   }
@@ -553,6 +577,291 @@ class ProcessingEvent_MessageExpired extends ProcessingEvent {
     if (_message != null) {
       map['message'] = _message;
     }
+    if (_error != null) {
+      map['error'] = _error;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notifies the app that the message has been delivered to the thread's validators
+class ProcessingEvent_RempSentToValidators extends ProcessingEvent {
+  String _type;
+  String get type => _type;
+  String _message_id;
+  String get message_id => _message_id;
+  BigInt _timestamp;
+  BigInt get timestamp => _timestamp;
+  dynamic _json;
+  dynamic get json => _json;
+  ProcessingEvent_RempSentToValidators({
+    @required String message_id,
+    @required BigInt timestamp,
+    @required dynamic json,
+  }) {
+    _type = 'RempSentToValidators';
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ProcessingEvent_RempSentToValidators message_id');
+    _timestamp = ArgumentError.checkNotNull(
+        timestamp, 'ProcessingEvent_RempSentToValidators timestamp');
+    _json = ArgumentError.checkNotNull(
+        json, 'ProcessingEvent_RempSentToValidators json');
+  }
+  ProcessingEvent_RempSentToValidators.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'RempSentToValidators') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RempSentToValidators';
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('timestamp') && (map['timestamp'] != null)) {
+      _timestamp = BigInt.from(map['timestamp']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('json') && (map['json'] != null)) {
+      _json = map['json'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
+    }
+    if (_timestamp != null) {
+      map['timestamp'] = _timestamp;
+    }
+    if (_json != null) {
+      map['json'] = _json;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notifies the app that the message has been successfully included into a block candidate by the thread's collator
+class ProcessingEvent_RempIncludedIntoBlock extends ProcessingEvent {
+  String _type;
+  String get type => _type;
+  String _message_id;
+  String get message_id => _message_id;
+  BigInt _timestamp;
+  BigInt get timestamp => _timestamp;
+  dynamic _json;
+  dynamic get json => _json;
+  ProcessingEvent_RempIncludedIntoBlock({
+    @required String message_id,
+    @required BigInt timestamp,
+    @required dynamic json,
+  }) {
+    _type = 'RempIncludedIntoBlock';
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ProcessingEvent_RempIncludedIntoBlock message_id');
+    _timestamp = ArgumentError.checkNotNull(
+        timestamp, 'ProcessingEvent_RempIncludedIntoBlock timestamp');
+    _json = ArgumentError.checkNotNull(
+        json, 'ProcessingEvent_RempIncludedIntoBlock json');
+  }
+  ProcessingEvent_RempIncludedIntoBlock.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'RempIncludedIntoBlock') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RempIncludedIntoBlock';
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('timestamp') && (map['timestamp'] != null)) {
+      _timestamp = BigInt.from(map['timestamp']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('json') && (map['json'] != null)) {
+      _json = map['json'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
+    }
+    if (_timestamp != null) {
+      map['timestamp'] = _timestamp;
+    }
+    if (_json != null) {
+      map['json'] = _json;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notifies the app that the block candicate with the message has been accepted by the thread's validators
+class ProcessingEvent_RempIncludedIntoAcceptedBlock extends ProcessingEvent {
+  String _type;
+  String get type => _type;
+  String _message_id;
+  String get message_id => _message_id;
+  BigInt _timestamp;
+  BigInt get timestamp => _timestamp;
+  dynamic _json;
+  dynamic get json => _json;
+  ProcessingEvent_RempIncludedIntoAcceptedBlock({
+    @required String message_id,
+    @required BigInt timestamp,
+    @required dynamic json,
+  }) {
+    _type = 'RempIncludedIntoAcceptedBlock';
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ProcessingEvent_RempIncludedIntoAcceptedBlock message_id');
+    _timestamp = ArgumentError.checkNotNull(
+        timestamp, 'ProcessingEvent_RempIncludedIntoAcceptedBlock timestamp');
+    _json = ArgumentError.checkNotNull(
+        json, 'ProcessingEvent_RempIncludedIntoAcceptedBlock json');
+  }
+  ProcessingEvent_RempIncludedIntoAcceptedBlock.fromMap(
+      Map<String, dynamic> map) {
+    if (!map.containsKey('type') ||
+        map['type'] != 'RempIncludedIntoAcceptedBlock') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RempIncludedIntoAcceptedBlock';
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('timestamp') && (map['timestamp'] != null)) {
+      _timestamp = BigInt.from(map['timestamp']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('json') && (map['json'] != null)) {
+      _json = map['json'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
+    }
+    if (_timestamp != null) {
+      map['timestamp'] = _timestamp;
+    }
+    if (_json != null) {
+      map['json'] = _json;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notifies the app about some other minor REMP statuses occurring during message processing
+class ProcessingEvent_RempOther extends ProcessingEvent {
+  String _type;
+  String get type => _type;
+  String _message_id;
+  String get message_id => _message_id;
+  BigInt _timestamp;
+  BigInt get timestamp => _timestamp;
+  dynamic _json;
+  dynamic get json => _json;
+  ProcessingEvent_RempOther({
+    @required String message_id,
+    @required BigInt timestamp,
+    @required dynamic json,
+  }) {
+    _type = 'RempOther';
+    _message_id = ArgumentError.checkNotNull(
+        message_id, 'ProcessingEvent_RempOther message_id');
+    _timestamp = ArgumentError.checkNotNull(
+        timestamp, 'ProcessingEvent_RempOther timestamp');
+    _json = ArgumentError.checkNotNull(json, 'ProcessingEvent_RempOther json');
+  }
+  ProcessingEvent_RempOther.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'RempOther') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RempOther';
+    }
+    if (map.containsKey('message_id') && (map['message_id'] != null)) {
+      _message_id = map['message_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('timestamp') && (map['timestamp'] != null)) {
+      _timestamp = BigInt.from(map['timestamp']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('json') && (map['json'] != null)) {
+      _json = map['json'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_message_id != null) {
+      map['message_id'] = _message_id;
+    }
+    if (_timestamp != null) {
+      map['timestamp'] = _timestamp;
+    }
+    if (_json != null) {
+      map['json'] = _json;
+    }
+    map['type'] = _type;
+    return map;
+  }
+}
+
+///Notifies the app about any problem that has occured in REMP processing - in this case library switches to the fallback transaction awaiting scenario (sequential block reading).
+class ProcessingEvent_RempError extends ProcessingEvent {
+  String _type;
+  String get type => _type;
+  ClientError _error;
+  ClientError get error => _error;
+  ProcessingEvent_RempError({
+    @required ClientError error,
+  }) {
+    _type = 'RempError';
+    _error =
+        ArgumentError.checkNotNull(error, 'ProcessingEvent_RempError error');
+  }
+  ProcessingEvent_RempError.fromMap(Map<String, dynamic> map) {
+    if (!map.containsKey('type') || map['type'] != 'RempError') {
+      throw ('Wrong map data');
+    } else {
+      _type = 'RempError';
+    }
+    if (map.containsKey('error') && (map['error'] != null)) {
+      _error = ClientError.fromMap(map['error']);
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
     if (_error != null) {
       map['error'] = _error;
     }
