@@ -45,6 +45,9 @@ class AbiErrorCode {
   AbiErrorCode.EncodeInitialDataFailed() {
     _value = 'EncodeInitialDataFailed';
   }
+  AbiErrorCode.InvalidFunctionName() {
+    _value = 'InvalidFunctionName';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -2821,6 +2824,86 @@ class ResultOfAbiEncodeBoc extends TonSdkStructure {
     Map<String, dynamic> map = {};
     if (_boc != null) {
       map['boc'] = _boc;
+    }
+    return map;
+  }
+}
+
+class ParamsOfCalcFunctionId extends TonSdkStructure {
+  ///Contract ABI.
+  Abi _abi;
+  Abi get abi => _abi;
+
+  ///Contract function name
+  String _function_name;
+  String get function_name => _function_name;
+
+  ///If set to `true` output function ID will be returned which is used in contract response. Default is `false`
+  bool _output;
+  bool get output => _output;
+  ParamsOfCalcFunctionId({
+    @required Abi abi,
+    @required String function_name,
+    bool output,
+  }) {
+    _abi = ArgumentError.checkNotNull(abi, 'ParamsOfCalcFunctionId abi');
+    _function_name = ArgumentError.checkNotNull(
+        function_name, 'ParamsOfCalcFunctionId function_name');
+    _output = output;
+  }
+  ParamsOfCalcFunctionId.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('abi') && (map['abi'] != null)) {
+      _abi = Abi.fromMap(map['abi']);
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('function_name') && (map['function_name'] != null)) {
+      _function_name = map['function_name'];
+    } else {
+      throw ('Wrong map data');
+    }
+    if (map.containsKey('output') && (map['output'] != null)) {
+      _output = map['output'];
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_abi != null) {
+      map['abi'] = _abi;
+    }
+    if (_function_name != null) {
+      map['function_name'] = _function_name;
+    }
+    if (_output != null) {
+      map['output'] = _output;
+    }
+    return map;
+  }
+}
+
+class ResultOfCalcFunctionId extends TonSdkStructure {
+  ///Contract function ID
+  int _function_id;
+  int get function_id => _function_id;
+  ResultOfCalcFunctionId({
+    @required int function_id,
+  }) {
+    _function_id = ArgumentError.checkNotNull(
+        function_id, 'ResultOfCalcFunctionId function_id');
+  }
+  ResultOfCalcFunctionId.fromMap(Map<String, dynamic> map) {
+    if (map.containsKey('function_id') && (map['function_id'] != null)) {
+      _function_id = map['function_id'];
+    } else {
+      throw ('Wrong map data');
+    }
+  }
+
+  Map<String, dynamic> toMap() {
+    Map<String, dynamic> map = {};
+    if (_function_id != null) {
+      map['function_id'] = _function_id;
     }
     return map;
   }
