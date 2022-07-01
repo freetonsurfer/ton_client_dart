@@ -164,4 +164,12 @@ class AbiModule extends _TonSdkModule {
     final res = await _tonCore.request('abi.encode_boc', params.toString());
     return ResultOfAbiEncodeBoc.fromMap(res);
   }
+
+  ///Calculates contract function ID by contract ABI
+  Future<ResultOfCalcFunctionId> calc_function_id(
+      ParamsOfCalcFunctionId params) async {
+    final res =
+        await _tonCore.request('abi.calc_function_id', params.toString());
+    return ResultOfCalcFunctionId.fromMap(res);
+  }
 }

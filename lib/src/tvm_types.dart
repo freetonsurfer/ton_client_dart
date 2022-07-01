@@ -71,16 +71,22 @@ class ExecutionOptions extends TonSdkStructure {
   ///transaction logical time
   BigInt _transaction_lt;
   BigInt get transaction_lt => _transaction_lt;
+
+  ///Overrides standard TVM behaviour. If set to `true` then CHKSIG always will return `true`.
+  bool _chksig_always_succeed;
+  bool get chksig_always_succeed => _chksig_always_succeed;
   ExecutionOptions({
     String blockchain_config,
     int block_time,
     BigInt block_lt,
     BigInt transaction_lt,
+    bool chksig_always_succeed,
   }) {
     _blockchain_config = blockchain_config;
     _block_time = block_time;
     _block_lt = block_lt;
     _transaction_lt = transaction_lt;
+    _chksig_always_succeed = chksig_always_succeed;
   }
   ExecutionOptions.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('blockchain_config') &&
@@ -95,6 +101,10 @@ class ExecutionOptions extends TonSdkStructure {
     }
     if (map.containsKey('transaction_lt') && (map['transaction_lt'] != null)) {
       _transaction_lt = BigInt.from(map['transaction_lt']);
+    }
+    if (map.containsKey('chksig_always_succeed') &&
+        (map['chksig_always_succeed'] != null)) {
+      _chksig_always_succeed = map['chksig_always_succeed'];
     }
   }
 
@@ -111,6 +121,9 @@ class ExecutionOptions extends TonSdkStructure {
     }
     if (_transaction_lt != null) {
       map['transaction_lt'] = _transaction_lt;
+    }
+    if (_chksig_always_succeed != null) {
+      map['chksig_always_succeed'] = _chksig_always_succeed;
     }
     return map;
   }
