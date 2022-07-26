@@ -1343,12 +1343,19 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
   ///Default value is 0.
   int _processing_try_index;
   int get processing_try_index => _processing_try_index;
+
+  ///Since abi_spaced_version 2.3 destination address of external inbound message is used in message
+  ///body signature calculation. Should be provided when signed external inbound message body is
+  ///created. Otherwise can be omitted.
+  String _address;
+  String get address => _address;
   ParamsOfEncodeMessageBody({
     @required Abi abi,
     @required CallSet call_set,
     @required bool is_internal,
     @required Signer signer,
     int processing_try_index,
+    String address,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfEncodeMessageBody abi');
     _call_set = ArgumentError.checkNotNull(
@@ -1358,6 +1365,7 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
     _signer =
         ArgumentError.checkNotNull(signer, 'ParamsOfEncodeMessageBody signer');
     _processing_try_index = processing_try_index;
+    _address = address;
   }
   ParamsOfEncodeMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -1384,6 +1392,9 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
         (map['processing_try_index'] != null)) {
       _processing_try_index = map['processing_try_index'];
     }
+    if (map.containsKey('address') && (map['address'] != null)) {
+      _address = map['address'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -1402,6 +1413,9 @@ class ParamsOfEncodeMessageBody extends TonSdkStructure {
     }
     if (_processing_try_index != null) {
       map['processing_try_index'] = _processing_try_index;
+    }
+    if (_address != null) {
+      map['address'] = _address;
     }
     return map;
   }
