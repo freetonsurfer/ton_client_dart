@@ -324,7 +324,7 @@ class NetworkConfig extends TonSdkStructure {
   int _next_remp_status_timeout;
   int get next_remp_status_timeout => _next_remp_status_timeout;
 
-  ///At the moment is not used in production.
+  ///You can specify here Evercloud project secret ot serialized JWT.
   String _access_key;
   String get access_key => _access_key;
   NetworkConfig({
