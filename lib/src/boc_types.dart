@@ -12,7 +12,9 @@ abstract class BocCacheType extends TonSdkStructure {
   }
 }
 
-///Such BOC will not be removed from cache until it is unpinned
+///Such BOC will not be removed from cache until it is unpinned BOCs can have several pins and each of the pins has reference counter indicating how many
+///times the BOC was pinned with the pin. BOC is removed from cache after all references for all
+///pins are unpinned with `cache_unpin` function calls.
 class BocCacheType_Pinned extends BocCacheType {
   String _type;
   String get type => _type;
@@ -47,7 +49,7 @@ class BocCacheType_Pinned extends BocCacheType {
   }
 }
 
-///
+///BOC resides there until it is replaced with other BOCs if it is not used
 class BocCacheType_Unpinned extends BocCacheType {
   String _type;
   String get type => _type;
