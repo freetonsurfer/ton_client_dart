@@ -191,21 +191,13 @@ abstract class EncryptionAlgorithm extends TonSdkStructure {
 class EncryptionAlgorithm_AES extends EncryptionAlgorithm {
   String _type;
   String get type => _type;
-  CipherMode _mode;
-  CipherMode get mode => _mode;
-  String _key;
-  String get key => _key;
-  String _iv;
-  String get iv => _iv;
+  AesParamsEB _value;
+  AesParamsEB get value => _value;
   EncryptionAlgorithm_AES({
-    @required CipherMode mode,
-    @required String key,
-    String iv,
+    @required AesParamsEB value,
   }) {
     _type = 'AES';
-    _mode = ArgumentError.checkNotNull(mode, 'EncryptionAlgorithm_AES mode');
-    _key = ArgumentError.checkNotNull(key, 'EncryptionAlgorithm_AES key');
-    _iv = iv;
+    _value = ArgumentError.checkNotNull(value, 'EncryptionAlgorithm_AES value');
   }
   EncryptionAlgorithm_AES.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'AES') {
@@ -213,31 +205,17 @@ class EncryptionAlgorithm_AES extends EncryptionAlgorithm {
     } else {
       _type = 'AES';
     }
-    if (map.containsKey('mode') && (map['mode'] != null)) {
-      _mode = CipherMode.fromMap(map['mode']);
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = AesParamsEB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
-    }
-    if (map.containsKey('key') && (map['key'] != null)) {
-      _key = map['key'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('iv') && (map['iv'] != null)) {
-      _iv = map['iv'];
     }
   }
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_mode != null) {
-      map['mode'] = _mode;
-    }
-    if (_key != null) {
-      map['key'] = _key;
-    }
-    if (_iv != null) {
-      map['iv'] = _iv;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -247,22 +225,14 @@ class EncryptionAlgorithm_AES extends EncryptionAlgorithm {
 class EncryptionAlgorithm_ChaCha20 extends EncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Must be encoded with `hex`.
-  String _key;
-  String get key => _key;
-
-  ///Must be encoded with `hex`.
-  String _nonce;
-  String get nonce => _nonce;
+  ChaCha20ParamsEB _value;
+  ChaCha20ParamsEB get value => _value;
   EncryptionAlgorithm_ChaCha20({
-    @required String key,
-    @required String nonce,
+    @required ChaCha20ParamsEB value,
   }) {
     _type = 'ChaCha20';
-    _key = ArgumentError.checkNotNull(key, 'EncryptionAlgorithm_ChaCha20 key');
-    _nonce =
-        ArgumentError.checkNotNull(nonce, 'EncryptionAlgorithm_ChaCha20 nonce');
+    _value =
+        ArgumentError.checkNotNull(value, 'EncryptionAlgorithm_ChaCha20 value');
   }
   EncryptionAlgorithm_ChaCha20.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'ChaCha20') {
@@ -270,13 +240,8 @@ class EncryptionAlgorithm_ChaCha20 extends EncryptionAlgorithm {
     } else {
       _type = 'ChaCha20';
     }
-    if (map.containsKey('key') && (map['key'] != null)) {
-      _key = map['key'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = ChaCha20ParamsEB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -284,11 +249,8 @@ class EncryptionAlgorithm_ChaCha20 extends EncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_key != null) {
-      map['key'] = _key;
-    }
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -298,30 +260,14 @@ class EncryptionAlgorithm_ChaCha20 extends EncryptionAlgorithm {
 class EncryptionAlgorithm_NaclBox extends EncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Must be encoded with `hex`.
-  String _their_public;
-  String get their_public => _their_public;
-
-  ///Must be encoded with `hex`.
-  String _secret;
-  String get secret => _secret;
-
-  ///Must be encoded with `hex`.
-  String _nonce;
-  String get nonce => _nonce;
+  NaclBoxParamsEB _value;
+  NaclBoxParamsEB get value => _value;
   EncryptionAlgorithm_NaclBox({
-    @required String their_public,
-    @required String secret,
-    @required String nonce,
+    @required NaclBoxParamsEB value,
   }) {
     _type = 'NaclBox';
-    _their_public = ArgumentError.checkNotNull(
-        their_public, 'EncryptionAlgorithm_NaclBox their_public');
-    _secret = ArgumentError.checkNotNull(
-        secret, 'EncryptionAlgorithm_NaclBox secret');
-    _nonce =
-        ArgumentError.checkNotNull(nonce, 'EncryptionAlgorithm_NaclBox nonce');
+    _value =
+        ArgumentError.checkNotNull(value, 'EncryptionAlgorithm_NaclBox value');
   }
   EncryptionAlgorithm_NaclBox.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'NaclBox') {
@@ -329,18 +275,8 @@ class EncryptionAlgorithm_NaclBox extends EncryptionAlgorithm {
     } else {
       _type = 'NaclBox';
     }
-    if (map.containsKey('their_public') && (map['their_public'] != null)) {
-      _their_public = map['their_public'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('secret') && (map['secret'] != null)) {
-      _secret = map['secret'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = NaclBoxParamsEB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -348,14 +284,8 @@ class EncryptionAlgorithm_NaclBox extends EncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_their_public != null) {
-      map['their_public'] = _their_public;
-    }
-    if (_secret != null) {
-      map['secret'] = _secret;
-    }
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -365,23 +295,14 @@ class EncryptionAlgorithm_NaclBox extends EncryptionAlgorithm {
 class EncryptionAlgorithm_NaclSecretBox extends EncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Secret key - unprefixed 0-padded to 64 symbols hex string
-  String _key;
-  String get key => _key;
-
-  ///Nonce in `hex`
-  String _nonce;
-  String get nonce => _nonce;
+  NaclSecretBoxParamsEB _value;
+  NaclSecretBoxParamsEB get value => _value;
   EncryptionAlgorithm_NaclSecretBox({
-    @required String key,
-    @required String nonce,
+    @required NaclSecretBoxParamsEB value,
   }) {
     _type = 'NaclSecretBox';
-    _key = ArgumentError.checkNotNull(
-        key, 'EncryptionAlgorithm_NaclSecretBox key');
-    _nonce = ArgumentError.checkNotNull(
-        nonce, 'EncryptionAlgorithm_NaclSecretBox nonce');
+    _value = ArgumentError.checkNotNull(
+        value, 'EncryptionAlgorithm_NaclSecretBox value');
   }
   EncryptionAlgorithm_NaclSecretBox.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'NaclSecretBox') {
@@ -389,13 +310,8 @@ class EncryptionAlgorithm_NaclSecretBox extends EncryptionAlgorithm {
     } else {
       _type = 'NaclSecretBox';
     }
-    if (map.containsKey('key') && (map['key'] != null)) {
-      _key = map['key'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = NaclSecretBoxParamsEB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -403,11 +319,8 @@ class EncryptionAlgorithm_NaclSecretBox extends EncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_key != null) {
-      map['key'] = _key;
-    }
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -854,16 +767,14 @@ abstract class BoxEncryptionAlgorithm extends TonSdkStructure {
 class BoxEncryptionAlgorithm_ChaCha20 extends BoxEncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Must be encoded with `hex`.
-  String _nonce;
-  String get nonce => _nonce;
+  ChaCha20ParamsCB _value;
+  ChaCha20ParamsCB get value => _value;
   BoxEncryptionAlgorithm_ChaCha20({
-    @required String nonce,
+    @required ChaCha20ParamsCB value,
   }) {
     _type = 'ChaCha20';
-    _nonce = ArgumentError.checkNotNull(
-        nonce, 'BoxEncryptionAlgorithm_ChaCha20 nonce');
+    _value = ArgumentError.checkNotNull(
+        value, 'BoxEncryptionAlgorithm_ChaCha20 value');
   }
   BoxEncryptionAlgorithm_ChaCha20.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'ChaCha20') {
@@ -871,8 +782,8 @@ class BoxEncryptionAlgorithm_ChaCha20 extends BoxEncryptionAlgorithm {
     } else {
       _type = 'ChaCha20';
     }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = ChaCha20ParamsCB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -880,8 +791,8 @@ class BoxEncryptionAlgorithm_ChaCha20 extends BoxEncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -891,23 +802,14 @@ class BoxEncryptionAlgorithm_ChaCha20 extends BoxEncryptionAlgorithm {
 class BoxEncryptionAlgorithm_NaclBox extends BoxEncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Must be encoded with `hex`.
-  String _their_public;
-  String get their_public => _their_public;
-
-  ///Must be encoded with `hex`.
-  String _nonce;
-  String get nonce => _nonce;
+  NaclBoxParamsCB _value;
+  NaclBoxParamsCB get value => _value;
   BoxEncryptionAlgorithm_NaclBox({
-    @required String their_public,
-    @required String nonce,
+    @required NaclBoxParamsCB value,
   }) {
     _type = 'NaclBox';
-    _their_public = ArgumentError.checkNotNull(
-        their_public, 'BoxEncryptionAlgorithm_NaclBox their_public');
-    _nonce = ArgumentError.checkNotNull(
-        nonce, 'BoxEncryptionAlgorithm_NaclBox nonce');
+    _value = ArgumentError.checkNotNull(
+        value, 'BoxEncryptionAlgorithm_NaclBox value');
   }
   BoxEncryptionAlgorithm_NaclBox.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'NaclBox') {
@@ -915,13 +817,8 @@ class BoxEncryptionAlgorithm_NaclBox extends BoxEncryptionAlgorithm {
     } else {
       _type = 'NaclBox';
     }
-    if (map.containsKey('their_public') && (map['their_public'] != null)) {
-      _their_public = map['their_public'];
-    } else {
-      throw ('Wrong map data');
-    }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = NaclBoxParamsCB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -929,11 +826,8 @@ class BoxEncryptionAlgorithm_NaclBox extends BoxEncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_their_public != null) {
-      map['their_public'] = _their_public;
-    }
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;
@@ -943,16 +837,14 @@ class BoxEncryptionAlgorithm_NaclBox extends BoxEncryptionAlgorithm {
 class BoxEncryptionAlgorithm_NaclSecretBox extends BoxEncryptionAlgorithm {
   String _type;
   String get type => _type;
-
-  ///Nonce in `hex`
-  String _nonce;
-  String get nonce => _nonce;
+  NaclSecretBoxParamsCB _value;
+  NaclSecretBoxParamsCB get value => _value;
   BoxEncryptionAlgorithm_NaclSecretBox({
-    @required String nonce,
+    @required NaclSecretBoxParamsCB value,
   }) {
     _type = 'NaclSecretBox';
-    _nonce = ArgumentError.checkNotNull(
-        nonce, 'BoxEncryptionAlgorithm_NaclSecretBox nonce');
+    _value = ArgumentError.checkNotNull(
+        value, 'BoxEncryptionAlgorithm_NaclSecretBox value');
   }
   BoxEncryptionAlgorithm_NaclSecretBox.fromMap(Map<String, dynamic> map) {
     if (!map.containsKey('type') || map['type'] != 'NaclSecretBox') {
@@ -960,8 +852,8 @@ class BoxEncryptionAlgorithm_NaclSecretBox extends BoxEncryptionAlgorithm {
     } else {
       _type = 'NaclSecretBox';
     }
-    if (map.containsKey('nonce') && (map['nonce'] != null)) {
-      _nonce = map['nonce'];
+    if (map.containsKey('value') && (map['value'] != null)) {
+      _value = NaclSecretBoxParamsCB.fromMap(map['value']);
     } else {
       throw ('Wrong map data');
     }
@@ -969,8 +861,8 @@ class BoxEncryptionAlgorithm_NaclSecretBox extends BoxEncryptionAlgorithm {
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {};
-    if (_nonce != null) {
-      map['nonce'] = _nonce;
+    if (_value != null) {
+      map['value'] = _value;
     }
     map['type'] = _type;
     return map;

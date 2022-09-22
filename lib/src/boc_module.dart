@@ -69,13 +69,13 @@ class BocModule extends _TonSdkModule {
     return ResultOfBocCacheGet.fromMap(res);
   }
 
-  ///Save BOC into cache
+  ///Save BOC into cache or increase pin counter for existing pinned BOC
   Future<ResultOfBocCacheSet> cache_set(ParamsOfBocCacheSet params) async {
     final res = await _tonCore.request('boc.cache_set', params.toString());
     return ResultOfBocCacheSet.fromMap(res);
   }
 
-  ///BOCs which don't have another pins will be removed from cache
+  ///Unpin BOCs with specified pin defined in the `cache_set`. Decrease pin reference counter for BOCs with specified pin defined in the `cache_set`. BOCs which have only 1 pin and its reference counter become 0 will be removed from cache
   Future<void> cache_unpin(ParamsOfBocCacheUnpin params) async {
     await _tonCore.request('boc.cache_unpin', params.toString());
   }
