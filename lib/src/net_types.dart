@@ -45,6 +45,9 @@ class NetErrorCode {
   NetErrorCode.NetworkModuleResumed() {
     _value = 'NetworkModuleResumed';
   }
+  NetErrorCode.Unauthorized() {
+    _value = 'Unauthorized';
+  }
   @override
   String toString() {
     return '"$_value"';
