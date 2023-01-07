@@ -105,7 +105,7 @@ class NetModule extends _TonSdkModule {
   ///
   ///### Important Notes on Subscriptions
   ///
-  ///Unfortunately sometimes the connection with the network breakes down.
+  ///Unfortunately sometimes the connection with the network breaks down.
   ///In this situation the library attempts to reconnect to the network.
   ///This reconnection sequence can take significant time.
   ///All of this time the client is disconnected from the network.
@@ -197,7 +197,7 @@ class NetModule extends _TonSdkModule {
   ///
   ///Function reads transactions layer by layer, by pages of 20 transactions.
   ///
-  ///The retrieval prosess goes like this:
+  ///The retrieval process goes like this:
   ///Let's assume we have an infinite chain of transactions and each transaction generates 5 messages.
   ///1. Retrieve 1st message (input parameter) and corresponding transaction - put it into result.
   ///It is the first level of the tree of transactions - its root.
@@ -265,7 +265,7 @@ class NetModule extends _TonSdkModule {
     return RegisteredIterator.fromMap(res);
   }
 
-  ///The iterator stays exactly at the same position where the `resume_state` was catched.
+  ///The iterator stays exactly at the same position where the `resume_state` was caught.
   ///
   ///Application should call the `remove_iterator` when iterator is no longer required.
   Future<RegisteredIterator> resume_block_iterator(

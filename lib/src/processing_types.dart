@@ -228,7 +228,7 @@ class ProcessingEvent_WillSend extends ProcessingEvent {
   }
 }
 
-///Do not forget to specify abi of your contract as well, it is crucial for proccessing. See `processing.wait_for_transaction` documentation.
+///Do not forget to specify abi of your contract as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
 class ProcessingEvent_DidSend extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -296,7 +296,7 @@ class ProcessingEvent_DidSend extends ProcessingEvent {
 ///If Application exits at this phase, Developer needs to proceed with processing
 ///after the application is restored with `wait_for_transaction` function, passing
 ///shard_block_id and message from this event. Do not forget to specify abi of your contract
-///as well, it is crucial for proccessing. See `processing.wait_for_transaction` documentation.
+///as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
 class ProcessingEvent_SendFailed extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -376,7 +376,7 @@ class ProcessingEvent_SendFailed extends ProcessingEvent {
 ///If Application exits at this phase, Developer needs to proceed with processing
 ///after the application is restored with `wait_for_transaction` function, passing
 ///shard_block_id and message from this event. Do not forget to specify abi of your contract
-///as well, it is crucial for proccessing. See `processing.wait_for_transaction` documentation.
+///as well, it is crucial for processing. See `processing.wait_for_transaction` documentation.
 class ProcessingEvent_WillFetchNextBlock extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -521,7 +521,7 @@ class ProcessingEvent_FetchNextBlockFailed extends ProcessingEvent {
 ///This event occurs only for the contracts which ABI includes "expire" header.
 ///
 ///If Application specifies `NetworkConfig.message_retries_count` > 0, then `process_message`
-///will perform retries: will create a new message and send it again and repeat it untill it reaches
+///will perform retries: will create a new message and send it again and repeat it until it reaches
 ///the maximum retries count or receives a successful result.  All the processing
 ///events will be repeated.
 class ProcessingEvent_MessageExpired extends ProcessingEvent {
@@ -709,7 +709,7 @@ class ProcessingEvent_RempIncludedIntoBlock extends ProcessingEvent {
   }
 }
 
-///Notifies the app that the block candicate with the message has been accepted by the thread's validators
+///Notifies the app that the block candidate with the message has been accepted by the thread's validators
 class ProcessingEvent_RempIncludedIntoAcceptedBlock extends ProcessingEvent {
   String _type;
   String get type => _type;
@@ -834,7 +834,7 @@ class ProcessingEvent_RempOther extends ProcessingEvent {
   }
 }
 
-///Notifies the app about any problem that has occured in REMP processing - in this case library switches to the fallback transaction awaiting scenario (sequential block reading).
+///Notifies the app about any problem that has occurred in REMP processing - in this case library switches to the fallback transaction awaiting scenario (sequential block reading).
 class ProcessingEvent_RempError extends ProcessingEvent {
   String _type;
   String get type => _type;

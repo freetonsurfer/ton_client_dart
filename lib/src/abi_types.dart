@@ -1314,6 +1314,29 @@ class AbiContract extends TonSdkStructure {
   }
 }
 
+class DataLayout {
+  String _value;
+  String get value => _value;
+
+  ///Decode message body as function input parameters.
+  DataLayout.Input() {
+    _value = 'Input';
+  }
+
+  ///Decode message body as function output.
+  DataLayout.Output() {
+    _value = 'Output';
+  }
+  @override
+  String toString() {
+    return '"$_value"';
+  }
+
+  DataLayout.fromMap(str) {
+    _value = str;
+  }
+}
+
 class ParamsOfEncodeMessageBody extends TonSdkStructure {
   ///Contract ABI.
   Abi _abi;
@@ -2030,15 +2053,25 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
   ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
   bool _allow_partial;
   bool get allow_partial => _allow_partial;
+
+  ///Function name or function id if is known in advance
+  String _function_name;
+  String get function_name => _function_name;
+  DataLayout _data_layout;
+  DataLayout get data_layout => _data_layout;
   ParamsOfDecodeMessage({
     @required Abi abi,
     @required String message,
     bool allow_partial,
+    String function_name,
+    DataLayout data_layout,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeMessage abi');
     _message =
         ArgumentError.checkNotNull(message, 'ParamsOfDecodeMessage message');
     _allow_partial = allow_partial;
+    _function_name = function_name;
+    _data_layout = data_layout;
   }
   ParamsOfDecodeMessage.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2054,6 +2087,12 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
     if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
       _allow_partial = map['allow_partial'];
     }
+    if (map.containsKey('function_name') && (map['function_name'] != null)) {
+      _function_name = map['function_name'];
+    }
+    if (map.containsKey('data_layout') && (map['data_layout'] != null)) {
+      _data_layout = DataLayout.fromMap(map['data_layout']);
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2066,6 +2105,12 @@ class ParamsOfDecodeMessage extends TonSdkStructure {
     }
     if (_allow_partial != null) {
       map['allow_partial'] = _allow_partial;
+    }
+    if (_function_name != null) {
+      map['function_name'] = _function_name;
+    }
+    if (_data_layout != null) {
+      map['data_layout'] = _data_layout;
     }
     return map;
   }
@@ -2152,17 +2197,27 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
   ///Flag allowing partial BOC decoding when ABI doesn't describe the full body BOC. Controls decoder behaviour when after decoding all described in ABI params there are some data left in BOC: `true` - return decoded values `false` - return error of incomplete BOC deserialization (default)
   bool _allow_partial;
   bool get allow_partial => _allow_partial;
+
+  ///Function name or function id if is known in advance
+  String _function_name;
+  String get function_name => _function_name;
+  DataLayout _data_layout;
+  DataLayout get data_layout => _data_layout;
   ParamsOfDecodeMessageBody({
     @required Abi abi,
     @required String body,
     @required bool is_internal,
     bool allow_partial,
+    String function_name,
+    DataLayout data_layout,
   }) {
     _abi = ArgumentError.checkNotNull(abi, 'ParamsOfDecodeMessageBody abi');
     _body = ArgumentError.checkNotNull(body, 'ParamsOfDecodeMessageBody body');
     _is_internal = ArgumentError.checkNotNull(
         is_internal, 'ParamsOfDecodeMessageBody is_internal');
     _allow_partial = allow_partial;
+    _function_name = function_name;
+    _data_layout = data_layout;
   }
   ParamsOfDecodeMessageBody.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('abi') && (map['abi'] != null)) {
@@ -2183,6 +2238,12 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
     if (map.containsKey('allow_partial') && (map['allow_partial'] != null)) {
       _allow_partial = map['allow_partial'];
     }
+    if (map.containsKey('function_name') && (map['function_name'] != null)) {
+      _function_name = map['function_name'];
+    }
+    if (map.containsKey('data_layout') && (map['data_layout'] != null)) {
+      _data_layout = DataLayout.fromMap(map['data_layout']);
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -2198,6 +2259,12 @@ class ParamsOfDecodeMessageBody extends TonSdkStructure {
     }
     if (_allow_partial != null) {
       map['allow_partial'] = _allow_partial;
+    }
+    if (_function_name != null) {
+      map['function_name'] = _function_name;
+    }
+    if (_data_layout != null) {
+      map['data_layout'] = _data_layout;
     }
     return map;
   }
