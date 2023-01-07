@@ -48,6 +48,12 @@ class NetErrorCode {
   NetErrorCode.Unauthorized() {
     _value = 'Unauthorized';
   }
+  NetErrorCode.QueryTransactionTreeTimeout() {
+    _value = 'QueryTransactionTreeTimeout';
+  }
+  NetErrorCode.GraphqlConnectionError() {
+    _value = 'GraphqlConnectionError';
+  }
   @override
   String toString() {
     return '"$_value"';
@@ -1524,18 +1530,28 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
   ///If some of the following messages and transactions are missing yet
   ///The maximum waiting time is regulated by this option.
   ///
-  ///Default value is 60000 (1 min).
+  ///Default value is 60000 (1 min). If `timeout` is set to 0 then function will wait infinitely
+  ///until the whole transaction tree is executed
   int _timeout;
   int get timeout => _timeout;
+
+  ///If transaction tree contains more transaction then this parameter then only first `transaction_max_count` transaction are awaited and returned.
+  ///
+  ///Default value is 50. If `transaction_max_count` is set to 0 then no limitation on
+  ///transaction count is used and all transaction are returned.
+  int _transaction_max_count;
+  int get transaction_max_count => _transaction_max_count;
   ParamsOfQueryTransactionTree({
     @required String in_msg,
     List<Abi> abi_registry,
     int timeout,
+    int transaction_max_count,
   }) {
     _in_msg = ArgumentError.checkNotNull(
         in_msg, 'ParamsOfQueryTransactionTree in_msg');
     _abi_registry = abi_registry;
     _timeout = timeout;
+    _transaction_max_count = transaction_max_count;
   }
   ParamsOfQueryTransactionTree.fromMap(Map<String, dynamic> map) {
     if (map.containsKey('in_msg') && (map['in_msg'] != null)) {
@@ -1556,6 +1572,10 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
     if (map.containsKey('timeout') && (map['timeout'] != null)) {
       _timeout = map['timeout'];
     }
+    if (map.containsKey('transaction_max_count') &&
+        (map['transaction_max_count'] != null)) {
+      _transaction_max_count = map['transaction_max_count'];
+    }
   }
 
   Map<String, dynamic> toMap() {
@@ -1568,6 +1588,9 @@ class ParamsOfQueryTransactionTree extends TonSdkStructure {
     }
     if (_timeout != null) {
       map['timeout'] = _timeout;
+    }
+    if (_transaction_max_count != null) {
+      map['transaction_max_count'] = _transaction_max_count;
     }
     return map;
   }

@@ -288,7 +288,7 @@ class NetworkConfig extends TonSdkStructure {
   int _sending_endpoint_count;
   int get sending_endpoint_count => _sending_endpoint_count;
 
-  ///Library periodically checks the current endpoint for blockchain data syncronization latency.
+  ///Library periodically checks the current endpoint for blockchain data synchronization latency.
   ///If the latency (time-lag) is less then `NetworkConfig.max_latency`
   ///then library selects another endpoint.
   ///
@@ -312,13 +312,13 @@ class NetworkConfig extends TonSdkStructure {
   NetworkQueriesProtocol _queries_protocol;
   NetworkQueriesProtocol get queries_protocol => _queries_protocol;
 
-  ///First REMP status awaiting timeout. If no status recieved during the timeout than fallback transaction scenario is activated.
+  ///First REMP status awaiting timeout. If no status received during the timeout than fallback transaction scenario is activated.
   ///
   ///Must be specified in milliseconds. Default is 1000 (1 sec).
   int _first_remp_status_timeout;
   int get first_remp_status_timeout => _first_remp_status_timeout;
 
-  ///Subsequent REMP status awaiting timeout. If no status recieved during the timeout than fallback transaction scenario is activated.
+  ///Subsequent REMP status awaiting timeout. If no status received during the timeout than fallback transaction scenario is activated.
   ///
   ///Must be specified in milliseconds. Default is 5000 (5 sec).
   int _next_remp_status_timeout;
@@ -505,7 +505,7 @@ class NetworkQueriesProtocol {
     _value = 'HTTP';
   }
 
-  ///All GraphQL queries will be served using single web socket connection.
+  ///All GraphQL queries will be served using single web socket connection. SDK is tested to reliably handle 5000 parallel network requests (sending and processing messages, quering and awaiting blockchain data)
   NetworkQueriesProtocol.WS() {
     _value = 'WS';
   }

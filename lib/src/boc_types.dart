@@ -162,7 +162,7 @@ class ParamsOfParseShardstate extends TonSdkStructure {
   String _boc;
   String get boc => _boc;
 
-  ///Shardstate identificator
+  ///Shardstate identifier
   String _id;
   String get id => _id;
 
